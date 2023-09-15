@@ -13,6 +13,7 @@
 #' @param cdmDatabaseSchema the name of the table where the cdm is found in the dtaabase
 #' @param cohortDatabaseSchema a writable table where the cohorts are found
 #' @param cohortTable the name of the table where the cohorts are stored
+#' @param saveLoc location to save the model too
 #'
 #' @return
 #' The trained benchmark model
@@ -28,7 +29,7 @@ runBenchmarkModel <- function(targetId,
                               cdmDatabaseSchema, 
                               cohortDatabaseSchema,
                               cohortTable,
-                              saveModel = FALSE){
+                              saveLoc = getwd()){
   # Select cohorts
   cohortNames <- cohortsToCreate$cohortName[targetId]
   outcomeNames <- cohortsToCreate$cohortName[outcomeId]
@@ -123,10 +124,10 @@ runBenchmarkModel <- function(targetId,
     runModelDevelopment = T, 
     runCovariateSummary = T
     ), 
-    saveDirectory = file.path(getwd(), 'singlePlp')
+    saveDirectory = file.path(saveLoc, analysisName)
   )
   
   if(!saveModel){
-    PatientLevelPrediction::savePlpModel(lrResults$model, dirPath = file.path(getwd(), "model"))
+    PatientLevelPrediction::savePlpModel(lrResults$model, dirPath = file.path(saveLoc, analysisName, 'model'))
   }
 }
