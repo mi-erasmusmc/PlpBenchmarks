@@ -73,16 +73,17 @@ runBenchmarkModel <- function(targetId,
     restrictPlpDataSettings = restrictPlpDataSettings
   )
   populationSettings <- PatientLevelPrediction::createStudyPopulationSettings(
-    washoutPeriod = 1095,
+    # washoutPeriod = 1095,
+    washoutPeriod = 365,
     firstExposureOnly = FALSE,
     removeSubjectsWithPriorOutcome = FALSE,
-    priorOutcomeLookback = 1,
+    priorOutcomeLookback = 99999,
     riskWindowStart = riskWindowStart,
     riskWindowEnd = riskWindowEnd,
     startAnchor =  'cohort start',
     endAnchor =  'cohort start',
     minTimeAtRisk = 364,
-    requireTimeAtRisk = TRUE,
+    requireTimeAtRisk = FALSE,
     includeAllOutcomes = TRUE
   )
   
@@ -102,7 +103,7 @@ runBenchmarkModel <- function(targetId,
   
   sampleSettings <- PatientLevelPrediction::createSampleSettings()
   
-  lrModel <- PatientLevelPrediction::setLassoLogisticRegression()
+  lrModel <- PatientLevelPrediction::setLassoLogisticRegression(seed = 42)
   
   lrResults <- PatientLevelPrediction::runPlp(
     plpData = plpData,
@@ -119,7 +120,7 @@ runBenchmarkModel <- function(targetId,
     executeSettings = PatientLevelPrediction::createExecuteSettings(
     runSplitData = T, 
     runSampleData = T, 
-    runfeatureEngineering = T, 
+    runfeatureEngineering = F, 
     runPreprocessData = T, 
     runModelDevelopment = T, 
     runCovariateSummary = T
@@ -127,7 +128,7 @@ runBenchmarkModel <- function(targetId,
     saveDirectory = file.path(saveLoc, analysisName)
   )
   
-  if(!saveModel){
-    PatientLevelPrediction::savePlpModel(lrResults$model, dirPath = file.path(saveLoc, analysisName, 'model'))
-  }
+  # if(!saveModel){
+  #   PatientLevelPrediction::savePlpModel(lrResults$model, dirPath = file.path(saveLoc, analysisName, 'model'))
+  # }
 }

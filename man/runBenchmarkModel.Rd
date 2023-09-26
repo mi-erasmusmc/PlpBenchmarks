@@ -15,7 +15,7 @@ runBenchmarkModel(
   cdmDatabaseSchema,
   cohortDatabaseSchema,
   cohortTable,
-  saveModel = FALSE
+  saveLoc = getwd()
 )
 }
 \arguments{
@@ -38,6 +38,8 @@ runBenchmarkModel(
 \item{cohortDatabaseSchema}{a writable table where the cohorts are found}
 
 \item{cohortTable}{the name of the table where the cohorts are stored}
+
+\item{saveLoc}{location to save the model too}
 }
 \value{
 The trained benchmark model
