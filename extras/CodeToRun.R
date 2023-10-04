@@ -1,3 +1,4 @@
+library(PLPBenchmarks)
 #User specified input
 cdmDatabaseSchema = ""
 cohortDatabaseSchema = ""
@@ -58,18 +59,22 @@ cohortCounts <- CohortGenerator::getCohortCounts(connectionDetails = connectionD
                                                  cohortTable = cohortTableNames$cohortTable)
 print(cohortCounts)
 
+source(file.path(getwd(), "populationSettings.R"))
+
 ### run diabetes heartfailure benchmark
 if(runHfint2dm){
   runBenchmarkModel(targetId = 2,
                     outcomeId = 1,
                     analysisId = 1000,
                     analysisName = "hfint2dm", 
-                    riskWindowStart = 1,
-                    riskWindowEnd = 365,
+                    # riskWindowStart = 1,
+                    # riskWindowEnd = 365,
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = hfint2dm_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
                     )
 }
 
@@ -78,24 +83,28 @@ if(runCoverModels){
                     outcomeId = 8,
                     analysisId = 1001,
                     analysisName = "coverF", 
-                    riskWindowStart = 1,
-                    riskWindowEnd = 30,
+                    # riskWindowStart = 1,
+                    # riskWindowEnd = 30,
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = coverF_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
   )
   
   runBenchmarkModel(targetId = 7,
                     outcomeId = 9,
                     analysisId = 1002,
                     analysisName = "coverI", 
-                    riskWindowStart = 1,
-                    riskWindowEnd = 30,
+                    # riskWindowStart = 1,
+                    # riskWindowEnd = 30,
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = coverI_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
   )
   
   runBenchmarkModel(targetId = 7,
@@ -107,7 +116,9 @@ if(runCoverModels){
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = coverH_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
   )
  }  
 
@@ -121,7 +132,9 @@ if(runRCRI){
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = MNCSwithCreatinine_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
   )
   runBenchmarkModel(targetId = 4,
                     outcomeId = 5,
@@ -132,7 +145,9 @@ if(runRCRI){
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
-                    cohortTable = cohortTable
+                    cohortTable = cohortTable, 
+                    populationSettings = MNCSwithoutCreatinine_populationSettings, 
+                    saveLoc = file.path(getwd(), "Results")
   )
 
 }
