@@ -22,7 +22,7 @@ coverF_populationSettings <-
     riskWindowEnd = 30,
     startAnchor =  'cohort start',
     endAnchor =  'cohort start',
-    minTimeAtRisk = 364,
+    minTimeAtRisk = 29,
     requireTimeAtRisk = FALSE,
     includeAllOutcomes = TRUE)
 
@@ -36,7 +36,7 @@ coverI_populationSettings <-
     riskWindowEnd = 30,
     startAnchor =  'cohort start',
     endAnchor =  'cohort start',
-    minTimeAtRisk = 364,
+    minTimeAtRisk = 29,
     requireTimeAtRisk = FALSE,
     includeAllOutcomes = TRUE)
 
@@ -50,7 +50,7 @@ coverH_populationSettings <-
     riskWindowEnd = 30,
     startAnchor =  'cohort start',
     endAnchor =  'cohort start',
-    minTimeAtRisk = 364,
+    minTimeAtRisk = 29,
     requireTimeAtRisk = FALSE,
     includeAllOutcomes = TRUE)
 
