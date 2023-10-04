@@ -23,12 +23,13 @@ runBenchmarkModel <- function(targetId,
                               outcomeId, 
                               analysisId,
                               analysisName,
-                              riskWindowStart,
-                              riskWindowEnd,
+                              # riskWindowStart,
+                              # riskWindowEnd,
                               connectionDetails, 
                               cdmDatabaseSchema, 
                               cohortDatabaseSchema,
                               cohortTable,
+                              populationSettings,
                               saveLoc = getwd()){
   # Select cohorts
   cohortNames <- cohortsToCreate$cohortName[targetId]
@@ -72,20 +73,21 @@ runBenchmarkModel <- function(targetId,
     covariateSettings = covariateSettings,
     restrictPlpDataSettings = restrictPlpDataSettings
   )
-  populationSettings <- PatientLevelPrediction::createStudyPopulationSettings(
-    # washoutPeriod = 1095,
-    washoutPeriod = 365,
-    firstExposureOnly = FALSE,
-    removeSubjectsWithPriorOutcome = FALSE,
-    priorOutcomeLookback = 99999,
-    riskWindowStart = riskWindowStart,
-    riskWindowEnd = riskWindowEnd,
-    startAnchor =  'cohort start',
-    endAnchor =  'cohort start',
-    minTimeAtRisk = 364,
-    requireTimeAtRisk = FALSE,
-    includeAllOutcomes = TRUE
-  )
+  # populationSettings <- PatientLevelPrediction::createStudyPopulationSettings(
+  #   # washoutPeriod = 1095,
+  #   washoutPeriod = 365,
+  #   firstExposureOnly = FALSE,
+  #   removeSubjectsWithPriorOutcome = FALSE,
+  #   priorOutcomeLookback = 99999,
+  #   riskWindowStart = riskWindowStart,
+  #   riskWindowEnd = riskWindowEnd,
+  #   startAnchor =  'cohort start',
+  #   endAnchor =  'cohort start',
+  #   minTimeAtRisk = 364,
+  #   requireTimeAtRisk = FALSE,
+  #   includeAllOutcomes = TRUE
+  # )
+  populationSettings <- populationSettings
   
   splitSettings <- PatientLevelPrediction::createDefaultSplitSetting(
     trainFraction = 0.75,
