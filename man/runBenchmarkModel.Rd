@@ -9,12 +9,11 @@ runBenchmarkModel(
   outcomeId,
   analysisId,
   analysisName,
-  riskWindowStart,
-  riskWindowEnd,
   connectionDetails,
   cdmDatabaseSchema,
   cohortDatabaseSchema,
   cohortTable,
+  populationSettings,
   saveLoc = getwd()
 )
 }
@@ -27,10 +26,6 @@ runBenchmarkModel(
 
 \item{analysisName}{the analysisName which matches the benchmark problem}
 
-\item{riskWindowStart}{The start of the time at risk period}
-
-\item{riskWindowEnd}{The end of the time at risk period}
-
 \item{connectionDetails}{databaseconnector connectionDetails object}
 
 \item{cdmDatabaseSchema}{the name of the table where the cdm is found in the dtaabase}
@@ -40,6 +35,12 @@ runBenchmarkModel(
 \item{cohortTable}{the name of the table where the cohorts are stored}
 
 \item{saveLoc}{location to save the model too}
+
+\item{riskWindowStart}{The start of the time at risk period}
+
+\item{riskWindowEnd}{The end of the time at risk period}
+
+\item{populationSettins}{An object created using PatientLevelPrediction::createPopulationsettings()}
 }
 \value{
 The trained benchmark model

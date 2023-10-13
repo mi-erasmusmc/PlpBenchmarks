@@ -14,6 +14,7 @@
 #' @param cohortDatabaseSchema a writable table where the cohorts are found
 #' @param cohortTable the name of the table where the cohorts are stored
 #' @param saveLoc location to save the model too
+#' @param populationSettins An object created using PatientLevelPrediction::createPopulationsettings()
 #'
 #' @return
 #' The trained benchmark model
