@@ -15,7 +15,7 @@ cohortTable = "benchmark_models"
 runHfint2dm <- TRUE
 runCoverModels <- TRUE
 runRCRI <- TRUE
-
+runAfib <- TRUE
 
 
 #Do not edit 
@@ -135,4 +135,18 @@ if(runRCRI){
                     cohortTable = cohortTable
   )
 
+}
+
+if (runAfib){
+  runBenchmarkModel(targetId = 11,
+                    outcomeId = 12,
+                    analysisId = 1006,
+                    analysisName = "strokeInAfib", 
+                    riskWindowStart = 1,
+                    riskWindowEnd = 365,
+                    connectionDetails = connectionDetails,
+                    cdmDatabaseSchema = cdmDatabaseSchema,
+                    cohortDatabaseSchema = cohortDatabaseSchema,
+                    cohortTable = cohortTable
+  )
 }
