@@ -17,6 +17,7 @@ runCoverModels <- TRUE
 runRCRI <- TRUE
 runAfib <- TRUE
 runDepBP <- TRUE
+runLungCancer <- TRUE
 
 #Do not edit 
 connectionDetails <- DatabaseConnector::createConnectionDetails(dbms <- dbms,
@@ -158,6 +159,34 @@ if (runDepBP){
                     analysisName = "MDDthenBipolar", 
                     riskWindowStart = 1,
                     riskWindowEnd = 365,
+                    connectionDetails = connectionDetails,
+                    cdmDatabaseSchema = cdmDatabaseSchema,
+                    cohortDatabaseSchema = cohortDatabaseSchema,
+                    cohortTable = cohortTable
+  )
+}
+
+if (runLungCancer){
+  runBenchmarkModel(targetId = 15,
+                    outcomeId = 16,
+                    analysisId = 1008,
+                    analysisName = "outpatientLungCancer", 
+                    riskWindowStart = 1,
+                    riskWindowEnd = 365*3,
+                    connectionDetails = connectionDetails,
+                    cdmDatabaseSchema = cdmDatabaseSchema,
+                    cohortDatabaseSchema = cohortDatabaseSchema,
+                    cohortTable = cohortTable
+  )
+}
+
+if (runDementiaModel){
+  runBenchmarkModel(targetId = 17,
+                    outcomeId = 18,
+                    analysisId = 1009,
+                    analysisName = "dementiaModel", 
+                    riskWindowStart = 1,
+                    riskWindowEnd = 365*5,
                     connectionDetails = connectionDetails,
                     cdmDatabaseSchema = cdmDatabaseSchema,
                     cohortDatabaseSchema = cohortDatabaseSchema,
