@@ -1,0 +1,23 @@
+"","cohortId","atlasId","name","type","cohortName","problemName"
+"1",1,1,"   [IPEV] Heart_Failure__revised_no_hosp.json"," outcome                             ",NA,NA
+"2",2,2,"   [IPEV]T2dm_second_line.json"," target                            ",NA,NA
+"3",3,3,"   [RCRI] Composite MNCS 004.2 with Cr.json"," target                           ",NA,NA
+"4",4,4,"   [RCRI] Composite MNCS 004.2.json"," target                         ",NA,NA
+"5",5,5,"   [RCRI] Earliest of AMI cardiac arrest or death.json"," outcome                   ",NA,NA
+"6",6,6,"   [RCRI] MNCS 003 with Cr (from RCRI study repo).json ","target                  ",NA,NA
+"7",7,7,"   [seek cover] covid outpatient visit.json"," target                  ",NA,NA
+"8",8,8,"   [seek cover] death.json"," outcome                ",NA,NA
+"9",9,9,"   [seek cover] hosp with broad pneumonia and intensive care or death.json"," outcome",NA,NA
+"10",10,10," [seek cover] hospitalization with pneumonia.json"," outcome",NA,NA
+"11",199,NA,"199.json","Target","[P] Major Depressive Disorder","Bipolar disorder in Depression"
+"12",921,NA,"921.json","Outcome","[P] Cardiovascular-related mortality","Cardiovascular event or death in COPD"
+"13",1119,NA,"1119.json","Target","[P] Chronic obstructive pulmonary disease (COPD)","Cardiovascular event or death in COPD"
+"14",790,NA,"790.json","Outcome","[P] Colorectal Cancer","Colorectal cancer in anemia"
+"15",901,NA,"901.json","Target","[P] Anemia","Colorectal cancer in anemia"
+"16",33,NA,"33.json","Outcome","[P] Dementia","Dementia in outpatient"
+"17",346,NA,"346.json","Target","[P] Non urgent outpatient visit without overlapping inpatient or emergency visit","Dementia in outpatient"
+"18",864,NA,"864.json","Outcome","[P] Earliest event of Dementia","Dementia in outpatient"
+"19",405,NA,"405.json","Target","[P] Atrial Fibrillation or Flutter","Ischemic stroke in AF"
+"20",944,NA,"944.json","Outcome","[P] Ischemic stroke","Ischemic stroke in AF"
+"21",787,NA,"787.json","Outcome","[P] Lung cancer using ICD0","Lung cancer in outpatient visits"
+"22",928,NA,"928.json","Outcome","[P] Depression2",NA
