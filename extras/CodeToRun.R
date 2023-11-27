@@ -16,8 +16,8 @@ cohortTable = "benchmark_models"
 runHfint2dm <- TRUE
 runCoverModels <- TRUE
 runRCRI <- TRUE
-
-
+runAfib <- TRUE
+runDepBP <- TRUE
 
 #Do not edit 
 connectionDetails <- DatabaseConnector::createConnectionDetails(dbms <- dbms,
@@ -150,4 +150,32 @@ if(runRCRI){
                     saveLoc = file.path(getwd(), "Results")
   )
 
+}
+
+if (runAfib){
+  runBenchmarkModel(targetId = 11,
+                    outcomeId = 12,
+                    analysisId = 1006,
+                    analysisName = "strokeInAfib", 
+                    riskWindowStart = 1,
+                    riskWindowEnd = 365,
+                    connectionDetails = connectionDetails,
+                    cdmDatabaseSchema = cdmDatabaseSchema,
+                    cohortDatabaseSchema = cohortDatabaseSchema,
+                    cohortTable = cohortTable
+  )
+}
+
+if (runDepBP){
+  runBenchmarkModel(targetId = 13,
+                    outcomeId = 14,
+                    analysisId = 1007,
+                    analysisName = "MDDthenBipolar", 
+                    riskWindowStart = 1,
+                    riskWindowEnd = 365,
+                    connectionDetails = connectionDetails,
+                    cdmDatabaseSchema = cdmDatabaseSchema,
+                    cohortDatabaseSchema = cohortDatabaseSchema,
+                    cohortTable = cohortTable
+  )
 }
