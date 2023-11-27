@@ -1,0 +1,685 @@
+
+
+
+<div id="section-project-details" class="section level1">
+<h1>Project Details</h1>
+<p>Study Title: PatientLevelPrediction Report Prepared on:
+<code>2023-06-09</code> Created by: shinyApp</p>
+</div>
+<div id="section-abbreviations" class="section level1">
+<h1>Abbreviations</h1>
+<table>
+<caption>List of Abbreviations</caption>
+<thead>
+<tr class="header">
+<th align="left">Abbreviation</th>
+<th align="left">Phrase</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AUROC</td>
+<td align="left">Area Under the Receiver Operating Characteristic
+Curve</td>
+</tr>
+<tr class="even">
+<td align="left">CDM</td>
+<td align="left">Common Data Model</td>
+</tr>
+<tr class="odd">
+<td align="left">O</td>
+<td align="left">Outcome Cohort</td>
+</tr>
+<tr class="even">
+<td align="left">OHDSI</td>
+<td align="left">Observational Health Data Sciences &amp;
+Informatics</td>
+</tr>
+<tr class="odd">
+<td align="left">OMOP</td>
+<td align="left">Observational Medical Outcomes Partnership</td>
+</tr>
+<tr class="even">
+<td align="left">T</td>
+<td align="left">Target Cohort</td>
+</tr>
+<tr class="odd">
+<td align="left">TAR</td>
+<td align="left">Time at Risk</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-framework" class="section level1">
+<h1>Framework</h1>
+<p>In this study the model development follows the framework presented
+in
+<code>Reps JM, Schuemie MJ, Suchard MA, Ryan PB, Rijnbeek P (2018). &#39;Design and implementation of a standardized framework to generate and evaluate patient level prediction models using observational healthcare data&#39;. Journal of the American Medical Informatics Association, 25(8), 969-975.</code></p>
+</div>
+<div id="section-evaluation-metrics-and-plots" class="section level1">
+<h1>Evaluation Metrics and Plots</h1>
+<div id="section-preformance-metrics" class="section level2">
+<h2>Preformance Metrics</h2>
+<p>The following are the standardized metrics used to evaluate
+patient-level prediction models.</p>
+<table>
+<caption>Prediction Metrics</caption>
+<colgroup>
+<col width="0%" />
+<col width="7%" />
+<col width="4%" />
+<col width="86%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Calibration-in-the-large</td>
+<td align="left">Calibration</td>
+<td align="left">A measure of how well the predicted risk matches the
+observed risk on average. It compares the mean predicted risk for the
+whole popualtion (the model’s predicted risk) with the observed risk
+(the true risk)</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">E-statistic</td>
+<td align="left">Calibration</td>
+<td align="left">A measure corresponding to the average difference
+between the true risk and the predicted risk.</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">AUROC</td>
+<td align="left">Discrimination</td>
+<td align="left">The Area Under the Receiver Operating Characteristic
+curve is a common discrimination metric. It corresponds to the
+probability that a randomly selected patient with the outcome is
+assigned a higher risk by the model than a randomly selected patients
+without the outcome.</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">AUPRC</td>
+<td align="left">Discrimination</td>
+<td align="left">The Area Under the Precision Recall curve is a common
+discrimination metric that provides a useful insight when the outcome is
+rare.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-patientlevelprediction-outputs" class="section level2">
+<h2>PatientLevelPrediction outputs</h2>
+<p>The following will be output per model design and database
+combination via an interactive shiny app:</p>
+<table>
+<caption>Standard Output of Prediction</caption>
+<colgroup>
+<col width="0%" />
+<col width="6%" />
+<col width="93%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Item</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Covariate Summary</td>
+<td align="left">A table summarizing how common each feature was in the
+target population, the test set and the train set for patients with and
+without the outcome. The standardized mean difference comparing the
+frequency of the features for patients who experienced the outcome
+during the time-at-risk vs those who did not.</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Performance Evaluation</td>
+<td align="left">Summary statistics for the model’s discrimination
+[AUROC (95% CI), AUPRC (95% CI)], calibration [calibration-in-the-large,
+calibration intercept, calibration slope, e-statistic] and dataset
+details (number of patients in the target population and number of
+outcome). This is calculated for the test set, the train set and the
+cross-validation set.</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">Prediction Model</td>
+<td align="left">A model that can predict the risk of the outcome for
+any new patient in the target population using their features.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-visualizations" class="section level2">
+<h2>Visualizations</h2>
+<p>The following visualizations will can be viewed per model:</p>
+<table>
+<caption>Standard Plots</caption>
+<colgroup>
+<col width="0%" />
+<col width="3%" />
+<col width="95%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Plot</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">Box Plots</td>
+<td align="left">The prediction distribution boxplots are box plots for
+the predicted risks of the people in the test set with the outcome
+(class 1: blue) and without the outcome (class 0: red).</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Calibration Plot</td>
+<td align="left">The calibration plot shows how close the predicted risk
+is to the observed risk. The diagonal dashed line thus indicates a
+perfectly calibrated model. The ten (or fewer) dots represent the mean
+predicted values for each quantile plotted against the observed fraction
+of people in that quantile who had the outcome (observed fraction). The
+straight black line is the linear regression using these 10 plotted
+quantile mean predicted vs observed fraction points. The two blue
+straight lines represented the 95% lower and upper confidence intervals
+of the slope of the fitted line.</td>
+</tr>
+<tr class="odd">
+<td align="left">9</td>
+<td align="left">Demographic Summary Plot</td>
+<td align="left">This plot shows for females and males the expected and
+observed risk in different age groups together with a confidence
+area.</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="left">Precision Recall Plot</td>
+<td align="left">The precision-recall curve is valuable for dataset with
+a high imbalance between the size of the positive and negative class. It
+shows the tradeoff between precision and recall for different threshold.
+High precision relates to a low false positive rate, and high recall
+relates to a low false negative rate. High scores for both show that the
+classifier is returning accurate results (high precision), as well as
+returning a majority of all positive results (high recall). A high area
+under the curve represents both high recall and high precision.</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">Prediction Distribution Plots</td>
+<td align="left">The preference distribution plots are the preference
+score distributions corresponding to i) people in the test set with the
+outcome (red) and ii) people in the test set without the outcome
+(blue).</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">ROC Plot</td>
+<td align="left">The ROC plot plots the sensitivity against
+1-specificity on the test set. The plot shows how well the model is able
+to discriminate between the people with the outcome and those without.
+The dashed diagonal line is the performance of a model that randomly
+assigns predictions. The higher the area under the ROC plot the better
+the discrimination of the model.</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Smooth Calibration Plot</td>
+<td align="left">Similar to the traditional calibration shown above the
+Smooth Calibration plot shows the relationship between predicted and
+observed risk. the major difference is that the smooth fit allows for a
+more fine grained examination of this. Whereas the traditional plot will
+be heavily influenced by the areas with the highest density of data the
+smooth plot will provide the same information for this region as well as
+a more accurate interpretation of areas with lower density. the plot
+also contains information on the distribution of the outcomes relative
+to predicted risk. However the increased information game comes at a
+computational cost. It is recommended to use the traditional plot for
+examination and then to produce the smooth plot for final versions.</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">Test-Train Similarity Plot</td>
+<td align="left">The test-train similarity is presented by plotting the
+mean covariate values in the train set against those in the test set for
+people with and without the outcome.</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">Variable Scatter Plot</td>
+<td align="left">The variable scatter plot shows the mean covariate
+value for the people with the outcome against the mean covariate value
+for the people without the outcome. The size and color of the dots
+correspond to the importance of the covariates in the trained model
+(size of beta) and its direction (sign of beta with green meaning
+positive and red meaning negative), respectively.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="section-model-1" class="section level1">
+<h1>Model 1</h1>
+<div id="section-model-design" class="section level2">
+<h2>Model Design</h2>
+<div id="section-participants" class="section level3">
+<h3>Participants</h3>
+<p>The target population `` is defined as:</p>
+<p>Additional inclusion criteria:</p>
+<ul>
+<li><p>Patients with the outcome within 99999 days prior to index are
+excluded</p></li>
+<li><p>Patients who are lost to follow up within 1 days post index are
+excluded</p></li>
+<li><p>Except patients with the outcome who are lost to follow up within
+1 days post index (they are still included)</p></li>
+</ul>
+<p><strong>Sampling</strong></p>
+<p>No over/under-sampling of the patients based on class was done</p>
+</div>
+<div id="section-predictors" class="section level3">
+<h3>Predictors</h3>
+<p><strong>Candidate predictors</strong> The predictors are determined
+using data recorded relative to the target cohort index date. The
+settings <code>endDays</code> specifies the number of days relative to
+the target index that is the latest point in time for determining the
+covariates. For example, an <code>endDays</code> of -1 means that no
+data recorded on index or after are used by the covariates (the
+covariates only use data recorded up to index-1 day).</p>
+<p>There are 1 covariate settings.</p>
+<p>Covariate Setting 1</p>
+<table>
+<caption>covariate setting 1</caption>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">function</td>
+<td align="left">getDbDefaultCovariateData</td>
+</tr>
+<tr class="even">
+<td align="left">temporal</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">temporalSequence</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">DemographicsGender</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DemographicsAgeGroup</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ConditionGroupEraLongTerm</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DrugGroupEraLongTerm</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">longTermStartDays</td>
+<td align="left">-365</td>
+</tr>
+<tr class="odd">
+<td align="left">mediumTermStartDays</td>
+<td align="left">-180</td>
+</tr>
+<tr class="even">
+<td align="left">shortTermStartDays</td>
+<td align="left">-30</td>
+</tr>
+<tr class="odd">
+<td align="left">endDays</td>
+<td align="left">0</td>
+</tr>
+<tr class="even">
+<td align="left">includedCovariateConceptIds</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">addDescendantsToInclude</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">excludedCovariateConceptIds</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">addDescendantsToExclude</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">includedCovariateIds</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Feature Engineering</strong></p>
+<p>None</p>
+<p><strong>Pre-processing</strong></p>
+<p>The following pre-processing were applied:</p>
+<ul>
+<li><p>The data were normalized using the formula: value/maxValue
+.</p></li>
+<li><p>Candidate predictors occuring in less than 0.1 % of patients in
+the target population were removed.</p></li>
+<li><p>Candidate predictors that were redundant (completely correlated
+with another predictor) were removed. When two predictors are completely
+correlated, the most common predictor is removed. For example, if 60% of
+the target population were male and 40% were female, then the male
+gender predictor would be removed since it is redundant and more
+common.</p></li>
+</ul>
+</div>
+<div id="section-outcome" class="section level3">
+<h3>Outcome</h3>
+<p>The outcome `<code>occurring between target</code>cohort
+start<code>+</code>1<code>days and target</code>cohort
+start<code>+</code>1095` days is defined as:</p>
+</div>
+<div id="section-analysis" class="section level3">
+<h3>Analysis</h3>
+<p>The model that will be trained is a
+<code>Lasso Logistic Regression</code> that uses the
+<code>PatientLevelPrediction</code> function
+<code>fitCyclopsModel</code> to fit the model.</p>
+<p><strong>Cross-validation settings</strong></p>
+<p>The cross validation settings are to use <code>3</code> folds in the
+training data that are partitioned using the <code>randomSplitter</code>
+function and consist of <code>75</code> % of the complete data. The seed
+used for splitting the data is <code>87002</code>.</p>
+<p><strong>Hyper-parameter search</strong></p>
+<p>The hyper-parameters investigated while fitting the model are listed
+below. The combination of hyper-parameters that obtains the highest
+AUROC value in the training data via cross validation will be uses in
+the final model.</p>
+<table>
+<caption>Hyper-parameters combinations searched to fit the
+model</caption>
+<colgroup>
+<col width="19%" />
+<col width="19%" />
+<col width="61%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">name</th>
+<th align="left">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">priorParams</td>
+<td align="left">priorParams</td>
+<td align="left">priorType:laplace-forceIntercept:FALSE-variance:0.01-exclude:0</td>
+</tr>
+<tr class="even">
+<td align="left">includeCovariateIds</td>
+<td align="left">includeCovariateIds</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">upperLimit</td>
+<td align="left">upperLimit</td>
+<td align="left">:20</td>
+</tr>
+<tr class="even">
+<td align="left">lowerLimit</td>
+<td align="left">lowerLimit</td>
+<td align="left">:0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">priorCoefs</td>
+<td align="left">priorCoefs</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Other settings</strong></p>
+<p>The other settings used to fit the model, such as seeds used for
+reproducibility, are:</p>
+<table>
+<caption>Other model fitting settings</caption>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">priorfunction</td>
+<td align="left">Cyclops::createPrior</td>
+</tr>
+<tr class="even">
+<td align="left">selectorType</td>
+<td align="left">byPid</td>
+</tr>
+<tr class="odd">
+<td align="left">crossValidationInPrior</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">modelType</td>
+<td align="left">logistic</td>
+</tr>
+<tr class="odd">
+<td align="left">addIntercept</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">useControl</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">seed</td>
+<td align="left">22230593</td>
+</tr>
+<tr class="even">
+<td align="left">name</td>
+<td align="left">Lasso Logistic Regression</td>
+</tr>
+<tr class="odd">
+<td align="left">threads</td>
+<td align="left">-1</td>
+</tr>
+<tr class="even">
+<td align="left">tolerance</td>
+<td align="left">2e-06</td>
+</tr>
+<tr class="odd">
+<td align="left">cvRepetitions</td>
+<td align="left">1</td>
+</tr>
+<tr class="even">
+<td align="left">maxIterations</td>
+<td align="left">3000</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Internal validation</strong></p>
+<p>The model will be assessed internally using a test set that consists
+of <code>25</code> % of the complete data.</p>
+</div>
+</div>
+<div id="section-diagnostic" class="section level2">
+<h2>Diagnostic</h2>
+<p>The PatientLevelPrediction objective assessment of PROBAST risk of
+bias:</p>
+<table>
+<caption>Diagnostic results</caption>
+<colgroup>
+<col width="3%" />
+<col width="5%" />
+<col width="29%" />
+<col width="55%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">probastId</th>
+<th align="left">probast category</th>
+<th align="left">consideration</th>
+<th align="left">explanation</th>
+<th align="left">none</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1.1</td>
+<td align="left">Participants</td>
+<td align="left">Were appropriate data sources used, e.g. cohort, RCT or
+nested case-control study data?</td>
+<td align="left">PatientLevelPrediction uses a cohort design</td>
+<td align="left">Pass</td>
+</tr>
+<tr class="even">
+<td align="left">1.2.2</td>
+<td align="left">Participants</td>
+<td align="left">Were all inclusions and exclusions of participants
+appropriate?</td>
+<td align="left">Check the demographic differences between inclusion
+criteria in popualtion settings and no additional inclusions (1 =
+similar, 0 = disimilar)</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="odd">
+<td align="left">1.2.4</td>
+<td align="left">Participants</td>
+<td align="left">Were all inclusions and exclusions of participants
+appropriate?</td>
+<td align="left">Check the demographic differences between inclusion
+criteria in popualtion settings and no additional inclusions (1 =
+similar, 0 = disimilar)</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="even">
+<td align="left">2.1</td>
+<td align="left">Predictors</td>
+<td align="left">Were predictors defined and assessed in a similar way
+for all participants?</td>
+<td align="left">PatientLevelPrediction uses standardized feature
+extraction to consistently engineer the predictors</td>
+<td align="left">Pass</td>
+</tr>
+<tr class="odd">
+<td align="left">2.2</td>
+<td align="left">Predictors</td>
+<td align="left">Were predictor assessments made without knowledge of
+outcome data?</td>
+<td align="left">Rule check is the last date used to engineer predictors
+before the time-at-risk start? (if it is then pass)</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="even">
+<td align="left">2.3</td>
+<td align="left">Predictors</td>
+<td align="left">Are all predictors available at the time the model is
+intended to be used?</td>
+<td align="left">This fails if the last date used to engineer predictors
+is after index but this requires the user to think about their data and
+design to determine whether this passes</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="odd">
+<td align="left">3.1</td>
+<td align="left">Outcome</td>
+<td align="left">Was the outcome determined appropriately?</td>
+<td align="left">This needs to be check via cohort diagnostic of the
+outcome cohort</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="even">
+<td align="left">3.2</td>
+<td align="left">Outcome</td>
+<td align="left">Was a pre-specified or standard outcome definition
+used?</td>
+<td align="left">This passes if the outcome was from the OHDSI phenotype
+library (needs to be manually confirmed)</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="odd">
+<td align="left">3.3</td>
+<td align="left">Outcome</td>
+<td align="left">Were predictors excluded from the outcome
+definition?</td>
+<td align="left">Check Kaplan Meier plots to see whether outcomes occur
+close to index (which may mean predictors and outcome overlap) or
+not</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="even">
+<td align="left">3.4</td>
+<td align="left">Outcome</td>
+<td align="left">Was the outcome defined and determined in a similar way
+for all participants?</td>
+<td align="left">PatientLevelPrediction determines the outcome based on
+an outcome phenotype, so the same logic is used for all patients.</td>
+<td align="left">Pass</td>
+</tr>
+<tr class="odd">
+<td align="left">3.5</td>
+<td align="left">Outcome</td>
+<td align="left">Was the outcome determined without knowledge of
+predictor information?</td>
+<td align="left">PatientLevelPrediction framework requires defining the
+outcome independently of the covariates - manually confirm …</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="even">
+<td align="left">3.6</td>
+<td align="left">Outcome</td>
+<td align="left">Was the time interval between predictor assessment and
+outcome determination appropriate?</td>
+<td align="left">Rule: does the time-at-risk start on or after target
+index? If so, pass.</td>
+<td align="left">No diagnostics run</td>
+</tr>
+<tr class="odd">
+<td align="left">4.1</td>
+<td align="left">Design</td>
+<td align="left">Were there a reasonable number of participants with the
+outcome?</td>
+<td align="left">Rule: If less than 100 fail.</td>
+<td align="left">No diagnostics run</td>
+</tr>
+</tbody>
+</table>
+<div id="section-diagnostic-plots" class="section level3">
+<h3>Diagnostic Plots</h3>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-e86cab2b2f64d75141b7" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-e86cab2b2f64d75141b7">{"x":{"visdat":{"390583110d3":["function () ","plotlyVisDat"]},"cur_data":"390583110d3","attrs":{"390583110d3":{"x":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"y":[0.999867786077874,0.999669465194685,0.999404949890009,0.999206432055826,0.998941566202399,0.998742771860866,0.998610207118118,0.998411333603689,0.998278645540216,0.998079335282222,0.998012823264677,0.997946244690744,0.997879594971603,0.997812887331054,0.997679293424596,0.997612411391116,0.99741160373987,0.99721022849179,0.997143012919635,0.99687356942496,0.996806016835041,0.996738299034985,0.996602669929115,0.99646693922841,0.9963990276262,0.996263121054881,0.996194874505966,0.996126543696274,0.995989713127085,0.995921194297068,0.995852334365221,0.995782907961542,0.99564358891181,0.995573856204925,0.995433920319591,0.995363888384856,0.995293658801255,0.995223324997368,0.99515294145246,0.995082383246175,0.995011724836514,0.994940920615007,0.994869833095672,0.994798608164895,0.994727014166466,0.994655254895498,0.994583230619256,0.994294317552991,0.994221963141875,0.994149339185473,0.993931148533812,0.993785357386246,0.993712408303269,0.993639405628548,0.993566333161595,0.993493206913478,0.993419983652356,0.993346505842914,0.993272831845596,0.993199064832462,0.993125177087719,0.993051201283094,0.992977131677569,0.99290297910258,0.992828492757561,0.992753641393511,0.992678733550653,0.992603729490695,0.99245332359184,0.992378052198318,0.992302683621406,0.992227125661791,0.992151122052013,0.992075019334972,0.991998776250179,0.991922221320695,0.991845316201969,0.991768339460316,0.991690724157494,0.99161292618745,0.991535018195134,0.991456963009887,0.991378797055692,0.991300365188837,0.991221715524826,0.991142965885077,0.991064009224049,0.990984951788725,0.990905565026585,0.99082608912307,0.99074595761566,0.990500561490095,0.990418539250819,0.990336449027922,0.990254030881365,0.99008860254343,0.990005520509148,0.98992231977627,0.989838149865567,0.989753743099142,0.989669011163255,0.989583665439629,0.989498179635773,0.989412568095746,0.989325883973782,0.989238387212132,0.989150812992301,0.988886969083794,0.988798762236137,0.988709969243839,0.988620904297505,0.988531492983017,0.988441249100145,0.988259483515536,0.988168424869677,0.988076876933335,0.987893253651987,0.987801245339269,0.987616988438441,0.987524480290405,0.987430982422549,0.987337039792693,0.987243007693665,0.987148317207602,0.987053389972559,0.986958298123814,0.986862476929822,0.986765354355574,0.986666171990074,0.986566498672367,0.986466724552355,0.986366208277182,0.986265208255855,0.986163573341566,0.986061274215701,0.985958452393572,0.985854590763698,0.985645279810245,0.985540401614905,0.985327518927441,0.985220824014725,0.985113255412911,0.985003554604959,0.984892091036485,0.984780069643055,0.984666876531601,0.984552460208509,0.984437777336033,0.984322759486128,0.984206464264071,0.984089672230814,0.983971007131063,0.983851142225821,0.983729933510505,0.983607579041162,0.983483558415889,0.983356673683801,0.983226686020393,0.983093349068125,0.982958531000508,0.982822856945159,0.982686826099907,0.982550246971888,0.982412808134711,0.982275176752232,0.982134771495407,0.981988533441283,0.9818409325795,0.981691352912745,0.981540994304549,0.981389193965189,0.981236543600596,0.981083273287631,0.980928234843686,0.980772085809168,0.980611802742358,0.980447104757349,0.980281600519544,0.980113858972569,0.979944728021927,0.979774923009274,0.979601970683941,0.979428159120654,0.979252697250515,0.979076000625244,0.978897141290091,0.978712443716263,0.978526940978637,0.9783313920296,0.978134584266166,0.977933858925664,0.977725964823002,0.977515429516192,0.977301577967403,0.977081762047932,0.976856731701997,0.976625139304723,0.976391273131518,0.97614446037289,0.975896014340726,0.975641410632315],"type":"scatter","mode":"lines","name":"hv","line":{"shape":"hv"},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Outcome survival","plot_bgcolor":"#e5ecf6","xaxis":{"domain":[0,1],"automargin":true,"title":"Time (days)"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Outcome free (0 = 0%, 1 = 100%)"},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,21,22,24,27,29,30,31,32,33,39,41,42,43,47,55,57,58,61,62,64,65,66,69,70,72,75,77,82,85,89,92,94,97,98,100,101,102,103,104,105,108,111,112,113,114,115,116,120,125,126,127,129,130,132,134,138,139,141,145,149,150,156,158,160,162,163,165,167,168,170,171,175,176,185,199,202,203,206,210,214,215,225,227,230,235,237,238,248,257,258,262,265,272,275,279,286,293,295,298,301,302,303,307,317,321,322,328,330,331,337,347,361,366,367,374,377,381,385,388,395,401,404,415,417,423,436,449,452,461,469,471,473,483,488,503,511,518,526,536,553,569,588,594,599,601,605,609,610,626,656,664,673,676,683,687,690,698,703,722,745,748,756,762,765,782,787,794,801,813,839,843,884,889,902,927,935,946,970,991,1016,1022,1056,1062,1081],"y":[0.999867786077874,0.999669465194685,0.999404949890009,0.999206432055826,0.998941566202399,0.998742771860866,0.998610207118118,0.998411333603689,0.998278645540216,0.998079335282222,0.998012823264677,0.997946244690744,0.997879594971603,0.997812887331054,0.997679293424596,0.997612411391116,0.99741160373987,0.99721022849179,0.997143012919635,0.99687356942496,0.996806016835041,0.996738299034985,0.996602669929115,0.99646693922841,0.9963990276262,0.996263121054881,0.996194874505966,0.996126543696274,0.995989713127085,0.995921194297068,0.995852334365221,0.995782907961542,0.99564358891181,0.995573856204925,0.995433920319591,0.995363888384856,0.995293658801255,0.995223324997368,0.99515294145246,0.995082383246175,0.995011724836514,0.994940920615007,0.994869833095672,0.994798608164895,0.994727014166466,0.994655254895498,0.994583230619256,0.994294317552991,0.994221963141875,0.994149339185473,0.993931148533812,0.993785357386246,0.993712408303269,0.993639405628548,0.993566333161595,0.993493206913478,0.993419983652356,0.993346505842914,0.993272831845596,0.993199064832462,0.993125177087719,0.993051201283094,0.992977131677569,0.99290297910258,0.992828492757561,0.992753641393511,0.992678733550653,0.992603729490695,0.99245332359184,0.992378052198318,0.992302683621406,0.992227125661791,0.992151122052013,0.992075019334972,0.991998776250179,0.991922221320695,0.991845316201969,0.991768339460316,0.991690724157494,0.99161292618745,0.991535018195134,0.991456963009887,0.991378797055692,0.991300365188837,0.991221715524826,0.991142965885077,0.991064009224049,0.990984951788725,0.990905565026585,0.99082608912307,0.99074595761566,0.990500561490095,0.990418539250819,0.990336449027922,0.990254030881365,0.99008860254343,0.990005520509148,0.98992231977627,0.989838149865567,0.989753743099142,0.989669011163255,0.989583665439629,0.989498179635773,0.989412568095746,0.989325883973782,0.989238387212132,0.989150812992301,0.988886969083794,0.988798762236137,0.988709969243839,0.988620904297505,0.988531492983017,0.988441249100145,0.988259483515536,0.988168424869677,0.988076876933335,0.987893253651987,0.987801245339269,0.987616988438441,0.987524480290405,0.987430982422549,0.987337039792693,0.987243007693665,0.987148317207602,0.987053389972559,0.986958298123814,0.986862476929822,0.986765354355574,0.986666171990074,0.986566498672367,0.986466724552355,0.986366208277182,0.986265208255855,0.986163573341566,0.986061274215701,0.985958452393572,0.985854590763698,0.985645279810245,0.985540401614905,0.985327518927441,0.985220824014725,0.985113255412911,0.985003554604959,0.984892091036485,0.984780069643055,0.984666876531601,0.984552460208509,0.984437777336033,0.984322759486128,0.984206464264071,0.984089672230814,0.983971007131063,0.983851142225821,0.983729933510505,0.983607579041162,0.983483558415889,0.983356673683801,0.983226686020393,0.983093349068125,0.982958531000508,0.982822856945159,0.982686826099907,0.982550246971888,0.982412808134711,0.982275176752232,0.982134771495407,0.981988533441283,0.9818409325795,0.981691352912745,0.981540994304549,0.981389193965189,0.981236543600596,0.981083273287631,0.980928234843686,0.980772085809168,0.980611802742358,0.980447104757349,0.980281600519544,0.980113858972569,0.979944728021927,0.979774923009274,0.979601970683941,0.979428159120654,0.979252697250515,0.979076000625244,0.978897141290091,0.978712443716263,0.978526940978637,0.9783313920296,0.978134584266166,0.977933858925664,0.977725964823002,0.977515429516192,0.977301577967403,0.977081762047932,0.976856731701997,0.976625139304723,0.976391273131518,0.97614446037289,0.975896014340726,0.975641410632315],"type":"scatter","mode":"lines","name":"hv","line":{"color":"rgba(31,119,180,1)","shape":"hv"},"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="section-tools" class="section level1">
+<h1>Tools</h1>
+<p>This study will be designed using OHDSI tools and run with R</p>
+<p><code>R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL http://www.R-project.org/.</code></p>
+</div>

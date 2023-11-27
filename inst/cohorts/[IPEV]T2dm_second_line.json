@@ -1,0 +1,1736 @@
+{
+  "ExpressionLimit": {"Type": "First"},
+  "CollapseSettings": {
+    "CollapseType": "ERA",
+    "EraPad": 0
+  },
+  "CensorWindow": {
+    "StartDate": null,
+    "EndDate": null
+  },
+  "ConceptSets": [
+    {
+      "expression": {"items": [{
+        "isExcluded": false,
+        "concept": {
+          "INVALID_REASON_CAPTION": "Valid",
+          "CONCEPT_ID": 1503297,
+          "STANDARD_CONCEPT": "S",
+          "CONCEPT_CODE": "6809",
+          "VOCABULARY_ID": "RxNorm",
+          "CONCEPT_NAME": "Metformin",
+          "DOMAIN_ID": "Drug",
+          "STANDARD_CONCEPT_CAPTION": "Standard",
+          "CONCEPT_CLASS_ID": "Ingredient",
+          "INVALID_REASON": "V"
+        },
+        "includeMapped": false,
+        "includeDescendants": true
+      }]},
+      "name": "[RW] metformin",
+      "id": 1
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 44816332,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1534763",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "albiglutide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 45774435,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1551291",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "dulaglutide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1583722,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "60548",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "exenatide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 40170911,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "475968",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "liraglutide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 44506754,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1440051",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "Lixisenatide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 793143,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1991302",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "semaglutide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] glp-1 ra",
+      "id": 2
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 43526465,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1373458",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "canagliflozin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 44785829,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1488564",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "dapagliflozin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 45774751,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1545653",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "empagliflozin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 793293,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1992672",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "ertugliflozin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] SGLT2i",
+      "id": 3
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1525215,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "33738",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "pioglitazone",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1547504,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "84108",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "rosiglitazone",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] TZD",
+      "id": 4
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 43013884,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1368001",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "alogliptin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 40239216,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "1100699",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "Linagliptin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 40166035,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "857974",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "saxagliptin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1580747,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "593411",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "sitagliptin",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] DPP4i",
+      "id": 5
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1597756,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "25789",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "glimepiride",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1560171,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "4821",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "Glipizide",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] SU",
+      "id": 6
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 435216,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "420868002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Disorder due to type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 377821,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421468001",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Neurological disorder with type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 318712,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421365002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Peripheral circulatory disorder associated with type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 200687,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421893009",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Renal disorder associated with type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 201254,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "46635009",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] Type 1 diabetes mellitus",
+      "id": 7
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 315295,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "82523003",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Congestive rheumatic heart failure",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 316139,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "84114007",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Heart failure",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW} Heart failure",
+      "id": 8
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 4225656,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421920002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Cataract due to diabetes mellitus type 1",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 443735,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "420662003",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Coma associated with diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 435216,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "420868002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Disorder due to type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 443732,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "422014003",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Disorder due to type 2 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 443767,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "25093002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Disorder of eye due to diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 37016355,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "368601000119102",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Hyperosmolar coma due to secondary diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 4228112,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421437000",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Hypoglycemic coma in type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 4224254,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421075007",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Ketoacidotic coma in type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 192279,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "127013003",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Kidney disorder due to diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 376065,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421326000",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Neurological disorder with type 2 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 443729,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "422166005",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Peripheral circulatory disorder associated with type 2 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 200687,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "421893009",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Renal disorder associated with type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 4227210,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "420789003",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Retinopathy with type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 201254,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "46635009",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Type 1 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 201531,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "190330002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Type 1 diabetes mellitus with hyperosmolar coma",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": true,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Invalid",
+            "CONCEPT_ID": 4295011,
+            "STANDARD_CONCEPT": "N",
+            "CONCEPT_CODE": "401110002",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Type 1 diabetes mellitus with persistent microalbuminuria",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Non-Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "U"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 201826,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "44054006",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Type 2 diabetes mellitus",
+            "DOMAIN_ID": "Condition",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW} Type 2 diabetes mellitus",
+      "id": 13
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1502905,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "274783",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "insulin glargine",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1550023,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "86009",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "insulin lispro",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 21600713,
+            "STANDARD_CONCEPT": "C",
+            "CONCEPT_CODE": "A10A",
+            "VOCABULARY_ID": "ATC",
+            "CONCEPT_NAME": "INSULINS AND ANALOGUES",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Classification",
+            "CONCEPT_CLASS_ID": "ATC 3rd",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 1502905,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "274783",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "insulin glargine",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Ingredient",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 19071700,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "285018",
+            "VOCABULARY_ID": "RxNorm",
+            "CONCEPT_NAME": "insulin glargine 100 UNT/ML Injectable Solution [Lantus]",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Branded Drug",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 21500149,
+            "STANDARD_CONCEPT": "C",
+            "CONCEPT_CODE": "00000149",
+            "VOCABULARY_ID": "ETC",
+            "CONCEPT_NAME": "Insulins",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Classification",
+            "CONCEPT_CLASS_ID": "ETC",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 723900,
+            "STANDARD_CONCEPT": "C",
+            "CONCEPT_CODE": "A10C",
+            "VOCABULARY_ID": "EphMRA ATC",
+            "CONCEPT_NAME": "HUMAN INSULINS AND ANALOGUES",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Classification",
+            "CONCEPT_CLASS_ID": "ATC 4th",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 45685225,
+            "STANDARD_CONCEPT": "C",
+            "CONCEPT_CODE": "d5e07a0c-7e14-4756-9152-9fea485d654a",
+            "VOCABULARY_ID": "SPL",
+            "CONCEPT_NAME": "LANTUS - insulin glargine injection, solution",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Classification",
+            "CONCEPT_CLASS_ID": "Prescription Drug",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 45685225,
+            "STANDARD_CONCEPT": "C",
+            "CONCEPT_CODE": "d5e07a0c-7e14-4756-9152-9fea485d654a",
+            "VOCABULARY_ID": "SPL",
+            "CONCEPT_NAME": "LANTUS - insulin glargine injection, solution",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Classification",
+            "CONCEPT_CLASS_ID": "Prescription Drug",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 2718458,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "J1815",
+            "VOCABULARY_ID": "HCPCS",
+            "CONCEPT_NAME": "Injection, insulin, per 5 units",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "HCPCS",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 2718459,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "J1817",
+            "VOCABULARY_ID": "HCPCS",
+            "CONCEPT_NAME": "Insulin for administration through dme (i.e., insulin pump) per 50 units",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "HCPCS",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 40217598,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "J1820",
+            "VOCABULARY_ID": "HCPCS",
+            "CONCEPT_NAME": "Injection, insulin, up to 100 units",
+            "DOMAIN_ID": "Drug",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "HCPCS",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] Insulin",
+      "id": 14
+    },
+    {
+      "expression": {"items": [
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 46272451,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "710815001",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Long-term current use of insulin",
+            "DOMAIN_ID": "Observation",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Context-dependent",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        },
+        {
+          "isExcluded": false,
+          "concept": {
+            "INVALID_REASON_CAPTION": "Valid",
+            "CONCEPT_ID": 440922,
+            "STANDARD_CONCEPT": "S",
+            "CONCEPT_CODE": "170747006",
+            "VOCABULARY_ID": "SNOMED",
+            "CONCEPT_NAME": "Diabetic on insulin",
+            "DOMAIN_ID": "Observation",
+            "STANDARD_CONCEPT_CAPTION": "Standard",
+            "CONCEPT_CLASS_ID": "Clinical Finding",
+            "INVALID_REASON": "V"
+          },
+          "includeMapped": false,
+          "includeDescendants": true
+        }
+      ]},
+      "name": "[RW] Insulin (observation)",
+      "id": 15
+    },
+    {
+      "expression": {"items": [{
+        "isExcluded": false,
+        "concept": {
+          "INVALID_REASON_CAPTION": "Valid",
+          "CONCEPT_ID": 4204673,
+          "STANDARD_CONCEPT": "S",
+          "CONCEPT_CODE": "308755006",
+          "VOCABULARY_ID": "SNOMED",
+          "CONCEPT_NAME": "Subcutaneous injection of insulin",
+          "DOMAIN_ID": "Procedure",
+          "STANDARD_CONCEPT_CAPTION": "Standard",
+          "CONCEPT_CLASS_ID": "Procedure",
+          "INVALID_REASON": "V"
+        },
+        "includeMapped": false,
+        "includeDescendants": true
+      }]},
+      "name": "[RW] Insulin (procedure)",
+      "id": 16
+    }
+  ],
+  "cdmVersionRange": ">=5.0.0",
+  "CensoringCriteria": [],
+  "QualifiedLimit": {"Type": "First"},
+  "InclusionRules": [
+    {
+      "expression": {
+        "CriteriaList": [{
+          "RestrictVisit": false,
+          "StartWindow": {
+            "UseEventEnd": false,
+            "Start": {
+              "Days": null,
+              "Coeff": -1
+            },
+            "End": {
+              "Days": 30,
+              "Coeff": -1
+            },
+            "UseIndexEnd": false
+          },
+          "IgnoreObservationPeriod": false,
+          "EndWindow": null,
+          "Criteria": {"DrugEra": {
+            "EraStartDate": null,
+            "CorrelatedCriteria": null,
+            "OccurrenceCount": null,
+            "AgeAtStart": null,
+            "GapDays": null,
+            "CodesetId": 1,
+            "AgeAtEnd": null,
+            "First": true,
+            "Gender": null,
+            "EraLength": null,
+            "EraEndDate": null
+          }},
+          "Occurrence": {
+            "Type": 2,
+            "CountColumn": null,
+            "IsDistinct": false,
+            "Count": 1
+          }
+        }],
+        "Type": "ALL",
+        "DemographicCriteriaList": [],
+        "Groups": [],
+        "Count": null
+      },
+      "name": "must have prior metformin at least 30d before start of index second-line treatment",
+      "description": null
+    },
+    {
+      "expression": {
+        "CriteriaList": [{
+          "RestrictVisit": false,
+          "StartWindow": {
+            "UseEventEnd": false,
+            "Start": {
+              "Days": null,
+              "Coeff": -1
+            },
+            "End": {
+              "Days": 0,
+              "Coeff": 1
+            },
+            "UseIndexEnd": false
+          },
+          "IgnoreObservationPeriod": true,
+          "EndWindow": null,
+          "Criteria": {"ConditionOccurrence": {
+            "OccurrenceEndDate": null,
+            "CorrelatedCriteria": null,
+            "ConditionTypeExclude": false,
+            "CodesetId": 13,
+            "ProviderSpecialty": null,
+            "Gender": null,
+            "VisitType": null,
+            "First": null,
+            "OccurrenceStartDate": null,
+            "ConditionType": null,
+            "ConditionSourceConcept": null,
+            "ConditionStatus": null,
+            "StopReason": null,
+            "Age": null
+          }},
+          "Occurrence": {
+            "Type": 2,
+            "CountColumn": null,
+            "IsDistinct": false,
+            "Count": 1
+          }
+        }],
+        "Type": "ALL",
+        "DemographicCriteriaList": [],
+        "Groups": [],
+        "Count": null
+      },
+      "name": "must have T2DM prior to index",
+      "description": null
+    },
+    {
+      "expression": {
+        "CriteriaList": [{
+          "RestrictVisit": false,
+          "StartWindow": {
+            "UseEventEnd": false,
+            "Start": {
+              "Days": null,
+              "Coeff": -1
+            },
+            "End": {
+              "Days": 0,
+              "Coeff": 1
+            },
+            "UseIndexEnd": false
+          },
+          "IgnoreObservationPeriod": true,
+          "EndWindow": null,
+          "Criteria": {"ConditionOccurrence": {
+            "OccurrenceEndDate": null,
+            "CorrelatedCriteria": null,
+            "ConditionTypeExclude": false,
+            "CodesetId": 7,
+            "ProviderSpecialty": null,
+            "Gender": null,
+            "VisitType": null,
+            "First": null,
+            "OccurrenceStartDate": null,
+            "ConditionType": null,
+            "ConditionSourceConcept": null,
+            "ConditionStatus": null,
+            "StopReason": null,
+            "Age": null
+          }},
+          "Occurrence": {
+            "Type": 0,
+            "CountColumn": null,
+            "IsDistinct": false,
+            "Count": 0
+          }
+        }],
+        "Type": "ALL",
+        "DemographicCriteriaList": [],
+        "Groups": [],
+        "Count": null
+      },
+      "name": "must not have T1DM",
+      "description": null
+    },
+    {
+      "expression": {
+        "CriteriaList": [
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 1,
+                "Coeff": -1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": true,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 2,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 1,
+                "Coeff": -1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": true,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 5,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 1,
+                "Coeff": -1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": true,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 3,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 1,
+                "Coeff": -1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": true,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 6,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 1,
+                "Coeff": -1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": true,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 4,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 0,
+                "Coeff": 1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": false,
+            "EndWindow": null,
+            "Criteria": {"DrugExposure": {
+              "OccurrenceEndDate": null,
+              "CorrelatedCriteria": null,
+              "DrugSourceConcept": null,
+              "CodesetId": 14,
+              "DrugTypeExclude": false,
+              "Quantity": null,
+              "DrugType": null,
+              "ProviderSpecialty": null,
+              "EffectiveDrugDose": null,
+              "Gender": null,
+              "DaysSupply": null,
+              "DoseUnit": null,
+              "VisitType": null,
+              "Refills": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "RouteConcept": null,
+              "StopReason": null,
+              "LotNumber": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 0,
+                "Coeff": 1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": false,
+            "EndWindow": null,
+            "Criteria": {"DrugEra": {
+              "EraStartDate": null,
+              "CorrelatedCriteria": null,
+              "OccurrenceCount": null,
+              "AgeAtStart": null,
+              "GapDays": null,
+              "CodesetId": 14,
+              "AgeAtEnd": null,
+              "First": null,
+              "Gender": null,
+              "EraLength": null,
+              "EraEndDate": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 0,
+                "Coeff": 1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": false,
+            "EndWindow": null,
+            "Criteria": {"Observation": {
+              "ValueAsConcept": null,
+              "ObservationType": null,
+              "CorrelatedCriteria": null,
+              "ObservationTypeExclude": false,
+              "ValueAsString": null,
+              "CodesetId": 15,
+              "ProviderSpecialty": null,
+              "Gender": null,
+              "Unit": null,
+              "ObservationSourceConcept": null,
+              "VisitType": null,
+              "ValueAsNumber": null,
+              "Qualifier": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          },
+          {
+            "RestrictVisit": false,
+            "StartWindow": {
+              "UseEventEnd": false,
+              "Start": {
+                "Days": null,
+                "Coeff": -1
+              },
+              "End": {
+                "Days": 0,
+                "Coeff": 1
+              },
+              "UseIndexEnd": false
+            },
+            "IgnoreObservationPeriod": false,
+            "EndWindow": null,
+            "Criteria": {"ProcedureOccurrence": {
+              "ProcedureType": null,
+              "CorrelatedCriteria": null,
+              "CodesetId": 16,
+              "ProcedureSourceConcept": null,
+              "Quantity": null,
+              "ProviderSpecialty": null,
+              "Gender": null,
+              "ProcedureTypeExclude": false,
+              "VisitType": null,
+              "First": null,
+              "OccurrenceStartDate": null,
+              "Modifier": null,
+              "Age": null
+            }},
+            "Occurrence": {
+              "Type": 0,
+              "CountColumn": null,
+              "IsDistinct": false,
+              "Count": 0
+            }
+          }
+        ],
+        "Type": "ALL",
+        "DemographicCriteriaList": [],
+        "Groups": [],
+        "Count": null
+      },
+      "name": "has no diabetes drugs except metformin prior to index",
+      "description": null
+    },
+    {
+      "expression": {
+        "CriteriaList": [{
+          "RestrictVisit": false,
+          "StartWindow": {
+            "UseEventEnd": false,
+            "Start": {
+              "Days": null,
+              "Coeff": -1
+            },
+            "End": {
+              "Days": 0,
+              "Coeff": 1
+            },
+            "UseIndexEnd": false
+          },
+          "IgnoreObservationPeriod": true,
+          "EndWindow": null,
+          "Criteria": {"ConditionOccurrence": {
+            "OccurrenceEndDate": null,
+            "CorrelatedCriteria": null,
+            "ConditionTypeExclude": false,
+            "CodesetId": 8,
+            "ProviderSpecialty": null,
+            "Gender": null,
+            "VisitType": null,
+            "First": null,
+            "OccurrenceStartDate": null,
+            "ConditionType": null,
+            "ConditionSourceConcept": null,
+            "ConditionStatus": null,
+            "StopReason": null,
+            "Age": null
+          }},
+          "Occurrence": {
+            "Type": 0,
+            "CountColumn": null,
+            "IsDistinct": false,
+            "Count": 0
+          }
+        }],
+        "Type": "ALL",
+        "DemographicCriteriaList": [],
+        "Groups": [],
+        "Count": null
+      },
+      "name": "do not have heart failure any time prior",
+      "description": null
+    }
+  ],
+  "PrimaryCriteria": {
+    "CriteriaList": [
+      {"DrugEra": {
+        "EraStartDate": null,
+        "CorrelatedCriteria": null,
+        "OccurrenceCount": null,
+        "AgeAtStart": null,
+        "GapDays": null,
+        "CodesetId": 2,
+        "AgeAtEnd": null,
+        "First": true,
+        "Gender": null,
+        "EraLength": null,
+        "EraEndDate": null
+      }},
+      {"DrugEra": {
+        "EraStartDate": null,
+        "CorrelatedCriteria": null,
+        "OccurrenceCount": null,
+        "AgeAtStart": null,
+        "GapDays": null,
+        "CodesetId": 3,
+        "AgeAtEnd": null,
+        "First": true,
+        "Gender": null,
+        "EraLength": null,
+        "EraEndDate": null
+      }},
+      {"DrugEra": {
+        "EraStartDate": null,
+        "CorrelatedCriteria": null,
+        "OccurrenceCount": null,
+        "AgeAtStart": null,
+        "GapDays": null,
+        "CodesetId": 4,
+        "AgeAtEnd": null,
+        "First": true,
+        "Gender": null,
+        "EraLength": null,
+        "EraEndDate": null
+      }},
+      {"DrugEra": {
+        "EraStartDate": null,
+        "CorrelatedCriteria": null,
+        "OccurrenceCount": null,
+        "AgeAtStart": null,
+        "GapDays": null,
+        "CodesetId": 5,
+        "AgeAtEnd": null,
+        "First": true,
+        "Gender": null,
+        "EraLength": null,
+        "EraEndDate": null
+      }},
+      {"DrugEra": {
+        "EraStartDate": null,
+        "CorrelatedCriteria": null,
+        "OccurrenceCount": null,
+        "AgeAtStart": null,
+        "GapDays": null,
+        "CodesetId": 6,
+        "AgeAtEnd": null,
+        "First": true,
+        "Gender": null,
+        "EraLength": null,
+        "EraEndDate": null
+      }}
+    ],
+    "PrimaryCriteriaLimit": {"Type": "First"},
+    "ObservationWindow": {
+      "PostDays": 0,
+      "PriorDays": 365
+    }
+  }
+}
