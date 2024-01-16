@@ -358,7 +358,7 @@ Open science aims to make scientific research, including its data process and so
 
 ## Transparent and re-usable research tools
 
-We will publicly register this protocol and announce its availability for feedback from stakeholders, the OHDSI community and within clinical professional societies. This protocol will link to open source code for all steps to generate and evaluate prediction models, figures and tables. Such transparency is possible because we will construct our studies on top of the OHDSI toolstack of open source software tools that are community developed and rigorously tested [@Schuemie2020-wx]. We will publicly host the source code at (https://github.com/ohdsi-studies/FeatureSelectionComparison), allowing public contribution and review, and free re-use for anyone's future research.
+We will publicly register this protocol and announce its availability for feedback from stakeholders, the OHDSI community and within clinical professional societies. This protocol will link to open source code for all steps to generate and evaluate prediction models, figures and tables. Such transparency is possible because we will construct our studies on top of the OHDSI toolstack of open source software tools that are community developed and rigorously tested [@Schuemie2020-wx]. We will publicly host the source code at ADD, allowing public contribution and review, and free re-use for anyone's future research.
 
 ## Scientific meetings and publications
 
