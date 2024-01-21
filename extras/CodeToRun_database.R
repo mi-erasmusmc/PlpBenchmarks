@@ -3,8 +3,8 @@ library(Eunomia)
 library(dplyr)
 library(PLPBenchmarks)
 
-connectionDetails <- DatabaseConnector::createConnectionDetails()
-
+###########################################
+#User specified input
 saveDirectory = "Results"
 requiredTrainPositiveEvents = 3500
 seed = 42
@@ -15,6 +15,24 @@ cohortDatabaseSchema = ""
 outcomeDatabaseSchema = ""
 cohortTable = ""
 
+dbms = ""
+user = ""
+pw = ""
+connecionString = ""
+server = ""
+port = ""
+extraSettings = ""
+
+###########################################
+
+#Do not edit 
+connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = dbms,
+                                                                # connectionString = connectionString,
+                                                                user = user,
+                                                                password = pw,
+                                                                server = server,
+                                                                port = port, 
+                                                                extraSettings = extraSettings)
 
 # databaseDetails <- createDatabaseDetails(connectionDetails = connectionDetails, 
 #                                          cdmDatabaseSchema = "main",
