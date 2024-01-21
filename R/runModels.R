@@ -23,7 +23,7 @@ runModel <- function(plpDataList, outcomeId, analysisId, analysisName, populatio
   modelList <- list()
   for (i in seq_along(plpDataList)) {
     
-    analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste(names(plpDataList)[i], sep = "_")))
+    analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste(names(plpDataList)[i], sep = "_"), "plpResult", "runPlp.rds"))
     if (!analysisExists){
     modelList[i] <- runPlp(plpData = plpDataList[[i]],
                     outcomeId = outcomeId,
