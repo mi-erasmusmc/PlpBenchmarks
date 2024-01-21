@@ -140,22 +140,21 @@ This study is undertaken within Observational Health Data Sciences and Informati
 
 **Background and Significance**
 
-Predictive analytics in healthcare hold immense promise to aid medical decision making. Creating a set of reference points against which novel methods can be evaluated, provides a transparent and accountable environment to ensure consistency in fostering improvements, innovation and refinement of modeling techniques, propelling the field of clinical prediction towards heightened accuracy and efficacy.  
-  
+Predictive analytics in healthcare hold immense promise to aid medical decision making. Creating a set of reference points against which novel methods can be evaluated, provides a transparent and accountable environment to ensure consistency in fostering improvements, innovation and refinement of modeling techniques, propelling the field of clinical prediction towards heightened accuracy and efficacy.
+
 **Study Aims**
 
-1) Identify a set of candidate prediction models to include in the study.
-2) Following state-of-the-science model development methods, compare performance of combinations of features.
+1)  Identify a set of candidate prediction models to include in the study.
+2)  Following state-of-the-science model development methods, compare performance of combinations of features.
 
-**Study Description**
-For explicit probem definitions with target and outcome populations, and time-at-risk, see @tbl-problems. 
-  
+**Study Description** For explicit probem definitions with target and outcome populations, and time-at-risk, see @tbl-problems.
+
 -   Design: Retrospecive cohort with external validation\
 -   Covariates
     1)  Demographics (age in 5 year buckets + gender)
-    2) Demographics + Conditions
-    3) Demographics + Drugs
-    4) Demographics + Conditions + Drugs 
+    2)  Demographics + Conditions
+    3)  Demographics + Drugs
+    4)  Demographics + Conditions + Drugs
 -   Models: LASSO Logistic Regression, Ridge
 -   Internal Metrics:
     -   Area Under the receiver-operator Curve (AUC).
@@ -163,8 +162,9 @@ For explicit probem definitions with target and outcome populations, and time-at
     -   Likelihood ratio for model comparison.
     -   Net Benefit.
 -   External Metrics:
-    -   Area Under the receiver-operator Curve (AUC).
+    -   Area Under the receiver-operator Curve (AUC)
     -   Calibration Plots (pre and post recalibration)
+    -   Model evaluation metrics?
     -   Net Benefit (pre and post recalibration)
 
 # Amendments and Updates
@@ -201,13 +201,10 @@ if (knitr::is_latex_output()) {
 
 # Rationale and Background
 
-Predictive analytics hold immense promise for augmenting medical decision making in domains such as diagnostic precision, prognostic insights, and treatment strategies. As the demand for data-driven approaches in healthcare intensifies, the imperative to maintain statistical and model quality is pronounced. Evaluating a predictive model, usually requires comparisons against a benchmark. To this end, 1) identifying a set of clinical predictions problems that hold some clinical plausibility, 2) standardizing processes like sample selection, data curation, model specification (TAR), and 3) recording predictive performance, can aid in fostering continuous development and improvement of prediction models. We refer to the aforementioned process as benchmarking and suggest that it is a vital step towards transparency and accountability, that can ultimately form a pillar for continuous improvements in prediction models.  
-A standard set of benchmarks can aid in question dealing with, but not limited to:    
-1)	Performance evaluation: Comparisons between model performance can be done where parameters that affect model performance are standardized, e.g. population specification, population samples, data collection, time-at-risk, etc. Comparing a novel method against a benchmark can provide structured means to make direct comparisons under a framework that experimental conditions are standardized.
-2)	Best practice research: There is often a set of decisions that need to be made when developing a predictive model. Best practices can be evaluated against a benchmark with known performance.
-3)	Clinical utility: Evaluating models through benchmarking delineates their performance in real-world scenarios, offering critical insights that empower clinicians in making informed decisions regarding the integration and utilization of predictive models in clinical practice.  
-By creating reference points against which novel models are juxtaposed, researchers and clinicians gain a metric for evaluating the performance of their models, nurturing an environment conducive to iterative refinement and ensuring consistency in the evaluation and comparison of predictive models across diverse datasets and clinical contexts.  
-
+Predictive analytics hold immense promise for augmenting medical decision making in domains such as diagnostic precision, prognostic insights, and treatment strategies. As the demand for data-driven approaches in healthcare intensifies, the imperative to maintain statistical and model quality is pronounced. Evaluating a predictive model, usually requires comparisons against a benchmark. To this end, 1) identifying a set of clinical predictions problems that hold some clinical plausibility, 2) standardizing processes like sample selection, data curation, model specification (TAR), and 3) recording predictive performance, can aid in fostering continuous development and improvement of prediction models. We refer to the aforementioned process as benchmarking and suggest that it is a vital step towards transparency and accountability, that can ultimately form a pillar for continuous improvements in prediction models.\
+A standard set of benchmarks can aid in question dealing with, but not limited to:\
+1) Performance evaluation: Comparisons between model performance can be done where parameters that affect model performance are standardized, e.g. population specification, population samples, data collection, time-at-risk, etc. Comparing a novel method against a benchmark can provide structured means to make direct comparisons under a framework that experimental conditions are standardized. 2) Best practice research: There is often a set of decisions that need to be made when developing a predictive model. Best practices can be evaluated against a benchmark with known performance. 3) Clinical utility: Evaluating models through benchmarking delineates their performance in real-world scenarios, offering critical insights that empower clinicians in making informed decisions regarding the integration and utilization of predictive models in clinical practice.\
+By creating reference points against which novel models are juxtaposed, researchers and clinicians gain a metric for evaluating the performance of their models, nurturing an environment conducive to iterative refinement and ensuring consistency in the evaluation and comparison of predictive models across diverse datasets and clinical contexts.
 
 Related/previous work:
 
@@ -215,9 +212,9 @@ ADD
 
 # Study Objectives
 
- - Create a set of clinically relevant and diverse prediction models
+-   Create a set of clinically relevant and diverse prediction models
 
- - What is the impact on performance amongst feature combinations from OMOP-CDM tables?
+-   What is the impact on performance amongst feature combinations from OMOP-CDM tables?
 
 Specific aims:
 
@@ -230,7 +227,23 @@ ADD
 ```{r targets-of-interest, echo=FALSE, warning=FALSE}
 #| label: tbl-problems
 #| tbl-cap: "Clinical problems to include in the study."
-eois <- readr::read_csv(file.path("../../data", "Full_list_of_Benchmark_Problems.csv"), col_types = readr::cols()) %>% dplyr::select(TargetCohort, Outcome, Time_at_risk) %>% dplyr::filter(!is.na(TargetCohort)) %>%
+# eois <- readr::read_csv(file.path("../../data", "Full_list_of_Benchmark_Problems.csv"), col_types = readr::cols()) %>% dplyr::select(TargetCohort, Outcome, Time_at_risk) %>% dplyr::filter(!is.na(TargetCohort)) %>%
+#   dplyr::mutate(No = dplyr::row_number()) %>%
+#   dplyr::select(No, dplyr::everything())
+# colnames(eois) <- SqlRender::camelCaseToTitleCase(colnames(eois))
+# tab <- eois %>%
+#   kable(booktabs = TRUE, linesep = "",
+#       caption = "Clinical problems to include in the study.") %>% 
+#   kable_styling(bootstrap_options = "striped", latex_options = "striped")
+# if (knitr::is_latex_output()) {
+#   tab %>%
+#     column_spec(1, width = "8em") %>%
+#     column_spec(2, width = "18em") %>%
+#     kable_styling(font_size = latex_table_font_size)
+# } else {
+#   tab
+# }
+eois <- readr::read_csv(file.path("../../extras", "ProblemSpecification.csv"), col_types = readr::cols()) %>% dplyr::select(problemSpec, cohortName_Target, cohortName_Outcome) %>%
   dplyr::mutate(No = dplyr::row_number()) %>%
   dplyr::select(No, dplyr::everything())
 colnames(eois) <- SqlRender::camelCaseToTitleCase(colnames(eois))
@@ -248,21 +261,37 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-## Feature Selection Pipeline
 
-In this study we will compare the following feature selection pipelines:
+### Cohort Definitions
 
--   Standard LASSO model
--   Standard LASSO model + automatic reduction by restricting to top N variables based on feature importance metrics
--   Standard LASSO model + automatic reduction with backwards selection afterwards
--   Standard LASSO model + automatic reduction with forward selection using LASSO selected variables afterwards
--   The constrained LASSO - this lets a user specify the number of variables to include
+-   Cohort definition authors
 
 ## Candidate Covariates
 
--   Demographics.  
--   Conditions. 
--   Drugs   
+-   Demographics.
+-   Conditions.
+-   Drugs
+
+## Modelling
+
+In this study we will model the data using the following methods:
+
+-   Standard LASSO model
+
+## Sampling
+
+We will consider a sample of the target cohort for each problem. [@John2022] has shown through learning curves  that a stratified sample of the original population, containing between 2500-3500 positive outcome events, is adequate to generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with lower gains in discrimination and the cost of longer running times. 
+
+The sample will be estimated by first estimating the study population for each problem given the specification of each problem (e.g. outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this rate to estimate the necessary sample size
+with a pre-specified number of outcomes (e.g. 2500), in order to reduce running times.     
+
+## Statistical Analysis Methods
+
+-   How predictors were handled
+-   Type of model, model building procedures, internal validation method.
+-   Measures for model performance evaluation
+-   Measures for model comparison 
+
 
 ## Metrics
 
