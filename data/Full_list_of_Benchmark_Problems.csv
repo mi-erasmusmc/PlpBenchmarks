@@ -1,18 +1,19 @@
-﻿No,Target Cohort (index),Outcome,Time-at-risk,Link,Problem_Name,To_run
-1,Patients with an outpatient visit in 2017 with no prior cancer (first visit in 2017),Lung cancer,1 day - 3 years after index,,lcInOutp,Yes
-2,Patients newly diagnosed with major depressive disorder (date of first record),Bipolar,1 day - 365 day after index,,bipInMdd,Yes
-3,Patients with an outpatient visit in 2019,Dementia,1 day - 3 years after index,,dInOutp,Yes
-4,Patients with an outpatient visit and a positive COVID test,Hospitalization with pneumonia,1 day - 30 days after index,,coverF,Yes
-5,Patients with an outpatient visit and a positive COVID test,"Hospitalization with pneumonia that required intensive services (ventilation, intubation, tracheotomy, or extracorporeal membrane oxygenation) or death",1 day - 30 days after index,,coverH,Yes
-6,Patients with an outpatient visit and a positive COVID test,Death,1 day - 30 days after index,,coverI,Yes
-7,"Patients with T2DM who were treated with metformin and who became new adult users of one of sulfonylureas, thiazolidinediones, dipeptidyl peptidase-4 inhibitors, glucagon-like peptide-1 receptor agonists, or sodium-glucose co-transporter-2 inhibitors (date of secondary drug). Patients with HF or patients treated with insulin on or prior to the index date were excluded from the analysis. Patients were required to have been enrolled for at least 365 days before cohort entry.",Heart Failure,1 to 365 days,,hfInT2dm,Yes
-8,Patients newly diagnosed with atrial fibrilation (date of initial afib record),Ischemic stroke,1 to 365 days,,isInAfib,Yes
-9,Patients undergoing elective major non-cardiac surgery (date of surgery) without creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry.,Earliest of AMI cardiac arrest or death (MACE),O to 30 days,,mncs_noc,Yes
-10,Patients undergoing elective major non-cardiac surgery (date of surgery) with Creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry.,Earliest of AMI cardiac arrest or death (MACE),O to 30 days,,mncs_c,Yes
-11,Patients starting intravitreal Anti-VEGF (date of administration),Kidney Failure,1 to 365 days,,kfInAntivegf,Yes
-12,Pregnancy women (start of pregnancy),Preeclampsia,During pregnancy,,,No
-13,Pregnancy women (start of pregnancy),Still birth,During pregnancy,,,No
-14,Patients with COPD (first record),Cardiovascular event and death,1-30 days and 1-90 days,,cvInCopd,Yes
-15,Patients starting menopause (first record),Depression,1 day - 3-years,,,No
-16,Patients with anemia (date of first anemia record),Colorectal cancer,1 day - 1-year,,ccInAnem,Yes
-17,Patients with quadriplegia (date of first quadriplegia record),Death,1 day - 1-year,,,No
+﻿No,Target Cohort (index),Outcome,Time-at-risk,Link,Problem_Name,To_run,Target_cohort_name,Outcome_cohort_name
+1,Patients with an outpatient visit in 2017 with no prior cancer (first visit in 2017),Lung cancer,1 day - 3 years after index,,lungCanInOutP,Yes,[PL]Non_urgent_outpatient_visit,[PL]LngCancer
+2,Patients newly diagnosed with major depressive disorder (date of first record),Bipolar,1 day - 365 day after index,,bipInMDD,Yes,mdd,bipolar
+3,Patients with an outpatient visit in 2019,Dementia,1 day - 3 years after index,,demInOutP,Yes,dementiaTarget,dementiaOutcome
+4,Patients with an outpatient visit and a positive COVID test,Hospitalization with pneumonia,1 day - 30 days after index,,coverF,Yes,[seek cover] covid outpatient visit,[seek cover] hospitalization with pneumonia
+5,Patients with an outpatient visit and a positive COVID test,"Hospitalization with pneumonia that required intensive services (ventilation, intubation, tracheotomy, or extracorporeal membrane oxygenation) or death",1 day - 30 days after index,,coverH,Yes,[seek cover] covid outpatient visit,[seek cover] hosp with broad pneumonia and intensive care or death
+6,Patients with an outpatient visit and a positive COVID test,Death,1 day - 30 days after index,,coverI,Yes,[seek cover] covid outpatient visit,[seek cover] death
+7,"Patients with T2DM who were treated with metformin and who became new adult users of one of sulfonylureas, thiazolidinediones, dipeptidyl peptidase-4 inhibitors, glucagon-like peptide-1 receptor agonists, or sodium-glucose co-transporter-2 inhibitors (date of secondary drug). Patients with HF or patients treated with insulin on or prior to the index date were excluded from the analysis. Patients were required to have been enrolled for at least 365 days before cohort entry.",Heart Failure,1 to 365 days,,hfInT2dm,Yes,[IPEV]T2dm_second_line,[IPEV] Heart_Failure_revised_no_hosp
+8,Patients newly diagnosed with atrial fibrilation (date of initial afib record),Ischemic stroke,1 to 365 days,,strokeInAfib,Yes,afib,ischemic stroke
+9,Patients undergoing elective major non-cardiac surgery (date of surgery) without creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry.,Earliest of AMI cardiac arrest or death (MACE),O to 30 days,,mncs_noCreatinine,Yes,[RCRI] Composite MNCS 004.2,[RCRI] Earliest of AMI cardiac arrest or death
+10,Patients undergoing elective major non-cardiac surgery (date of surgery) with Creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry.,Earliest of AMI cardiac arrest or death (MACE),O to 30 days,,mncs_withCreatinine,Yes,[RCRI] Composite MNCS 004.2 with Cr,[RCRI] Earliest of AMI cardiac arrest or death
+11,Patients starting intravitreal Anti-VEGF (date of administration),Kidney Failure,1 to 365 days,,kfInAntiVegf,Yes,,
+12,Pregnancy women (start of pregnancy),Preeclampsia,During pregnancy,,,No,,
+13,Pregnancy women (start of pregnancy),Still birth,During pregnancy,,,No,,
+14,Patients with COPD (first record),Cardiovascular event and death,1-30 days,,cvInCopd_30,Yes,[PL]COPD,[PL]CVDeath
+15,Patients with COPD (first record),Cardiovascular event and death,1-90 days,,cvInCopd_90,,[PL]COPD,[PL]CVDeath
+16,Patients starting menopause (first record),Depression,1 day - 3-years,,,No,,
+17,Patients with anemia (date of first anemia record),Colorectal cancer,1 day - 1-year,,ccInAnem,Yes,[PL]Anemia,[PL]ClrctlCancer
+18,Patients with quadriplegia (date of first quadriplegia record),Death,1 day - 1-year,,,No,,
