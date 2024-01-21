@@ -48,6 +48,9 @@ prepareData <- function(databaseDetails,
   ParallelLogger::logInfo(print(reducedData$summaryStats))
   } else {
     ParallelLogger::logInfo(paste('Sampled data with all covariates (demo/conds/drugs) for', analysisName, 'exists at', file.path(saveDirectory, analysisName, "processedData")))
+    reducedData <- vector("list", 2)
+    reducedData$studyPopulation <- readRDS(file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "studyPopulation.Rds", sep = "_")))
+    reducedData$plpData <- file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs", sep = "_"))
   }
   ParallelLogger::logInfo(paste("Done."))
   ParallelLogger::logInfo(paste("Filtering covariates to create candidate predictor sets..."))
