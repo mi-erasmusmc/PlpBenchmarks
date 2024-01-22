@@ -5,13 +5,9 @@ reduceData <- function(studyPopulation,
                        testSplitFraction, 
                        seed){
   
-  summaryStats <- studyPopulation %>%
-    dplyr::summarize(positiveOutcomeRate = sum(outcomeCount)/nrow(.), 
-                     requiredTrainOutcomes = requiredTrainPositiveEvents, 
-                     requiredOverallOutcomes = ceiling((1+testSplitFraction)*requiredTrainOutcomes), 
-                     neededPopulation = ceiling((requiredOverallOutcomes)/positiveOutcomeRate), 
-                     nonOutcomePopulation = ceiling(neededPopulation - requiredOverallOutcomes),
-                     totalPop = nrow(.))
+  summaryStats <- summariseStudyPopulation(studyPopulation = studyPopulation, 
+                                           requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
+                                           testSplitFraction = testSplitFraction)
   
   set.seed(seed)
   selectedOutcomes <- studyPopulation %>%
@@ -56,4 +52,31 @@ reduceData <- function(studyPopulation,
                 summaryStats = summaryStats)
   
   return(result)
+}
+
+#' @export
+summariseStudyPopulation <- function(studyPopulation, 
+                                     requiredTrainPositiveEvents, 
+                                     testSplitFraction){
+  
+  if (requiredTrainPositiveEvents > sum(studyPopulation$outcomeCount)){
+    stop(paste("Number of outcomes is less than the required number of positive events."))
+  }
+  
+  studyPopSummary <- studyPopulation %>%
+    dplyr::summarize(eventCount = sum(outcomeCount), 
+                     eventRate = eventCount/length(unique(.data$subjectId)),
+                     requiredTrainOutcomes = requiredTrainPositiveEvents,
+                     requiredOverallOutcomes = ceiling((1+testSplitFraction)*requiredTrainOutcomes),
+                     neededPopulation = ceiling((requiredOverallOutcomes)/eventRate),
+                     nonOutcomePopulation = ceiling(neededPopulation - requiredOverallOutcomes),
+                     totalPeople = length(unique(.data$subjectId)), 
+                     totalRecords = length(.data$rowId))
+  
+  if (studyPopSummary$neededPopulation > studyPopSummary$totalPeople){
+    stop(paste("The required number of people is greater than the number of people in the overall populatin. Something went wrong..."))
+  }
+  
+  return(studyPopSummary)
+  
 }
