@@ -23,9 +23,9 @@ runModel <- function(plpDataList, outcomeId, analysisId, analysisName, populatio
   modelList <- list()
   for (i in seq_along(plpDataList)) {
     
-    analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste(names(plpDataList)[i], sep = "_"), "plpResult", "runPlp.rds"))
+    analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste0(attr(modelSettings$param, "settings")$modelType, "Models"), paste(names(plpDataList)[i], sep = "_"), "plpResult", "runPlp.rds"))
     if (!analysisExists){
-    modelList[i] <- PatientLevelPrediction::runPlp(plpData = plpDataList[[i]],
+    PatientLevelPrediction::runPlp(plpData = plpDataList[[i]],
                     outcomeId = outcomeId,
                     analysisId = names(plpDataList)[i],
                     analysisName = analysisName,
@@ -37,7 +37,7 @@ runModel <- function(plpDataList, outcomeId, analysisId, analysisName, populatio
                     modelSettings = modelSettings,
                     logSettings = logSettings,
                     executeSettings = executeSettings,
-                    saveDirectory = file.path(saveDirectory, analysisName))
+                    saveDirectory = file.path(saveDirectory, analysisName, paste0(attr(modelSettings$param, "settings")$modelType, "Models")))
     } else {
       ParallelLogger::logInfo(paste('Analysis for', analysisName, 'exists at', file.path(saveDirectory, paste(analysisName, names(plpDataList)[i], sep = "_"))))
     }
