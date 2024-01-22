@@ -76,7 +76,7 @@ summariseStudyPopulation <- function(studyPopulation,
                      totalRecords = length(.data$rowId))
   
   if (studyPopSummary$neededPopulation > studyPopSummary$totalPeople){
-    stop(paste("The required number of people is greater than the number of people in the overall populatin. Something went wrong..."))
+    warning(paste("The required number of people is greater than the number of people in the overall population. Something went wrong..."))
   }
   
   return(studyPopSummary)
