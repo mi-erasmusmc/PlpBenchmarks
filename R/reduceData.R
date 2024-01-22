@@ -9,6 +9,11 @@ reduceData <- function(studyPopulation,
                                            requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
                                            testSplitFraction = testSplitFraction)
   
+  if (requiredTrainPositiveEvents >= sum(studyPopulation$outcomeCount)){
+    warning(paste("Number of outcomes is less than the required number of positive events. Returning the same data..."))
+    finalPopulation <- studyPopulation
+    finalPlpData <- plpData
+  } else {
   set.seed(seed)
   selectedOutcomes <- studyPopulation %>%
     dplyr::filter(outcomeCount == 1) %>%
@@ -46,6 +51,7 @@ reduceData <- function(studyPopulation,
   attr(finalPlpData$covariateData, 'metaData') <- metaData
   
   class(finalPlpData$covariateData) <- 'CovariateData'
+  }
   
   result = list(studyPopulation = finalPopulation, 
                 plpData = finalPlpData, 
@@ -58,10 +64,6 @@ reduceData <- function(studyPopulation,
 summariseStudyPopulation <- function(studyPopulation, 
                                      requiredTrainPositiveEvents, 
                                      testSplitFraction){
-  
-  if (requiredTrainPositiveEvents > sum(studyPopulation$outcomeCount)){
-    stop(paste("Number of outcomes is less than the required number of positive events."))
-  }
   
   studyPopSummary <- studyPopulation %>%
     dplyr::summarize(eventCount = sum(outcomeCount), 
