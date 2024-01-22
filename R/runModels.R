@@ -25,7 +25,7 @@ runModel <- function(plpDataList, outcomeId, analysisId, analysisName, populatio
     
     analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste(names(plpDataList)[i], sep = "_"), "plpResult", "runPlp.rds"))
     if (!analysisExists){
-    modelList[i] <- runPlp(plpData = plpDataList[[i]],
+    modelList[i] <- PatientLevelPrediction::runPlp(plpData = plpDataList[[i]],
                     outcomeId = outcomeId,
                     analysisId = names(plpDataList)[i],
                     analysisName = analysisName,
