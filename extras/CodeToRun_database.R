@@ -5,8 +5,10 @@ library(PLPBenchmarks)
 
 ###########################################
 #User specified input
-saveDirectory = "Results"
-requiredTrainPositiveEvents = 3500
+jsonfileLocation = "cohort definition json files location"
+saveDirectory = "Where to save the results" # Note that adequate space is required to run the whole study
+numberOfThreads = #Change this to enable parallelization
+requiredTrainPositiveEvents = 3500 #The number of positive event counts to ensure are included in the study population for each problem
 seed = 42
 cdmDatabaseSchema = ""
 cdmDatabaseName = ""
@@ -15,53 +17,26 @@ cohortDatabaseSchema = ""
 outcomeDatabaseSchema = ""
 cohortTable = ""
 
-dbms = ""
+dbms = "" # Prefferable to use the keyring package so that the parallelization works.
 user = ""
 pw = ""
-connecionString = ""
 server = ""
 port = ""
-extraSettings = ""
-
 ###########################################
 
 #Do not edit 
 connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = dbms,
-                                                                # connectionString = connectionString,
                                                                 user = user,
                                                                 password = pw,
                                                                 server = server,
-                                                                port = port, 
-                                                                extraSettings = extraSettings)
+                                                                port = port
+                                                                )
 
-# databaseDetails <- createDatabaseDetails(connectionDetails = connectionDetails, 
-#                                          cdmDatabaseSchema = "main",
-#                                          cdmDatabaseName = "Eunomia",cdmDatabaseId = "Eunomia", 
-#                                          cohortDatabaseSchema = "main",
-#                                          cohortTable = "cohort",
-#                                          outcomeDatabaseSchema = "main",
-#                                          outcomeTable = "cohort", 
-#                                          targetId = 1, 
-#                                          outcomeIds = 3, cohortId = 1)
-# restrictPlpDataSettings <- PatientLevelPrediction::createRestrictPlpDataSettings()
-# populationSettings <- PatientLevelPrediction::createStudyPopulationSettings(binary = T,
-#                                                                             includeAllOutcomes = F,
-#                                                                             firstExposureOnly = T, 
-#                                                                             washoutPeriod = 0, 
-#                                                                             removeSubjectsWithPriorOutcome = T, 
-#                                                                             priorOutcomeLookback = 99999,
-#                                                                             requireTimeAtRisk = T, 
-#                                                                             minTimeAtRisk = 1, 
-#                                                                             riskWindowStart = 1, 
-#                                                                             riskWindowEnd = 365
-# )
+## Filling in PatientLevelPredicton settings
 lassoModel <- PatientLevelPrediction::setLassoLogisticRegression(seed=seed)
-# covariateSettings_demo <- FeatureExtraction::createCovariateSettings(useDemographicsGender = T, useDemographicsAge = T)
-# covariateSettings_demo_conds <- FeatureExtraction::createCovariateSettings(useDemographicsGender = T, 
-#                                                                            useDemographicsAge = T, 
-#                                                                            useConditionOccurrenceLongTerm = T, 
-#                                                                            longTermStartDays = -365,
-#                                                                            endDays = -1)
+
+### Covariate settings
+### We only need to define the biggest set of candidate covariates: currently only supporting , demo, conds and drugs.
 covariateSettings_demo_conds_drugs <- FeatureExtraction::createCovariateSettings(useDemographicsGender = T, 
                                                                                  useDemographicsAge = T, 
                                                                                  useConditionOccurrenceLongTerm = T,
@@ -69,8 +44,10 @@ covariateSettings_demo_conds_drugs <- FeatureExtraction::createCovariateSettings
                                                                                  longTermStartDays = -365,
                                                                                  endDays = -1)
 
+### List of problems to run
 problemList <- read.csv("extras/ProblemSpecification.csv") 
 
+### Popoulation settings
 studyPopulationSettingsList <- vector("list", length(nrow(problemList)))
 for (i in seq_along(1:nrow(problemList))) {
   if(problemList$cohortId_Target[i] %in% c(8, 20)){
@@ -110,6 +87,8 @@ for (i in seq_along(1:nrow(problemList))) {
 }
 
 names(studyPopulationSettingsList) <- paste0(problemList$Problem_Name, "_studyPopSettings")
+
+### Database details
 databaseDetailsList <- vector("list", length(nrow(problemList)))
 for (i in seq_along(1:nrow(problemList))) {
   databaseDetailsList[[i]]<- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
@@ -125,6 +104,8 @@ for (i in seq_along(1:nrow(problemList))) {
 }
 names(databaseDetailsList) <- paste0(problemList$Problem_Name, "_DbDetails")
 
+### Restrict plp settings
+
 restrictPlpDataSettingsList <- vector("list", length(nrow(problemList)))
 for (i in seq_along(1:nrow(problemList))) {
   if (problemList$cohortId_Target[i] == 8){
@@ -136,53 +117,65 @@ for (i in seq_along(1:nrow(problemList))) {
 }
 names(restrictPlpDataSettingsList) <- paste0(problemList$Problem_Name, "_restrictSettinngs")
 
-for(i in seq_along(1:nrow(problemList))) {
-  for (i in seq_along(databaseDetailsList)) {
-    for (i in seq_along(studyPopulationSettingsList)) {
-      for(i in seq_along(restrictPlpDataSettingsList)) {
-      executeBenchmark(databaseDetails = databaseDetailsList[[i]], 
-                       restrictPlpDataSettings = restrictPlpDataSettings,
-                       populationSettings = studyPopulationSettingsList[[i]], 
-                       requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
-                       covariateSettings = covariateSettings_demo_conds_drugs,
-                       modelSettings = lassoModel, 
-                       featureEngineeringSettings = PatientLevelPrediction::createFeatureEngineeringSettings(),
-                       sampleSettings = PatientLevelPrediction::createSampleSettings(), 
-                       splitSettings = PatientLevelPrediction::createDefaultSplitSetting(splitSeed = seed), 
-                       executeSettings = PatientLevelPrediction::createExecuteSettings(runSplitData = T,
-                                                                                       runSampleData = F, 
-                                                                                       runfeatureEngineering = F,
-                                                                                       runPreprocessData = T,
-                                                                                       runModelDevelopment = T, 
-                                                                                       runCovariateSummary = T), 
-                       analysisName = problemList$Problem_Name[i],
-                       saveDirectory = saveDirectory, 
-                       prepareData = T, 
-                       runPlp = T 
-                       )
-      }
-    }
-  }
+## Creating cohorts
+
+PLPBenchmarks::createCohorts(jsonfileLocation = jsonfileLocation, 
+                             connectionDetails = connectionDetails,
+                             cdmDatabaseSchema = cdmDatabaseSchema,
+                             cohortDatabaseSchema = cohortDatabaseSchema, 
+                             cohortTable = cohortTable)
+
+cohortCounts <- CohortGenerator::getCohortCounts(connectionDetails = connectionDetails,
+                                                 cohortDatabaseSchema = cohortDatabaseSchema,
+                                                 cohortTable = cohortTable)
+
+
+## Developing models
+
+wrappedExecute <- function(analysisList, seed = 42, dbms = dbms){
+  
+  restrictPlpDataSettings = analysisList$restrictPlpDataSettings
+  requiredTrainPositiveEvents = analysisList$requiredTrainPositiveEvents  
+  populationSettings = analysisList$populationSettings
+  analysisName = analysisList$analysisName
+  covariateSettings = analysisList$covariateSettings
+  modelSettings = analysisList$modelSettings
+  saveDirectory = analysisList$saveDirectory
+  
+  PLPBenchmarks::executeBenchmark(databaseDetails = databaseDetails, 
+                                  restrictPlpDataSettings = restrictPlpDataSettings,
+                                  populationSettings = populationSettings, 
+                                  requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
+                                  covariateSettings = covariateSettings,
+                                  modelSettings = modelSettings, 
+                                  featureEngineeringSettings = PatientLevelPrediction::createFeatureEngineeringSettings(),
+                                  sampleSettings = PatientLevelPrediction::createSampleSettings(), 
+                                  splitSettings = PatientLevelPrediction::createDefaultSplitSetting(splitSeed = seed), 
+                                  executeSettings = PatientLevelPrediction::createExecuteSettings(runSplitData = T,
+                                                                                                  runSampleData = F, 
+                                                                                                  runfeatureEngineering = F,
+                                                                                                  runPreprocessData = T,
+                                                                                                  runModelDevelopment = T, 
+                                                                                                  runCovariateSummary = T), 
+                                  analysisName = analysisName,
+                                  saveDirectory = saveDirectory, 
+                                  createCohorts = F,
+                                  prepareData = T, 
+                                  runPlp = T )
+  
+  return(invisible())
 }
 
-# executeBenchmark(databaseDetails = databaseDetails, 
-#                  restrictPlpDataSettings = restrictPlpDataSettings,
-#                  populationSettings = populationSettings, 
-#                  requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
-#                  covariateSettings = covariateSettings_demo_conds_drugs,
-#                  modelSettings = lassoModel, 
-#                  featureEngineeringSettings = PatientLevelPrediction::createFeatureEngineeringSettings(),
-#                  sampleSettings = PatientLevelPrediction::createSampleSettings(), 
-#                  splitSettings = PatientLevelPrediction::createDefaultSplitSetting(splitSeed = seed), 
-#                  executeSettings = PatientLevelPrediction::createExecuteSettings(runSplitData = T,
-#                                                                                  runSampleData = F, 
-#                                                                                  runfeatureEngineering = F,
-#                                                                                  runPreprocessData = T,
-#                                                                                  runModelDevelopment = T, 
-#                                                                                  runCovariateSummary = T), 
-#                  analysisName = analysisName,
-#                  saveDirectory = saveDirectory, 
-#                  createCohorts = F,
-#                  prepareData = T, 
-#                  runPlp = T 
-# )
+executeBenchmarkParallel <- function(largeVector) {
+  t1 <- Sys.time()
+  
+  cluster <- ParallelLogger::makeCluster(numberOfThreads = numberOfThreads)
+  ParallelLogger::clusterApply(cluster, largeVector, wrappedExecute)
+  ParallelLogger::stopCluster(cluster)
+  
+  tt <- Sys.time() - t1
+  print(tt)
+  return(tt)
+}
+
+benchTime <-executeBenchmarkParallel(analysisList)
