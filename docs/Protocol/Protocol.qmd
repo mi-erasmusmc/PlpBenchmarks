@@ -280,10 +280,9 @@ In this study we will model the data using the following methods:
 
 ## Sampling
 
-We will consider a sample of the target cohort for each problem. [@John2022] has shown through learning curves  that a stratified sample of the original population, containing between 2500-3500 positive outcome events, is adequate to generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with lower gains in discrimination and the cost of longer running times. 
+We will consider a sample of the target cohort for each problem. [@John2022] has shown through learning curves that they tend to reach a plateau above a certain number of positive event counts (report results from the study). The number of event counts required may vary for each problem (mean, s.d.) however, a stratified sample of the original population maintaining the outcome rate with adequate event counts, is adequate to capture the variability in the data and generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with small gains in discrimination for the cost of longer running times. 
 
-The sample will be estimated by first estimating the study population for each problem given the specification of each problem (e.g. outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this rate to estimate the necessary sample size
-with a pre-specified number of outcomes (e.g. 2500), in order to reduce running times.     
+The sample size for each problem will be determined by first estimating the study population for each problem (e.g. ensure outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this cohort to draw a stratified sample with a pre-specified number of outcomes included. For the datasets that outcomes are less than the required number of positive events will be included as a whole.
 
 ## Statistical Analysis Methods
 

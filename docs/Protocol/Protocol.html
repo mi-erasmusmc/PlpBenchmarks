@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-input5cd66cdd</title>
+<title>quarto-input3e5d0028</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -458,8 +458,8 @@ By creating reference points against which novel models are juxtaposed, research
 </section>
 <section id="sampling" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="sampling"><span class="header-section-number">7.4</span> Sampling</h2>
-<p>We will consider a sample of the target cohort for each problem. <span class="citation" data-cites="John2022">[<a href="#ref-John2022" role="doc-biblioref"><strong>John2022?</strong></a>]</span> has shown through learning curves that a stratified sample of the original population, containing between 2500-3500 positive outcome events, is adequate to generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with lower gains in discrimination and the cost of longer running times.</p>
-<p>The sample will be estimated by first estimating the study population for each problem given the specification of each problem (e.g.&nbsp;outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this rate to estimate the necessary sample size with a pre-specified number of outcomes (e.g.&nbsp;2500), in order to reduce running times.</p>
+<p>We will consider a sample of the target cohort for each problem. <span class="citation" data-cites="John2022">[<a href="#ref-John2022" role="doc-biblioref"><strong>John2022?</strong></a>]</span> has shown through learning curves that they tend to reach a plateau above a certain number of positive event counts (report results from the study). The number of event counts required may vary for each problem (mean, s.d.) however, a stratified sample of the original population maintaining the outcome rate with adequate event counts, is adequate to capture the variability in the data and generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with small gains in discrimination for the cost of longer running times.</p>
+<p>The sample size for each problem will be determined by first estimating the study population for each problem (e.g.&nbsp;ensure outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this cohort to draw a stratified sample with a pre-specified number of outcomes included. For the datasets that outcomes are less than the required number of positive events will be included as a whole.</p>
 </section>
 <section id="statistical-analysis-methods" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="statistical-analysis-methods"><span class="header-section-number">7.5</span> Statistical Analysis Methods</h2>
