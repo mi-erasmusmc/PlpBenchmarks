@@ -14,7 +14,6 @@ Imports:
     FeatureExtraction,
     PatientLevelPrediction (>= 4.0.0),
     ggplot2,
-    OhdsiSharing,
     zip,
     ParallelLogger,
     magrittr,
@@ -25,7 +24,7 @@ Suggests:
     knitr,
     rmarkdown,
     DT,
-    shiny,
+    shiny, 
     Hydra
 License: Apache License 2.0
 VignetteBuilder: knitr
