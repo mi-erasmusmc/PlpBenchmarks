@@ -79,7 +79,7 @@ prepareData <- function(databaseDetails,
   demo_drugs <- createComparissonCovariates(plpData = reducedData$plpData,
                                             studyPopulation = reducedData$studyPopulation, 
                                             covariates = "demographics and drugs")
-  PatientLevelPrediction::savePlpData(demo_conds, file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_")))
+  PatientLevelPrediction::savePlpData(demo_drugs, file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_")))
   } else {
     ParallelLogger::logInfo(paste('Sampled data with demographics and drugs for', analysisName, 'exists at', file.path(saveDirectory, analysisName, "processedData")))
   }
