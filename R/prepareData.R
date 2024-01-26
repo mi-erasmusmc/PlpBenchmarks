@@ -60,29 +60,32 @@ prepareData <- function(databaseDetails,
                                            studyPopulation = reducedData$studyPopulation, 
                                            covariates = "demographics only")
   PatientLevelPrediction::savePlpData(demo_only, file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_only", sep = "_")))
+  ParallelLogger::logInfo(paste("plpData with demographics only created."))
   } else {
     ParallelLogger::logInfo(paste('Sampled data with demographics for', analysisName, 'exists at', file.path(saveDirectory, analysisName, "processedData")))
   }
-  ParallelLogger::logInfo(paste("plpData with demographics only created."))
+  
   analysisExists <- file.exists(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds", sep = "_")))
   if (!analysisExists){
   demo_conds <- createComparissonCovariates(plpData = reducedData$plpData, 
                                             studyPopulation = reducedData$studyPopulation,
                                             covariates = "demographics and conditions")
   PatientLevelPrediction::savePlpData(demo_conds, file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds", sep = "_")))
+  ParallelLogger::logInfo(paste("plpData with demographics and conditions created."))
   } else {
     ParallelLogger::logInfo(paste('Sampled data with demographics and conditions for', analysisName, 'exists at', file.path(saveDirectory, analysisName, "processedData")))
   }
-  ParallelLogger::logInfo(paste("plpData with demographics and conditions created."))
+  
   analysisExists <- file.exists(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_")))
   if (!analysisExists){
   demo_drugs <- createComparissonCovariates(plpData = reducedData$plpData,
                                             studyPopulation = reducedData$studyPopulation, 
                                             covariates = "demographics and drugs")
   PatientLevelPrediction::savePlpData(demo_drugs, file = file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_")))
+  ParallelLogger::logInfo(paste("plpData with demographics and drugs created."))
   } else {
     ParallelLogger::logInfo(paste('Sampled data with demographics and drugs for', analysisName, 'exists at', file.path(saveDirectory, analysisName, "processedData")))
   }
-  ParallelLogger::logInfo(paste("plpData with demographics and drugs created."))
+  
   return(invisible())
 }
