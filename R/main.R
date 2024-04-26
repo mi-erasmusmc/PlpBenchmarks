@@ -25,6 +25,8 @@ executeBenchmark <- function(jsonFileLocation,
   ParallelLogger::registerLogger(logger)
   on.exit(PatientLevelPrediction:::closeLog(logger))
   
+  ParallelLogger::logInfo(paste("Starting benchmark analysis for ", analysisName, "..."))
+  
   #1. create cohorts
   if(createCohorts){
     ParallelLogger::logInfo(paste("Creating cohorts..."))
@@ -37,7 +39,7 @@ executeBenchmark <- function(jsonFileLocation,
   ParallelLogger::logInfo(paste("Cohorts created."))
   gc()
   
-  #2. downsampling original data and creating cvariate sets to make comparissons
+  #2. downsampling original data and creating covariate sets to make comparisons
   if(prepareData){
     ParallelLogger::logInfo(paste("Preparing data..."))
     prepareData(databaseDetails = databaseDetails, 
@@ -60,7 +62,11 @@ executeBenchmark <- function(jsonFileLocation,
       demo_only = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_only", sep = "_"))), 
       demo_conds = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds", sep = "_"))), 
       demo_drugs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_"))),
-      demo_conds_drugs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs", sep = "_")))
+      demo_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_prcdrs", sep = "_"))),
+      demo_conds_drugs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs", sep = "_"))), 
+      demo_conds_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_prcdrs", sep = "_"))),
+      demo_drugs_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs_prcdrs", sep = "_"))),
+      demo_conds_drugs_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs_prcdrs", sep = "_")))
     )
     plpDataList <- setNames(plpDataList, paste(analysisName, names(plpDataList), sep = "_"))
     population <- readRDS(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "studyPopulation.Rds", sep = "_")))
