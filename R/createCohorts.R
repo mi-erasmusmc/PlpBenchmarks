@@ -14,13 +14,22 @@
 #' @export
 
 createCohorts <- function(jsonfileLocation, 
+                          cohortsToCreate,
                           connectionDetails, 
                           cdmDatabaseSchema, 
                           cohortDatabaseSchema, 
-                          cohortTable){
+                          cohortTable, 
+                          saveDirectory){
+  
+  if (!is.null(jsonfileLocation) && !is.null(cohortsToCreate)){
+    stop("jsonfileLocation and cohortsToCreate are both specified. Use one of the two.")
+  }
+  
   # Create cohorts
+  if (!is.null(jsonfileLocation)){
   cohortsToCreate <- CohortGenerator::createEmptyCohortDefinitionSet()
   cohortJsonFiles <- list.files(jsonfileLocation, full.names = TRUE)
+  
   for (i in 1:length(cohortJsonFiles)) {
   cohortJsonFileName <- cohortJsonFiles[i]
   cohortName <- tools::file_path_sans_ext(basename(cohortJsonFileName))
@@ -31,6 +40,25 @@ createCohorts <- function(jsonfileLocation,
                                                  cohortName = cohortName, 
                                                  sql = cohortSql,
                                                  stringsAsFactors = FALSE))
+  } 
+  }
+  
+  if (!is.null(cohortsToCreate)){
+    
+    cohortJsonFiles <- cohortsToCreate$jsonLocation
+    
+    for (i in 1:length(cohortJsonFiles)) {
+      cohortJsonFileName <- cohortJsonFiles[i]
+      cohortName <- tools::file_path_sans_ext(basename(cohortJsonFileName))
+      cohortJson <- readChar(cohortJsonFileName, file.info(cohortJsonFileName)$size)
+      cohortExpression <- CirceR::cohortExpressionFromJson(cohortJson)
+      cohortSql <- CirceR::buildCohortQuery(cohortExpression, options = CirceR::createGenerateOptions(generateStats = FALSE))
+      # cohortsToCreate$sql[i] <- cohortSql
+      cohortsToCreate$sql[i] <- rbind(cohortsToCreate, data.frame(cohortId = i,
+                                                           cohortName = cohortName, 
+                                                           sql = cohortSql,
+                                                           stringsAsFactors = FALSE))
+    }
   }
   
   # Create the cohort tables to hold the cohort generation results
@@ -49,4 +77,9 @@ createCohorts <- function(jsonfileLocation,
   cohortCounts <- CohortGenerator::getCohortCounts(connectionDetails = connectionDetails,
                                            cohortDatabaseSchema = cohortDatabaseSchema,
                                            cohortTable = cohortTableNames$cohortTable)
+  
+  ParallelLogger::logInfo(paste("Cohorts created."))
+  ParallelLogger::logInfo(paste(cohortCounts))
+  
+  utils::write.csv(cohortCounts, file.path(saveDirectory, "rawData", paste0("cohortCounts_", gsub("-", "", Sys.Date()), ".csv")))
   }
