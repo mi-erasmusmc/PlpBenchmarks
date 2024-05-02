@@ -115,9 +115,9 @@ if (knitr::is_latex_output()) {
 parties <- readr::read_delim(col_names = TRUE, delim = ";", trim_ws = TRUE, file = "
 Investigator; Institution/Affiliation
 Jenna Reps *; Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA 
-Ross Williams *; Erasmus University
-Solomon Ioannou ;  Erasmus University
-Egill Fridgeirsson ; Erasmus University
+Ross Williams *; Erasmus Medical Center
+Solomon Ioannou ;  Erasmus Medical Center
+Egill Fridgeirsson ; Erasmus Medical Center
 Anthony Sena ; Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA 
 Other contributors ; cohort definition creators
 ")
@@ -212,13 +212,16 @@ ADD
 
 # Study Objectives
 
--   Create a set of clinically relevant and diverse prediction models
+-   Provide a consistent set of clinical prediction problems and share performance. 
 
--   What is the impact on performance amongst feature combinations from OMOP-CDM tables?
+-   How does performance varies between feature combinations from the OMOP-CDM tables?
 
 Specific aims:
 
-ADD
+-  A set of clinical prediction problems will consist of:
+      -   Defined target and outcome cohorts with clearly defined time-at-risk.  
+      -   Descriminative and calibrative performance.   
+      -   
 
 # Research Methods
 
@@ -261,7 +264,6 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-
 ### Cohort Definitions
 
 -   Cohort definition authors
@@ -280,7 +282,7 @@ In this study we will model the data using the following methods:
 
 ## Sampling
 
-We will consider a sample of the target cohort for each problem. [@John2022] has shown through learning curves that they tend to reach a plateau above a certain number of positive event counts (report results from the study). The number of event counts required may vary for each problem (mean, s.d.) however, a stratified sample of the original population maintaining the outcome rate with adequate event counts, is adequate to capture the variability in the data and generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with small gains in discrimination for the cost of longer running times. 
+We will consider a sample of the target cohort for each problem. [@John2022] has shown through learning curves that they tend to reach a plateau above a certain number of positive event counts (report results from the study). The number of event counts required may vary for each problem (mean, s.d.) however, a stratified sample of the original population maintaining the outcome rate with adequate event counts, is adequate to capture the variability in the data and generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with small gains in discrimination for the cost of longer running times.
 
 The sample size for each problem will be determined by first estimating the study population for each problem (e.g. ensure outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this cohort to draw a stratified sample with a pre-specified number of outcomes included. For the datasets that outcomes are less than the required number of positive events will be included as a whole.
 
@@ -289,8 +291,7 @@ The sample size for each problem will be determined by first estimating the stud
 -   How predictors were handled
 -   Type of model, model building procedures, internal validation method.
 -   Measures for model performance evaluation
--   Measures for model comparison 
-
+-   Measures for model comparison
 
 ## Metrics
 
