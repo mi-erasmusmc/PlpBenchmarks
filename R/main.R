@@ -1,20 +1,16 @@
 #' @export
-executeBenchmark <- function(jsonFileLocation, 
-                             databaseDetails, 
-                             restrictPlpDataSettings, 
-                             populationSettings, 
-                             requiredTrainPositiveEvents, 
-                             covariateSettings, 
-                             modelSettings, 
-                             featureEngineeringSettings, 
-                             sampleSettings, 
-                             splitSettings, 
-                             executeSettings, 
-                             analysisName, 
+executeBenchmark <- function(benchmarkDesign,
+                             analysisSettings,
+                             databaseDetails,
+                             cohortDefinitions = NULL, 
+                             jsonFileLocation = NULL,
                              saveDirectory, 
+                             analysisName,
                              createCohorts = FALSE, 
+                             extractData = FALSE,
                              prepareData = FALSE, 
-                             runPlp = FALSE){
+                             runPlp = FALSE
+    ){
   
   # log 
   logSettings <- PatientLevelPrediction::createLogSettings(logName = "benchmarkLog")
@@ -27,20 +23,70 @@ executeBenchmark <- function(jsonFileLocation,
   
   ParallelLogger::logInfo(paste("Starting benchmark analysis for ", analysisName, "..."))
   
+  if (!dir.exists(saveDirectory)){
+    dir.create(saveDirectory)
+  }
+  
+  if (!dir.exists(file.path(saveDirectory, "rawData"))){
+    dir.create(file.path(saveDirectory, "rawData"))
+  }
+  
+  # if (class(benchmarkDesign) == "analysisDesignList") {
+  #   benchmarkDesign <- list(analysisDesignList)
+  # }
+  
+  # if (is.null(benchmarkSettings)){
+  # benchmarkSettings <- createBenchmarkAnalysisSettings(analysisDesignList = analysisDesignList, cohortDefinitions = cohortDefinitions)
+  # }
+  
+  if (is.null(jsonFileLocation)){
+  jsonFiles <- .getJsonFileLocation(analysisSettings$dataSettings)
+  } else {
+    jsonFiles <- NULL
+  }
+  
+  # databaseDetails <- benchmarkDesign$modelDesign$databaseDetails
+  restrictPlpDataSettings <- benchmarkDesign$modelDesign$restrictPlpDataSettings
+  covariateSettings <- benchmarkDesign$modelDesign$covariateSettings
+  populationSettings <- benchmarkDesign$modelDesign$populationSettings
+  requiredTrainPositiveEvents <- benchmarkDesign$requiredTrainPositiveEvents
+  splitSettings <- benchmarkDesign$modelDesign$splitSettings
+  
   #1. create cohorts
   if(createCohorts){
     ParallelLogger::logInfo(paste("Creating cohorts..."))
     createCohorts(jsonfileLocation = jsonFileLocation, 
+                  cohortsToCreate = jsonFiles,
                   connectionDetails = databaseDetails$connectionDetails, 
                   cdmDatabaseSchema = databaseDetails$cdmDatabaseSchema, 
                   cohortDatabaseSchema = databaseDetails$cohortDatabaseSchema, 
-                  cohortTable = databaseDetails$cohortTable)
+                  cohortTable = databaseDetails$cohortTable, 
+                  saveDirectory = saveDirectory)
   }
-  ParallelLogger::logInfo(paste("Cohorts created."))
+  
   gc()
   
-  #2. downsampling original data and creating covariate sets to make comparisons
+  #2. extract covariates
+  if (extractData){
+    runSettings <- analysisSettings$dataSettings %>% dplyr::filter(targetId == benchmarkDesign$modelDesign$targetId & outcomeIds == benchmarkDesign$modelDesign$outcomeId)
+    databaseDetails$targetId <- benchmarkDesign$modelDesign$targetId
+    databaseDetails$outcomeIds <- benchmarkDesign$modelDesign$outcomeId
+    
+    extractRawData(databaseDetails = databaseDetails, 
+                   restrictPlpDataSettings = restrictPlpDataSettings, 
+                   populationSettings = populationSettings, 
+                   covariateSettings = covariateSettings,
+                   requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
+                   covariateComparisson = covariateComparisson,
+                   dataSettings = runSettings,
+                   testSplitFraction = splitSettings$test, 
+                   analysisName = analysisName)
+  }
+  
+  #3. downsampling original data and creating covariate sets to make comparisons
   if(prepareData){
+    runSettings <- analysisSettings$analysisSettings %>% 
+      dplyr::filter(analysisId == analysisName)
     ParallelLogger::logInfo(paste("Preparing data..."))
     prepareData(databaseDetails = databaseDetails, 
                 restrictPlpDataSettings = restrictPlpDataSettings,
@@ -48,6 +94,8 @@ executeBenchmark <- function(jsonFileLocation,
                 covariateSettings = covariateSettings, 
                 requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
                 testSplitFraction = splitSettings$test, 
+                covariateComparisson = benchmarkDesign$covariateComparisson,
+                dataSettings = runSettings, 
                 saveDirectory = saveDirectory, 
                 analysisName = analysisName)
   }
@@ -55,36 +103,23 @@ executeBenchmark <- function(jsonFileLocation,
   ParallelLogger::logInfo(paste("Data prepared."))
   gc()
   
-  #3. run models
+  #4. run models
   if(runPlp){
     ParallelLogger::logInfo(paste("Running prediction models..."))
-    plpDataList <- list(
-      demo_only = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_only", sep = "_"))), 
-      demo_conds = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds", sep = "_"))), 
-      demo_drugs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs", sep = "_"))),
-      demo_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_prcdrs", sep = "_"))),
-      demo_conds_drugs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs", sep = "_"))), 
-      demo_conds_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_prcdrs", sep = "_"))),
-      demo_drugs_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_drugs_prcdrs", sep = "_"))),
-      demo_conds_drugs_prcdrs = PatientLevelPrediction::loadPlpData(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "plpData_demo_conds_drugs_prcdrs", sep = "_")))
-    )
-    plpDataList <- setNames(plpDataList, paste(analysisName, names(plpDataList), sep = "_"))
-    population <- readRDS(file.path(saveDirectory, analysisName, "processedData", paste(analysisName, "studyPopulation.Rds", sep = "_")))
-    plpDataList <- lapply(plpDataList, function(x) c(x, population = list(population)))
-    plpDataList <- lapply(plpDataList, `class<-`, value = 'plpData')
+    runSettings <- analysisSettings$analysisSettings %>% 
+      dplyr::filter(analysisId == analysisName)
     
-    runModel(plpDataList = plpDataList, 
+    runModel(dataSettings = runSettings, 
              outcomeId = databaseDetails$outcomeId, 
-             analysisId = .y, 
              analysisName = analysisName,
-             populationSettings = populationSettings, 
-             splitSettings = splitSettings, 
-             sampleSettings = sampleSettings, 
-             featureEngineeringSettings = featureEngineeringSettings, 
+             populationSettings = benchmarkDesign$modelDesign$populationSettings, 
+             splitSettings = benchmarkDesign$modelDesign$splitSettings, 
+             sampleSettings = benchmarkDesign$modelDesign$sampleSettings, 
+             featureEngineeringSettings = benchmarkDesign$modelDesign$featureEngineeringSettings, 
              preprocessSettings = PatientLevelPrediction::createPreprocessSettings(),
-             modelSettings = modelSettings, 
+             modelSettings = benchmarkDesign$modelDesign$modelSettings, 
              logSettings = PatientLevelPrediction::createLogSettings(),
-             executeSettings = executeSettings, 
+             executeSettings = benchmarkDesign$modelDesign$executeSettings, 
              saveDirectory = saveDirectory)
   }
   ParallelLogger::logInfo(paste("runPlp finished."))
