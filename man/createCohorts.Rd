@@ -6,10 +6,12 @@
 \usage{
 createCohorts(
   jsonfileLocation,
+  cohortsToCreate,
   connectionDetails,
   cdmDatabaseSchema,
   cohortDatabaseSchema,
-  cohortTable
+  cohortTable,
+  saveDirectory
 )
 }
 \arguments{
