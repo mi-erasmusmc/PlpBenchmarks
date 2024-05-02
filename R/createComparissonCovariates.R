@@ -1,7 +1,13 @@
 #' @export
 createComparissonCovariates <- function(plpData,
                                         studyPopulation,
-                                        covariates = c("demographics only", "demographics and conditions", "demographics and drugs")){
+                                        covariates = c("demographics only",
+                                                       "demographics and conditions", 
+                                                       "demographics and drugs", 
+                                                       "demographics and procedures", 
+                                                       "demographics, conditions and drugs",
+                                                       "demographics, conditions and procedures", 
+                                                       "demographics, drugs and procedures")){
   
   newPlpData <- list()
   class(newPlpData) <- 'plpData'
@@ -12,7 +18,7 @@ createComparissonCovariates <- function(plpData,
   newPlpData$outcomes <- plpData$outcomes
   newPlpData$timeRef <- ifelse(is.null(plpData$timeRef), "NULL", plpData$timeRef)
   newPlpData$metaData <- plpData$metaData
-  newPlpData$population <- plpData$population
+  # newPlpData$population <- plpData$population
   
   
   if(covariates == "demographics only"){
@@ -43,6 +49,54 @@ createComparissonCovariates <- function(plpData,
     
     includedCovariateIds <- plpData$covariateData$covariateRef %>% 
       dplyr::filter(analysisId %in% c(1:12, 300:416)) %>%
+      dplyr::pull(covariateId)
+    
+    newPlpData$covariateData$covariateRef <- newPlpData$covariateData$covariateRef %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+    newPlpData$covariateData$covariates <- newPlpData$covariateData$covariates %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+  }
+  
+  if(covariates == "demographics and procedures"){
+    
+    includedCovariateIds <- plpData$covariateData$covariateRef %>% 
+      dplyr::filter(analysisId %in% c(1:12, 500:599)) %>%
+      dplyr::pull(covariateId)
+    
+    newPlpData$covariateData$covariateRef <- newPlpData$covariateData$covariateRef %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+    newPlpData$covariateData$covariates <- newPlpData$covariateData$covariates %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+  }
+  
+  if(covariates == "demographics, conditions and drugs"){
+    
+    includedCovariateIds <- plpData$covariateData$covariateRef %>% 
+      dplyr::filter(analysisId %in% c(1:12, 100:216, 300:416)) %>%
+      dplyr::pull(covariateId)
+    
+    newPlpData$covariateData$covariateRef <- newPlpData$covariateData$covariateRef %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+    newPlpData$covariateData$covariates <- newPlpData$covariateData$covariates %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+  }
+  
+  if(covariates == "demographics, conditions and procedures"){
+    
+    includedCovariateIds <- plpData$covariateData$covariateRef %>% 
+      dplyr::filter(analysisId %in% c(1:12, 100:216, 500:599)) %>%
+      dplyr::pull(covariateId)
+    
+    newPlpData$covariateData$covariateRef <- newPlpData$covariateData$covariateRef %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+    newPlpData$covariateData$covariates <- newPlpData$covariateData$covariates %>%
+      dplyr::filter(covariateId %in% includedCovariateIds)
+  }
+  
+  if(covariates == "demographics, drugs and procedures"){
+    
+    includedCovariateIds <- plpData$covariateData$covariateRef %>% 
+      dplyr::filter(analysisId %in% c(1:12, 300:416, 500:599)) %>%
       dplyr::pull(covariateId)
     
     newPlpData$covariateData$covariateRef <- newPlpData$covariateData$covariateRef %>%
