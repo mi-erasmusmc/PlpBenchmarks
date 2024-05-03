@@ -1,4 +1,4 @@
-#' Instantiates a set of cohorts form a folder containing the JSON cohort defintions
+#' Instantiates a set of cohorts form a folder containing the JSON cohort definitions
 #'
 #' @details
 #' The user specifies the location of the JSON definitions as well as the connection details for the data abse
@@ -21,15 +21,15 @@ createCohorts <- function(jsonfileLocation,
                           cohortTable, 
                           saveDirectory){
   
-  if (!is.null(jsonfileLocation) && !is.null(cohortsToCreate)){
-    stop("jsonfileLocation and cohortsToCreate are both specified. Use one of the two.")
+  if (is.null(jsonfileLocation) && is.null(cohortsToCreate)){
+    stop("jsonfileLocation and cohortsToCreate are not specified. Define one of the two.")
   }
   
   # Create cohorts
-  if (!is.null(jsonfileLocation)){
+  if (!is.null(jsonfileLocation) && is.null(cohortsToCreate)){
   cohortsToCreate <- CohortGenerator::createEmptyCohortDefinitionSet()
   cohortJsonFiles <- list.files(jsonfileLocation, full.names = TRUE)
-  
+
   for (i in 1:length(cohortJsonFiles)) {
   cohortJsonFileName <- cohortJsonFiles[i]
   cohortName <- tools::file_path_sans_ext(basename(cohortJsonFileName))
@@ -37,13 +37,13 @@ createCohorts <- function(jsonfileLocation,
   cohortExpression <- CirceR::cohortExpressionFromJson(cohortJson)
   cohortSql <- CirceR::buildCohortQuery(cohortExpression, options = CirceR::createGenerateOptions(generateStats = FALSE))
   cohortsToCreate <- rbind(cohortsToCreate, data.frame(cohortId = i,
-                                                 cohortName = cohortName, 
+                                                 cohortName = cohortName,
                                                  sql = cohortSql,
                                                  stringsAsFactors = FALSE))
-  } 
+  }
   }
   
-  if (!is.null(cohortsToCreate)){
+  if (!is.null(cohortsToCreate) && is.null(jsonfileLocation)){
     
     cohortJsonFiles <- cohortsToCreate$jsonLocation
     
@@ -54,10 +54,12 @@ createCohorts <- function(jsonfileLocation,
       cohortExpression <- CirceR::cohortExpressionFromJson(cohortJson)
       cohortSql <- CirceR::buildCohortQuery(cohortExpression, options = CirceR::createGenerateOptions(generateStats = FALSE))
       # cohortsToCreate$sql[i] <- cohortSql
-      cohortsToCreate$sql[i] <- rbind(cohortsToCreate, data.frame(cohortId = i,
-                                                           cohortName = cohortName, 
-                                                           sql = cohortSql,
-                                                           stringsAsFactors = FALSE))
+      # cohortsToCreate$sql[i] <- rbind(cohortsToCreate, data.frame(cohortId = i,
+      #                                                      cohortName = cohortName, 
+      #                                                      sql = cohortSql,
+      #                                                      stringsAsFactors = FALSE))
+      cohortsToCreate$cohortName[i] <- cohortName
+      cohortsToCreate$sql[i] <- cohortSql
     }
   }
   
