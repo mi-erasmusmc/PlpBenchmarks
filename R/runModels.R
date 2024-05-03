@@ -19,12 +19,18 @@ runModel <- function(dataSettings,
                                             saveDirectory = saveDirectory) %>%
     dplyr::mutate(analysisId = basename(modelName))
   
+  modelTimes <- data.frame(analysisName = character(), 
+                           modelStart = as.POSIXct(character()), 
+                           modelEnd = as.POSIXct(character()),
+                           modelDuration = as.difftime(character(), units = "mins"))
+  
   for (i in 1:nrow(modelList)) {
     
     # analysisExists <- file.exists(file.path(saveDirectory, analysisName, paste0(attr(modelSettings$param, "settings")$modelType, "Models"), paste(names(plpDataList)[i], sep = "_"), "plpResult", "runPlp.rds"))
     analysisExists <- file.exists(file.path(modelList$modelName[i], "plpResult", "runPlp.rds"))
           if (!analysisExists){
           plpData <- PatientLevelPrediction::loadPlpData(modelList$processedPlpDataName[i])
+          tStart <- Sys.time()
     PatientLevelPrediction::runPlp(plpData = plpData,
                     outcomeId = outcomeId,
                     analysisId = modelList$analysisId[i],
@@ -38,6 +44,12 @@ runModel <- function(dataSettings,
                     logSettings = logSettings,
                     executeSettings = executeSettings,
                     saveDirectory = file.path(saveDirectory, analysisName, paste0(attr(modelSettings$param, "settings")$modelType, "Models")))
+    tEnd <- Sys.time()
+    modelTimes <- modelTimes %>%
+      dplyr::bind_rows(tibble::tibble(analysisName = modelList$analysisId[i],
+                                      modelStart = tStart, modelEnd = tEnd, modelDuration = tEnd - tStart))
+    write.csv(modelTimes, file = file.path(saveDirectory, analysisName, "modelRunningTimes.csv"), append = TRUE)
+    
     } else {
       ParallelLogger::logInfo(paste('Analysis for', analysisName, 'exists at', modelList$modelName))
     }
