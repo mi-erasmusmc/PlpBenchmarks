@@ -15,6 +15,10 @@ reduceData <- function(studyPopulation,
     finalPlpData <- plpData
   } else {
   set.seed(seed)
+    # # Attempt to set index on outcomeCount but not optimal since it creates duplicate row names
+    # studyPopulation <- studyPopulation %>%
+    #   tibble::column_to_rownames(var = "outcomeCount")
+    
   selectedOutcomes <- studyPopulation %>%
     dplyr::filter(outcomeCount == 1) %>%
     dplyr::slice_sample(n = summaryStats$requiredOverallOutcomes) %>%
@@ -28,12 +32,18 @@ reduceData <- function(studyPopulation,
   
   popIds <- c(selectedNonOutcomes, selectedOutcomes)
   
+  
   finalPopulation <- studyPopulation %>%
     dplyr::filter(rowId %in% popIds)
   
   finalPlpData <- list()
   class(finalPlpData) <- 'plpData'
   finalPlpData$covariateData <- Andromeda::andromeda()
+  
+  Andromeda::createIndex(tbl = plpData$covariateData$covariates, 
+                         columnNames = 'rowId', 
+                         indexName = 'pop_rowIds')
+  
   finalPlpData$covariateData$covariates <- plpData$covariateData$covariates %>%
     dplyr::filter(rowId %in% popIds)
   finalPlpData$covariateData$covariateRef <- plpData$covariateData$covariateRef
@@ -51,6 +61,9 @@ reduceData <- function(studyPopulation,
   attr(finalPlpData$covariateData, 'metaData') <- metaData
   
   class(finalPlpData$covariateData) <- 'CovariateData'
+  
+  Andromeda::removeIndex(tbl = plpData$covariateData$covariates, 
+                         indexName = 'pop_rowIds')
   }
   
   result = list(studyPopulation = finalPopulation, 
