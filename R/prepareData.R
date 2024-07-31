@@ -46,6 +46,10 @@ prepareData <- function(databaseDetails,
   
   ParallelLogger::logInfo(paste("Filtering covariates to create candidate predictor sets..."))
   
+  Andromeda::createIndex(reducedData$plpData$covariateData$covariates, 
+                         columnNames = 'covariateId', 
+                         indexName = 'covariates_covariateIds')
+  
   for (i in 1:nrow(requiredCovariates)) {
     
     analysisExists <- file.exists(requiredCovariates$processedPlpDataName[i])
@@ -60,6 +64,9 @@ prepareData <- function(databaseDetails,
       }
     
   }
+  
+  Andromeda::removeIndex(tbl = reducedData$plpData$covariateData$covariates,
+                         indexName = 'covariates_covariateIds')
   
   return(invisible())
 }
