@@ -18,8 +18,10 @@ createComparissonCovariates <- function(plpData,
   newPlpData$outcomes <- plpData$outcomes
   newPlpData$timeRef <- ifelse(is.null(plpData$timeRef), "NULL", plpData$timeRef)
   newPlpData$metaData <- plpData$metaData
-  # newPlpData$population <- plpData$population
   
+  # Andromeda::createIndex(newPlpData$covariateData$covariates, 
+  #                        columnNames = 'covariateId', 
+  #                        indexName = 'covariates_covariateIds')
   
   if(covariates == "demographics only"){
     
@@ -106,6 +108,9 @@ createComparissonCovariates <- function(plpData,
   }
   # attaching the study population
   newPlpData$population <- studyPopulation
+  
+  # Andromeda::removeIndex(tbl = newPlpData$covariateData$covariates, 
+  #                        indexName = 'covariates_covariateIds')
   
   metaData <- attr(plpData$covariateData, 'metaData')
   attr(newPlpData$covariateData, 'metaData') <- metaData
