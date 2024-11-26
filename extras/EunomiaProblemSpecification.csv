@@ -1,0 +1,6 @@
+"","targetId","outcomeId","riskStart","riskEnd","analysisName","plpDataName","targetJsonLocation","outcomeJsonLocation"
+"1",1,3,0,365,"GIBinCLXB","GIBinCLXB","Eunomia","Eunomia"
+"2",2,3,0,365,"GIBinDCLFNC","GIBinDCLFNC","Eunomia","Eunomia"
+"3",4,3,0,365,"GIBinNSAIDs","GIBinNSAIDs","Eunomia","Eunomia"
+"4",1,3,0,90,"GIBinCLXB_90","GIBinCLXB","Eunomia","Eunomia"
+"5",2,3,0,90,"GIBinDCLFNC_90","GIBinDCLFNC","Eunomia","Eunomia"
