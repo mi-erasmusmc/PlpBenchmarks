@@ -4,19 +4,19 @@
 #' "demographics, conditions, drugs and procedures"}
 #' @export
 createBenchmarkDesign <- function(modelDesign, 
-                                 databaseDetails, 
-                                 requiredTrainPositiveEvents = NULL, 
-                                 covariateComparisson = c("demographics", "demographics and conditions", "demographics and drugs", "demographics and procedures", 
-                                                          "demographics, conditions and drugs", "demographics, conditions and procedures", "demographics, drugs and procedures", 
-                                                          "demographics, conditions, drugs and procedures"),
-                                 analysisNames,
+                                  databaseDetails, 
+                                  requiredTrainPositiveEvents = NULL, 
+                                 # covariateComparisson = c("demographics", "demographics and conditions", "demographics and drugs", "demographics and procedures", 
+                                 #                          "demographics, conditions and drugs", "demographics, conditions and procedures", "demographics, drugs and procedures", 
+                                 #                          "demographics, conditions, drugs and procedures"),
+                                 # analysisNames,
                                  saveDirectory
 ){
-  checkmate::check_character(analysisNames)
+  # checkmate::check_character(analysisNames)
   checkmate::check_list(modelDesign)
   checkmate::check_list(databaseDetails)
   checkmate::check_integerish(requiredTrainPositiveEvents, null.ok = TRUE)
-  checkmate::check_string(covariateComparisson)
+  # checkmate::check_string(covariateComparisson)
   checkmate::check_character(saveDirectory)
   
   # if (length(modelDesign) != length(analysisNames)) {
@@ -24,15 +24,31 @@ createBenchmarkDesign <- function(modelDesign,
   # }
   # 
   
-  result <- list(
-    databaseDetails = databaseDetails, 
-    modelDesign = modelDesign, 
-    requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
-    covariateComparisson = covariateComparisson,
-    analysisName = analysisNames,
-    saveDirectory = saveDirectory
-  )
-  class(result) <- "benchmarkDesignList"
+  result <- modelDesign
+  
+  for (i in seq_along(result)) {
+    result[[i]]$databaseDetails <- databaseDetails
+    result[[i]]$databaseDetails$targetId <- modelDesign[[i]]$targetId
+    result[[i]]$databaseDetails$outcomeIds <- modelDesign[[i]]$outcomeId
+    result[[i]]$requiredTrainPositiveEvents <- requiredTrainPositiveEvents
+    result[[i]]$analysisName <- names(modelDesign[i])
+    result[[i]]$saveDirectory <- file.path(saveDirectory, names(modelDesign[i]))
+  }
+  
+  
+  # result <- list(
+  #   databaseDetails = databaseDetails, 
+  #   modelDesign = modelDesign, 
+  #   requiredTrainPositiveEvents = requiredTrainPositiveEvents, 
+  #   covariateComparisson = covariateComparisson,
+  #   analysisName = analysisNames,
+  #   saveDirectory = saveDirectory
+  # )
+  settings <- convertToJson(result)
+  uniqueCohortSettings <- attr(settings, "uniqueCohorts")
+  attr(result, "uniqueCohortSettings") <- uniqueCohortSettings
+  attr(result, "settings") <- settings %>% dplyr::select(.data$analysisId, .data$targetId, .data$outcomeId, .data$problemId, .data$dataLocation)
+  class(result) <- "benchmarkDesign"
   return(result)
 }
 
@@ -48,8 +64,8 @@ convertToJson <-function(
       lapply(
         X = 1:length(analysisDesignList), 
         FUN = function(i){
-          c(
-            analysisDesignList[[i]]$modelDesign$targetId
+          c(analysisDesignList[[i]]$targetId
+            # analysisDesignList[[i]]$modelDesign$targetId
             # analysisDesignList[[i]]$modelDesign$outcomeId
           )
         }
@@ -61,20 +77,39 @@ convertToJson <-function(
       lapply(
         X = 1:length(analysisDesignList), 
         FUN = function(i){
-          c(
+          c(analysisDesignList[[i]]$outcomeId
             # analysisDesignList[[i]]$modelDesign$targetId
-            analysisDesignList[[i]]$modelDesign$outcomeId
+            # analysisDesignList[[i]]$modelDesign$outcomeId
           )
         }
       )
     )
     
+    # covariateSettings <- unlist(
+    #   lapply(
+    #     X = 1:length(analysisDesignList), 
+    #     FUN = function(i){
+    #       c(analysisDesignList[[i]]$covariateSettings)
+    #     })
+    # )
+    
+    # restrictPlpDataSettings <- unlist(
+    #   lapply(
+    #     X = 1:length(analysisDesignList), 
+    #     FUN = function(i){
+    #       c(analysisDesignList[[i]]$restrictPlpDataSettings)
+    #     })
+    # )
+    
     cohortDefinitions <- data.frame(
       cohortId = cohortIds,
       plpDataName = paste0('Cohort: ', cohortIds), 
-      outcomeId = outcomeIds
+      outcomeId = outcomeIds 
+      # covariateSettings = covariateSettings, 
+      # restrictPlpDataSettings = restrictPlpDataSettings, 
     ) %>%
-      dplyr::distinct()
+      dplyr::mutate(problemId = dplyr::row_number()) %>%
+      dplyr::distinct(cohortId, plpDataName, outcomeId, .keep_all = TRUE)
     
   } else{
     
@@ -87,45 +122,25 @@ convertToJson <-function(
         "outcomeJsonLocation"
       ) %>%
       dplyr::rename(cohortId = targetId) %>%
-      dplyr::distinct()
+      dplyr::mutate(problemId = dplyr::row_number()) %>%
+      dplyr::distinct(plpDataName, targetId, outcomeId, .keep_all = TRUE)
   }
   
   result <- data.frame(
     analysisId = unlist(lapply(analysisDesignList, function(x) x$analysisName)),
-    targetId = unlist(lapply(analysisDesignList, function(x) ifelse(is.null(x$modelDesign$targetId), x$modelDesign$cohortId, x$modelDesign$targetId))),
-    outcomeId = unlist(lapply(analysisDesignList, function(x) x$modelDesign$outcomeId)),
-    covariateSettings = unlist(lapply(analysisDesignList, function(x) convertToJsonString(x$modelDesign$covariateSettings))),
-    restrictPlpDataSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$restrictPlpDataSettings))),
-    populationSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$populationSettings))),
-    sampleSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$sampleSettings))),
-    splitSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$splitSettings))),
-    featureEngineeringSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$featureEngineeringSettings))),
-    preprocessSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$preprocessSettings))),
-    modelSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$modelSettings))),
-    executeSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelDesign$executeSettings))), 
-    requiredTrainPositiveEvents =  unlist(lapply(analysisDesignList, function(x) x$requiredTrainPositiveEvents)),
-    covariateComparisson = unlist(lapply(analysisDesignList, function(x) x$covariateComparisson)),
+    targetId = unlist(lapply(analysisDesignList, function(x) ifelse(is.null(x$targetId), x$cohortId, x$targetId))),
+    outcomeId = unlist(lapply(analysisDesignList, function(x) x$outcomeId)),
+    covariateSettings = unlist(lapply(analysisDesignList, function(x) convertToJsonString(x$covariateSettings))),
+    restrictPlpDataSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$restrictPlpDataSettings))),
+    populationSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$populationSettings))),
+    sampleSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$sampleSettings))),
+    splitSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$splitSettings))),
+    featureEngineeringSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$featureEngineeringSettings))),
+    preprocessSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$preprocessSettings))),
+    modelSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$modelSettings))),
+    executeSettings = unlist(lapply(analysisDesignList, function(x)  convertToJsonString(x$executeSettings))), 
     saveDirectory = unlist(lapply(analysisDesignList, function(x) x$saveDirectory))
   )
-  
-  # if (!is.null(problemSpecification)){
-  #   checkmate::checkSubset(c("analysisName", "targetCohortName", "outcomeCohortName"), names(problemSpecification))
-  # } else {
-  #   problemSpecification <- data.frame(
-  #     analysisName = unlist(lapply(analysisDesignList, function(x) x$analysisName))) %>%
-  #     dplyr::mutate(
-  #     cohortName = paste0("Cohort :", .data$analysisName)
-  #   )
-  # }
-  # 
-  # result <- result %>%
-  #   dplyr::left_join(problemSpecification, by = c("analysisId" = "analysisName"))
-  
-  # result <- result %>% 
-  #   dplyr::left_join(cohortDefinitions, by = c("outcomeId" = "cohortId")) %>%
-  #   dplyr::rename(outcomeName = "cohortName") %>%
-  #   dplyr::left_join(cohortDefinitions, by = c('targetId' = 'cohortId')) %>%
-  #   dplyr::rename(targetName = "cohortName") # new
   
   result <- result %>%
     dplyr::left_join(cohortDefinitions, dplyr::join_by(outcomeId == outcomeId, targetId == cohortId)) 
@@ -138,10 +153,13 @@ convertToJson <-function(
       .data$outcomeId,
       .data$covariateSettings, 
       .data$restrictPlpDataSettings, 
-      .data$plpDataName
+      .data$plpDataName, 
+      .data$problemId, 
+      .keep_all = TRUE
     ) %>%
     dplyr::group_by(.data$targetId) %>% 
-    dplyr::mutate(dataLocation =  file.path(saveDirectory, "rawData", .data$plpDataName))
+    dplyr::mutate(dataLocation =  file.path(.data$saveDirectory, "rawData", "plpData", .data$plpDataName)) %>%
+    dplyr::select(targetId, outcomeId, covariateSettings, restrictPlpDataSettings, plpDataName, problemId, dataLocation)
 
   # add the data names
   result <- result %>% 
@@ -152,10 +170,12 @@ convertToJson <-function(
         "outcomeId" = "outcomeId", 
         "plpDataName" = "plpDataName",
         "covariateSettings" = "covariateSettings",
-        "restrictPlpDataSettings" = "restrictPlpDataSettings"
-      )) %>% 
-    dplyr::mutate(analysisLocation = file.path(paste0(.data$saveDirectory), paste0(.data$analysisId)))
+        "restrictPlpDataSettings" = "restrictPlpDataSettings", 
+        "problemId" = "problemId" 
+        # "analysisId" = "analysisId"
+      ))
   
+  attr(result, "uniqueCohorts") <- uniqueSettings
   return(result)
 }
 
