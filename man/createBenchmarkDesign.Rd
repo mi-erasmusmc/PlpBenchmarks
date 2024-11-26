@@ -8,12 +8,6 @@ createBenchmarkDesign(
   modelDesign,
   databaseDetails,
   requiredTrainPositiveEvents = NULL,
-  covariateComparisson = c("demographics", "demographics and conditions",
-    "demographics and drugs", "demographics and procedures",
-    "demographics, conditions and drugs", "demographics, conditions and procedures",
-    "demographics, drugs and procedures",
-    "demographics, conditions, drugs and procedures"),
-  analysisNames,
   saveDirectory
 )
 }

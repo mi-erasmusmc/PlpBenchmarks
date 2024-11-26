@@ -2,7 +2,7 @@
 % Please edit documentation in R/createCohorts.R
 \name{createCohorts}
 \alias{createCohorts}
-\title{Instantiates a set of cohorts form a folder containing the JSON cohort defintions}
+\title{Instantiates a set of cohorts form a folder containing the JSON cohort definitions}
 \usage{
 createCohorts(
   jsonfileLocation,
@@ -26,7 +26,7 @@ createCohorts(
 \item{cohortTable}{}
 }
 \description{
-Instantiates a set of cohorts form a folder containing the JSON cohort defintions
+Instantiates a set of cohorts form a folder containing the JSON cohort definitions
 }
 \details{
 The user specifies the location of the JSON definitions as well as the connection details for the data abse
