@@ -1,7 +1,7 @@
 #' @export
 viewBenchmarkTasks <- function(){
   
-  problemList <- read.csv("extras/ProblemSpecification.csv")  %>%
+  problemList <- read.csv(system.file(package = "PLPBenchmarks", "extras", "ProblemSpecification.csv"))  %>%
     dplyr::rename(plpDataName = cohortName) %>%
     dplyr::as_tibble()
   
