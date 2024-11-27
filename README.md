@@ -1,4 +1,4 @@
-PLP Benchmarking Comparison
+PLP Benchmark
 =============
 
 <img src="https://img.shields.io/badge/Study%20Status-Repo%20Created-lightgray.svg" alt="Study Status: Repo Created">
@@ -6,8 +6,8 @@ PLP Benchmarking Comparison
 - Analytics use case(s): **Patient-Level Prediction**
 - Study type: **Methods Research*
 - Tags: ****
-- Study lead: **Ross D. Williams**
-- Study lead forums tag: **[[RossW]](https://forums.ohdsi.org/u/rossw)**
+- Study lead: **Ross D. Williams**, **Solomon Ioannou**
+- Study lead forums tag: **[[RossW]](https://forums.ohdsi.org/u/rossw)** **[[SolomonI]](https://forums.ohdsi.org/u/solioa)**
 - Study start date: **-**
 - Study end date: **-**
 - Protocol: [Find the protocol here](../blob/master/docs/Protocol/Protool.html)
@@ -43,4 +43,4 @@ How to run
 
 3. In RStudio, select 'Build' then 'Install and Restart' to install the `PLPBenchmarks` package.
 
-4. Before running the analysis, fill in the missing parts of the code provided under `extras/CodeToRun_parallel.R`. Then run the contents of the to run the analysis. 
+4. Before running the analysis, fill in the missing parts of the code provided under `extras/CodeToRun.R`. Then run the contents of the to run the analysis. 
