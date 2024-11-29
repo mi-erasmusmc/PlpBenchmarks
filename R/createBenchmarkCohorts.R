@@ -1,3 +1,18 @@
+#' Instantiates a set of cohorts form a folder containing the JSON cohort definitions
+#'
+#' @details
+#' The user specifies the location of the JSON definitions as well as the connection details for the data abse
+#' @param jsonfileLocation The location of the json files for the cohorts to be created. Either \code{jsonFileLocation} or \code{cohortdToCreate} need to be specified.
+#' @param cohortsToCreate A data frame with a column named jsonLocation. Either \code{jsonFileLocation} or \code{cohortdToCreate} need to be specified.
+#' @param connectionDetails The connection details object to connect to the database
+#' @param cdmDatabaseSchema The schema name where the data is located. 
+#' @param cohortDatabaseSchema The schema where the cohort's will be stored.  
+#' @param cohortTable The name of the table under which the cohort/s will be created
+#' @param saveDirectory Directory to save cohort counts. 
+#'
+#' @return
+#' NULL
+#'
 #' @export
 createBenchmarkCohorts <-  function(jsonfileLocation, 
                                     cohortsToCreate,
