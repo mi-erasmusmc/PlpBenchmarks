@@ -62,7 +62,7 @@ eunomiaBenchmarks$problemSpecification
 Let's load the benchmark design for the Eunomia prediction problems.
 
 ```{r}
-eunomiaDesigns <- readRDS(system.file(package = "PLPBenchmarks", "data", "EunomiaBenchmarkDesignList.Rds"))
+eunomiaDesigns <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "EunomiaBenchmarkDesignList.Rds"))
 class(eunomiaDesigns)
 sapply(eunomiaDesigns, class)
 ```
