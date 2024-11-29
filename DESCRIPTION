@@ -1,32 +1,33 @@
 Package: PLPBenchmarks
 Type: Package
-Title: Benchmarks of clinical prediction models.
+Title: Benchmarks of clinical prediction models 
 Version: 2.0.0
 Author: Jenna M. Reps [aut, cre], Solomon Ioannou [aut, cre], Ross D. Williams [aut,cre]
 Maintainer: Solomon Ioannou <s.ioannou@erasmusmc.nl>
 Description: A package to execute benchmarking of clinical prediction models.
 Depends:
     R (>= 3.3.0),
+    PatientLevelPrediction (>= 4.0.0),
     DatabaseConnector
 Imports:
-    SqlRender,
-    Cyclops,
-    FeatureExtraction,
-    PatientLevelPrediction (>= 4.0.0),
-    ggplot2,
-    zip,
     ParallelLogger,
     magrittr,
     dplyr,
     officer,
-    Andromeda
+    Andromeda,
+    utils,
+    CirceR,
+    CohortGenerator,
+    tibble,
+    tidyr,
+    checkmate
 Suggests:
     knitr,
     rmarkdown,
     DT,
-    shiny, 
-    Hydra
-License: Apache License 2.0
+    shiny,
+    Eunomia
+License: Apache License (>= 2)
 VignetteBuilder: knitr
 LazyData: TRUE
 RoxygenNote: 7.2.3
