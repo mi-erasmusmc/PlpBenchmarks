@@ -1,0 +1,148 @@
+---
+title: "Using the PLPBenchmark package with Eunomia"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the PLPBenchmark package with Eunomia}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The following vignette explains how to use the `PLPBenchmarks` package using the Eunomia dataset. We have created hypothetical benchmark problems using the available cohorts in Eunomia and these are stored in the `extras` folder under the `EunomiaProblemSpecidication.csv`. We have also apriori, created a model design for each specified problem and stored it in the `data/EunomiaBenchmarkDesignList.Rds` file.
+
+## Running the Eunomia benchmark problems 
+
+As a first step, we will run one hypothetical benchmark model from the available datasets in Eunomia. For the example we will be running the first problem from Eunomia specified benchmarks.
+
+Let's start by loading the required packages:
+
+```{r, setup}
+library(Eunomia)
+library(PLPBenchmarks)
+```
+
+Next we nned to connect to a database. Since we are using Eunomia, we just need to define the following in order to define our connectionDetails object:
+
+```{r}
+connectionDetails <- getEunomiaConnectionDetails()
+```
+
+Some other variables we need to define apriori:
+
+```{r}
+saveDirectory = "exampleVignette"
+seed = 42
+cdmDatabaseSchema = "main"
+cdmDatabaseName = "Eunomia"
+cdmDatabaseId = "Eunomia"
+cohortDatabaseSchema = "main"
+outcomeDatabaseSchema = "main"
+cohortTable = "cohort"
+```
+
+We need to load the predefined Eunomia prediction problems that we will use as benchmarks.
+
+```{r}
+eunomiaBenchmarks <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "EunomiaProblemSpecification.csv")) 
+class(eunomiaBenchmarks)
+```
+
+Let's have an overview of the pre specified problems for Eunomia.
+
+```{r}
+eunomiaBenchmarks$problemSpecification
+```
+
+Let's load the benchmark design for the Eunomia prediction problems.
+
+```{r}
+eunomiaDesigns <- readRDS(system.file(package = "PLPBenchmarks", "data", "EunomiaBenchmarkDesignList.Rds"))
+class(eunomiaDesigns)
+sapply(eunomiaDesigns, class)
+```
+
+As we can see, the `eunomiaDesign` object is just a list which contains objects of class `modelDesigns` created by `PatientLevelPrediction::createModelDesign()`.
+
+Let's continue and create the cohorts we will work with.  
+
+```{r}
+Eunomia::createCohorts(connectionDetails = connectionDetails)
+```
+
+We need to define our database details in true PatientLevelPrediction fashion to be able to develop the models. 
+
+```{r}
+databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
+                                                                 cdmDatabaseSchema = cdmDatabaseSchema,
+                                                                 cdmDatabaseName = cdmDatabaseName,
+                                                                 cdmDatabaseId = cdmDatabaseId, 
+                                                                 cohortDatabaseSchema = cohortDatabaseSchema,
+                                                                 cohortTable = cohortTable,
+                                                                 outcomeDatabaseSchema = outcomeDatabaseSchema,
+                                                                 outcomeTable = cohortTable, 
+                                                                 )
+```
+
+Now that we have all the necessary components in place, let us create a benchmark design. A benchmark design, is an object of class `benchmarkDesign`, created using `createBenchmarkDesign()`. It holds the same information as a `modelDesign` object and adds some necessary components to run each problem: targetId, outcomeId, saveDirectory, analysisName, and the databaseDetails object. 
+
+```{r}
+benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns, 
+                                         databaseDetails = databaseDetails,
+                                         saveDirectory = saveDirectory)
+class(benchmarkDesign)
+```
+
+Having set up our benchmark design, we can use that to extract the data. We can do that by simply calling, 
+
+```{r, results='hide'}
+PLPBenchmarks::extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = TRUE)
+```
+
+The `extractBenhcmarkData()` function calls `PatientLevelPrediction::getPlpData()` and has an additional option to build the study population as well. We have introduced this feature as sometimes, one wants to pre-build the study population prior to running `PatientLevelPrediction::runPlp()`.
+
+Finally we can run our model using
+
+```{r, results='hide', warning=FALSE}
+PLPBenchmarks::runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
+```
+
+## Example: Running a benchmark to evaluate performance of under sampling
+
+For running a selection of problems, select which ones from the list model designs from the design list. Suppose for this example we want to run the first problem of the Eunomia benchmarks which is specified as `r eunomiaBenchmarks$problemSpecification[[1]]`. In addition, for the sake of the example, suppose we would like to test the impact of under sampling on the predictive performance of the model generated to predict the outcome of interest.  
+In the same fashion as before, we build a list of `modelDesign` objects. For our example, we copy the design for the first problem, we just edit the settings we require to change and the names of the analysis. 
+
+```{r}
+selectedDesignList <- eunomiaDesigns[c(1, 1)]
+names(selectedDesignList) <- c("GIBinCLXB", "GIBinCLXBSampled")
+names(selectedDesignList)
+
+selectedDesignList$GIBinCLXBSampled$sampleSettings
+selectedDesignList$GIBinCLXBSampled$sampleSettings <- PatientLevelPrediction::createSampleSettings(type = "underSample", numberOutcomestoNonOutcomes = 1, sampleSeed = 42)
+selectedDesignList$GIBinCLXBSampled$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSampleData = TRUE, runModelDevelopment = T, runCovariateSummary = T, runSplitData = T, runfeatureEngineering = F, runPreprocessData = T)
+```
+
+Let's create our benchmark design:
+
+```{r}
+selectedSampleBenchmark <- createBenchmarkDesign(modelDesign = selectedDesignList, 
+                                                 databaseDetails = databaseDetails, 
+                                                 saveDirectory = "testSelected")
+```
+
+Extract the data.  
+
+```{r}
+extractBenchmarkData(benchmarkDesign = selectedSampleBenchmark)
+```
+
+Finally, let's run our models. 
+
+```{r, results='hide'}
+runBenchmarkDesign(benchmarkDesign = selectedSampleBenchmark)
+```
