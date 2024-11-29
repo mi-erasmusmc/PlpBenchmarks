@@ -10,7 +10,7 @@ PLP Benchmark
 - Study lead forums tag: **[[RossW]](https://forums.ohdsi.org/u/rossw)** **[[SolomonI]](https://forums.ohdsi.org/u/solioa)**
 - Study start date: **-**
 - Study end date: **-**
-- Protocol: [Find the protocol here](../blob/master/docs/Protocol/Protool.html)
+- Protocol: [Find the protocol here](../blob/master/docs/Protocol/Protocol.html)
 - Publications: **-**
 - Results explorer: **-**
 
