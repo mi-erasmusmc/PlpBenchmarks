@@ -11,7 +11,7 @@
   "Packages": {
     "Andromeda": {
       "Package": "Andromeda",
-      "Version": "0.6.6",
+      "Version": "0.6.7",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -27,7 +27,7 @@
         "tidyselect",
         "zip"
       ],
-      "Hash": "8b5fdc17a6826085e3f6e8e19b2eff31"
+      "Hash": "43d73e23c11195e0f097c87d59ddf366"
     },
     "CirceR": {
       "Package": "CirceR",
@@ -149,15 +149,14 @@
     },
     "FeatureExtraction": {
       "Package": "FeatureExtraction",
-      "Version": "3.5.1",
+      "Version": "3.7.2",
       "Source": "GitHub",
-      "Remotes": "ohdsi/Eunomia",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "FeatureExtraction",
       "RemoteUsername": "ohdsi",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "a93992be1a2f7d3710aa8249287af937872d50f3",
+      "RemoteRepo": "FeatureExtraction",
+      "RemoteRef": "main",
+      "RemoteSha": "437570aa6a955486f9a4ab5917d64ac857971ed4",
       "Requirements": [
         "Andromeda",
         "DBI",
@@ -176,7 +175,7 @@
         "readr",
         "rlang"
       ],
-      "Hash": "4e558f90238e10e1ca048a74c698703c"
+      "Hash": "9c4d3cd24603871a5ad61e5d750df9c5"
     },
     "MASS": {
       "Package": "MASS",
@@ -239,7 +238,7 @@
     },
     "ParallelLogger": {
       "Package": "ParallelLogger",
-      "Version": "3.3.0",
+      "Version": "3.3.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -250,19 +249,19 @@
         "utils",
         "xml2"
       ],
-      "Hash": "fd636fc067099b75b8ad17e9104b10f3"
+      "Hash": "062731c28e80ccf47134ed5e8efbd019"
     },
     "PatientLevelPrediction": {
       "Package": "PatientLevelPrediction",
-      "Version": "6.3.8",
+      "Version": "6.3.9",
       "Source": "GitHub",
-      "Remotes": "ohdsi/BigKnn, ohdsi/FeatureExtraction, ohdsi/ShinyAppBuilder, ohdsi/ResultModelManager,",
       "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "PatientLevelPrediction",
       "RemoteUsername": "ohdsi",
+      "RemoteRepo": "PatientLevelPrediction",
       "RemoteRef": "HEAD",
-      "RemoteSha": "8efa4f033ab57110c3bbb8a06948572e759b6a62",
+      "RemoteSha": "9d1fb8ccbcd8ce825f3ce69b5f2cf764cd7c7fd1",
+      "RemoteHost": "api.github.com",
+      "Remotes": "ohdsi/BigKnn, ohdsi/FeatureExtraction, ohdsi/ShinyAppBuilder, ohdsi/ResultModelManager,",
       "Requirements": [
         "Andromeda",
         "Cyclops",
@@ -286,7 +285,7 @@
         "tidyr",
         "utils"
       ],
-      "Hash": "17b06ca40126df312a896655e8206d42"
+      "Hash": "6ee17f6e700d92e357b3ad1343321bce"
     },
     "R6": {
       "Package": "R6",
@@ -374,7 +373,7 @@
     },
     "SqlRender": {
       "Package": "SqlRender",
-      "Version": "1.17.0",
+      "Version": "1.19.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -382,7 +381,7 @@
         "rJava",
         "rlang"
       ],
-      "Hash": "513c5e6da774c913430561a3912c5354"
+      "Hash": "f0f6db2d5c52f760dda9e429df0a1e0e"
     },
     "askpass": {
       "Package": "askpass",
