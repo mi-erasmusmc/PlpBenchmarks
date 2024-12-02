@@ -24,16 +24,16 @@ KeyringConnectionDetailsName = "the keyring name for the connection Details"
 ###########################################
 #Do not edit 
 
-server = keyring::key_get("server", keyring = "ccaeConncectionDetails")
-user = keyring::key_get("user", keyring = "ccaeConncectionDetails")
-password = keyring::key_get("password", keyring = "ccaeConncectionDetails")
+server = keyring::key_get("server", keyring = KeyringConnectionDetailsName)
+user = keyring::key_get("user", keyring = KeyringConnectionDetailsName)
+password = keyring::key_get("password", keyring = KeyringConnectionDetailsName)
 
 connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = dbms,
                                                                 server = server,
                                                                 user = user,
                                                                 password = password)
 
-PLPBenchmarks::createBenchmarkCohorts(
+PLPBenchmarks::createBenchmarkCohorts(jsonfileLocation = NULL, 
   cohortsToCreate = read.csv(system.file(package = "PLPBenchmarks", "settings", "CohortsToCreate.csv")), 
   connectionDetails = connectionDetails, 
   cdmDatabaseSchema = cdmDatabaseSchema, 
