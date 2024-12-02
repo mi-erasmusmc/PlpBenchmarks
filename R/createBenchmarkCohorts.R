@@ -46,7 +46,7 @@ createBenchmarkCohorts <-  function(jsonfileLocation,
   
   if (!is.null(cohortsToCreate) && is.null(jsonfileLocation)){
     
-    cohortJsonFiles <- cohortsToCreate$jsonLocation
+    cohortJsonFiles <- file.path(system.file(package = "PLPBenchmarks", "cohorts"), paste0(cohortsToCreate$cohort_name, ".json"))
     
     for (i in 1:length(cohortJsonFiles)) {
       cohortJsonFileName <- cohortJsonFiles[i]
