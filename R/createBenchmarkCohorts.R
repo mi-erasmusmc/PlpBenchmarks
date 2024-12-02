@@ -14,8 +14,8 @@
 #' NULL
 #'
 #' @export
-createBenchmarkCohorts <-  function(jsonfileLocation, 
-                                    cohortsToCreate,
+createBenchmarkCohorts <-  function(jsonfileLocation = NULL, 
+                                    cohortsToCreate = NULL,
                                     connectionDetails, 
                                     cdmDatabaseSchema, 
                                     cohortDatabaseSchema, 
