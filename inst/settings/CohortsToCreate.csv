@@ -16,23 +16,6 @@ cohort_id,cohort_name
 15,[seek cover] hosp with broad pneumonia and intensive care or death
 16,[seek cover] hospitalization with pneumonia
 17,afib
-1,[IPEV] Heart_Failure__revised_no_hosp
-2,[IPEV]T2dm_second_line
-3,[PL]Anemia
-4,[PL]ClrctlCancer
-5,[PL]COPD
-6,[PL]CVDeath
-7,[PL]LngCancer
-8,[PL]Non_urgent_outpatient_visit
-9,[RCRI] Composite MNCS 004.2 with Cr
-10,[RCRI] Composite MNCS 004.2
-11,[RCRI] Earliest of AMI cardiac arrest or death
-12,[RCRI] MNCS 003 with Cr (from RCRI study repo)
-13,[seek cover] covid outpatient visit
-14,[seek cover] death
-15,[seek cover] hosp with broad pneumonia and intensive care or death
-16,[seek cover] hospitalization with pneumonia
-17,afib
 18,bipolar
 19,dementiaOutcome
 20,dementiaTarget
