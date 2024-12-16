@@ -6,8 +6,7 @@
 #' @export
 viewBenchmarkTasks <- function(){
   
-  problemList <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv"))  %>%
-    dplyr::rename(plpDataName = cohortName) %>%
+  problemList <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv")) %>%
     dplyr::as_tibble()
   
   return(problemList)
@@ -20,7 +19,7 @@ viewBenchmarkTasks <- function(){
 #' Loads the benchmark design list. 
 #' 
 #' @export
-loadBenchmarkDesignList <- function(){
+loadBenchmarkDesigns <- function(){
   
   designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
   
