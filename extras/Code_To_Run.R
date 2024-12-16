@@ -38,7 +38,8 @@ PLPBenchmarks::createBenchmarkCohorts(jsonfileLocation = NULL,
   connectionDetails = connectionDetails, 
   cdmDatabaseSchema = cdmDatabaseSchema, 
   cohortDatabaseSchema = cohortDatabaseSchema, 
-  cohortTable = cohortTable
+  cohortTable = cohortTable, 
+  saveDirectory = saveDirectory
 )
 
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
@@ -51,7 +52,7 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
                                                                  outcomeTable = cohortTable 
 )
 
-analysisDesigns <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
+analysisDesigns <- loadBenchmarkDesigns()
 
 ## Adding sampling to restrict number of train outcomes to 3500
 analysisDesigns2 <- analysisDesigns
