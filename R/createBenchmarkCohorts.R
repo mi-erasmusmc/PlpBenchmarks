@@ -26,6 +26,10 @@ createBenchmarkCohorts <-  function(jsonfileLocation = NULL,
     stop("jsonfileLocation and cohortsToCreate are not specified. Define one of the two.")
   }
   
+  if (dir.exists(file.path(saveDirectory, "rawData")) == F){ 
+    dir.create(file.path(saveDirectory, "rawData"), recursive = T)
+  }
+  
   # Create cohorts
   if (!is.null(jsonfileLocation) && is.null(cohortsToCreate)){
     cohortsToCreate <- CohortGenerator::createEmptyCohortDefinitionSet()
