@@ -14,20 +14,12 @@
 #' @export
 createBenchmarkDesign <- function(modelDesign, 
                                   databaseDetails, 
-                                  # requiredTrainPositiveEvents = NULL, 
                                   saveDirectory
 ){
 
   checkmate::check_list(modelDesign)
   checkmate::check_list(databaseDetails)
-  # checkmate::check_integerish(requiredTrainPositiveEvents, null.ok = TRUE)
-  # checkmate::check_string(covariateComparisson)
   checkmate::check_character(saveDirectory)
-  
-  # if (length(modelDesign) != length(analysisNames)) {
-  #   stop("Model design list not the same length as analysis names vector.")
-  # }
-  # 
   
   result <- modelDesign
   
@@ -249,21 +241,6 @@ createBenchmarkAnalysisSettings <- function(analysisDesignList, cohortDefinition
   
   return(list(analysisSettings = settingsTable, 
               dataSettings = dataSettings))
-}
-
-.getJsonFileLocation <- function(dataSettings){
-  result <- dataSettings %>%
-    dplyr::select(targetId, targetJsonLocation) %>%
-    dplyr::rename(cohortId = targetId, 
-                  jsonLocation = targetJsonLocation) %>%
-    dplyr::bind_rows(dataSettings %>%
-                       dplyr::select(outcomeIds, outcomeJsonLocation) %>% 
-                       dplyr::mutate(outcomeIds = as.numeric(outcomeIds)) %>%
-                       dplyr::rename(cohortId = outcomeIds, 
-                                     jsonLocation = outcomeJsonLocation))  %>%
-    dplyr::distinct()
-  
-  return(result)
 }
 
 convertToJsonString <- function(x){as.character(ParallelLogger::convertSettingsToJson(x))}
