@@ -5,8 +5,8 @@
 \title{Instantiates a set of cohorts form a folder containing the JSON cohort definitions}
 \usage{
 createBenchmarkCohorts(
-  jsonfileLocation,
-  cohortsToCreate,
+  jsonfileLocation = NULL,
+  cohortsToCreate = NULL,
   connectionDetails,
   cdmDatabaseSchema,
   cohortDatabaseSchema,
