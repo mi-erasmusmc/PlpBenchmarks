@@ -36,7 +36,9 @@ viewBenchmarkSettings <- function(benchmarkDesign){
   
   sampleSets <- lapply(benchmarkDesign, '[[', 'sampleSettings')
   sampleSets <- lapply(sampleSets, '[[', 1)
-  sampleSetsDf <- as.data.frame(t(do.call(rbind, sampleSets))) %>%
+  sampleFun <- lapply(sampleSets, function(x) data.frame("fun" = attr(x, "fun")))
+  sampleSetsDf <- as.data.frame(t(do.call(rbind, sampleFun))) %>%
+    as.data.frame(t(do.call(rbind, sampleSets))) %>%
     dplyr::mutate(settings = "sampleSettings", option = rownames(.)) %>%
     dplyr::select(settings, option, dplyr::everything())
   
