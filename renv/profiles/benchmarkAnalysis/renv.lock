@@ -337,27 +337,27 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.12",
+      "Version": "1.0.11",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "methods",
         "utils"
       ],
-      "Hash": "5ea2700d21e038ace58269ecdbeb9ec0"
+      "Hash": "ae6cbbe1492f4de79c45fce06f967ce8"
     },
     "RcppEigen": {
       "Package": "RcppEigen",
-      "Version": "0.3.4.0.0",
+      "Version": "0.3.3.9.4",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "Rcpp",
         "stats",
         "utils"
       ],
-      "Hash": "df49e3306f232ec28f1604e36a202847"
+      "Hash": "acb0a5bf38490f26ab8661b467f4f53a"
     },
     "RcppTOML": {
       "Package": "RcppTOML",
@@ -373,8 +373,12 @@
     "ResultModelManager": {
       "Package": "ResultModelManager",
       "Version": "0.5.11",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "ResultModelManager",
+      "RemoteUsername": "ohdsi",
+      "RemoteSha": "15f3a81acd8b23a571881ddb31e24507688efe83",
       "Requirements": [
         "DBI",
         "DatabaseConnector",
@@ -393,7 +397,7 @@
         "withr",
         "zip"
       ],
-      "Hash": "ab2192566a39b7c3cd4fa1ed9b51e9a4"
+      "Hash": "10f4e098dbbfef2f9e595719b029304b"
     },
     "SqlRender": {
       "Package": "SqlRender",
@@ -627,10 +631,10 @@
     },
     "commonmark": {
       "Package": "commonmark",
-      "Version": "1.9.1",
+      "Version": "1.9.0",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
-      "Hash": "5d8225445acb167abf7797de48b2ee3c"
+      "Repository": "CRAN",
+      "Hash": "d691c61bff84bd63c383874d2d0c3307"
     },
     "cpp11": {
       "Package": "cpp11",
@@ -770,14 +774,14 @@
     },
     "digest": {
       "Package": "digest",
-      "Version": "0.6.35",
+      "Version": "0.6.33",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "698ece7ba5a4fa4559e3d537e7ec3d31"
+      "Hash": "b18a9cf3c003977b0cc49d5e76ebe48d"
     },
     "downlit": {
       "Package": "downlit",
@@ -903,14 +907,14 @@
     },
     "fs": {
       "Package": "fs",
-      "Version": "1.6.4",
+      "Version": "1.6.3",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "15aeb8c27f5ea5161f9f6a641fafd93a"
+      "Hash": "47b5f30c720c23999b913a1a635cf0bb"
     },
     "generics": {
       "Package": "generics",
@@ -993,14 +997,14 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.7.0",
+      "Version": "1.6.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "e0b3a53876554bd45879e596cdb10a52"
+      "Hash": "4f2596dfb05dac67b9dc558e5c6fba2e"
     },
     "gridExtra": {
       "Package": "gridExtra",
@@ -1442,13 +1446,13 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "2.2.0",
+      "Version": "2.1.1",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Repository": "CRAN",
       "Requirements": [
         "askpass"
       ],
-      "Hash": "2bcca3848e4734eb3b16103bc9aa4b8e"
+      "Hash": "2a0dc8c6adfb6f032e4d4af82d258ab5"
     },
     "pROC": {
       "Package": "pROC",
@@ -1671,9 +1675,13 @@
     },
     "promises": {
       "Package": "promises",
-      "Version": "1.3.0",
-      "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Version": "1.3.2.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "promises",
+      "RemoteUsername": "rstudio",
+      "RemoteSha": "afe4099f79accb7647bbfd8cd42d8af775e3b9e6",
       "Requirements": [
         "R6",
         "Rcpp",
@@ -1683,18 +1691,18 @@
         "rlang",
         "stats"
       ],
-      "Hash": "434cd5388a3979e74be5c219bcd6e77d"
+      "Hash": "25972f296b87d3a88c0da6ca04ef72f2"
     },
     "ps": {
       "Package": "ps",
-      "Version": "1.7.6",
+      "Version": "1.7.5",
       "Source": "Repository",
-      "Repository": "https://packagemanager.posit.co/cran/2024-05-18",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "dd2b9319ee0656c8acf45c7f40c59de7"
+      "Hash": "709d852d33178db54b17c722e5b1e594"
     },
     "purrr": {
       "Package": "purrr",
@@ -1836,14 +1844,14 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.1.3",
+      "Version": "1.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "42548638fae05fd9a9b5f3f437fbbbe2"
+      "Hash": "50a6dbdc522936ca35afc5e2082ea91b"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
