@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-inputd677ab17</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Protocol_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Protocol_files/libs/quarto-html/quarto.js"></script>
+<script src="Protocol_files/libs/quarto-html/popper.min.js"></script>
+<script src="Protocol_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Protocol_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Protocol_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Protocol_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Protocol_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Protocol_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Protocol_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="Protocol_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="Protocol_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#about" id="toc-about" class="nav-link active" data-scroll-target="#about"><span class="toc-section-number">1</span>  About</a>
+  <ul class="collapse">
+  <li><a href="#list-of-abbreviations" id="toc-list-of-abbreviations" class="nav-link" data-scroll-target="#list-of-abbreviations"><span class="toc-section-number">1.1</span>  List of Abbreviations</a></li>
+  <li><a href="#responsible-parties" id="toc-responsible-parties" class="nav-link" data-scroll-target="#responsible-parties"><span class="toc-section-number">1.2</span>  Responsible Parties</a></li>
+  </ul></li>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract"><span class="toc-section-number">2</span>  Abstract</a></li>
+  <li><a href="#amendments-and-updates" id="toc-amendments-and-updates" class="nav-link" data-scroll-target="#amendments-and-updates"><span class="toc-section-number">3</span>  Amendments and Updates</a></li>
+  <li><a href="#milestones" id="toc-milestones" class="nav-link" data-scroll-target="#milestones"><span class="toc-section-number">4</span>  Milestones</a></li>
+  <li><a href="#rationale-and-background" id="toc-rationale-and-background" class="nav-link" data-scroll-target="#rationale-and-background"><span class="toc-section-number">5</span>  Rationale and Background</a></li>
+  <li><a href="#study-objectives" id="toc-study-objectives" class="nav-link" data-scroll-target="#study-objectives"><span class="toc-section-number">6</span>  Study Objectives</a></li>
+  <li><a href="#research-methods" id="toc-research-methods" class="nav-link" data-scroll-target="#research-methods"><span class="toc-section-number">7</span>  Research Methods</a>
+  <ul class="collapse">
+  <li><a href="#target-populations-outcome-population-and-time-at-risk" id="toc-target-populations-outcome-population-and-time-at-risk" class="nav-link" data-scroll-target="#target-populations-outcome-population-and-time-at-risk"><span class="toc-section-number">7.1</span>  Target Populations, Outcome Population and Time-at-risk</a></li>
+  <li><a href="#candidate-covariates" id="toc-candidate-covariates" class="nav-link" data-scroll-target="#candidate-covariates"><span class="toc-section-number">7.2</span>  Candidate Covariates</a></li>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link" data-scroll-target="#modelling"><span class="toc-section-number">7.3</span>  Modelling</a></li>
+  <li><a href="#sampling" id="toc-sampling" class="nav-link" data-scroll-target="#sampling"><span class="toc-section-number">7.4</span>  Sampling</a></li>
+  <li><a href="#statistical-analysis-methods" id="toc-statistical-analysis-methods" class="nav-link" data-scroll-target="#statistical-analysis-methods"><span class="toc-section-number">7.5</span>  Statistical Analysis Methods</a></li>
+  <li><a href="#metrics" id="toc-metrics" class="nav-link" data-scroll-target="#metrics"><span class="toc-section-number">7.6</span>  Metrics</a></li>
+  <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources"><span class="toc-section-number">7.7</span>  Data sources</a></li>
+  </ul></li>
+  <li><a href="#strengths-and-limitations" id="toc-strengths-and-limitations" class="nav-link" data-scroll-target="#strengths-and-limitations"><span class="toc-section-number">8</span>  Strengths and Limitations</a>
+  <ul class="collapse">
+  <li><a href="#strengths" id="toc-strengths" class="nav-link" data-scroll-target="#strengths"><span class="toc-section-number">8.1</span>  Strengths</a></li>
+  <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations"><span class="toc-section-number">8.2</span>  Limitations</a></li>
+  </ul></li>
+  <li><a href="#protection-of-human-subjects" id="toc-protection-of-human-subjects" class="nav-link" data-scroll-target="#protection-of-human-subjects"><span class="toc-section-number">9</span>  Protection of Human Subjects</a></li>
+  <li><a href="#plans-for-disseminating-and-communicating-study-results" id="toc-plans-for-disseminating-and-communicating-study-results" class="nav-link" data-scroll-target="#plans-for-disseminating-and-communicating-study-results"><span class="toc-section-number">10</span>  Plans for Disseminating and Communicating Study Results</a>
+  <ul class="collapse">
+  <li><a href="#transparent-and-re-usable-research-tools" id="toc-transparent-and-re-usable-research-tools" class="nav-link" data-scroll-target="#transparent-and-re-usable-research-tools"><span class="toc-section-number">10.1</span>  Transparent and re-usable research tools</a></li>
+  <li><a href="#scientific-meetings-and-publications" id="toc-scientific-meetings-and-publications" class="nav-link" data-scroll-target="#scientific-meetings-and-publications"><span class="toc-section-number">10.2</span>  Scientific meetings and publications</a></li>
+  <li><a href="#general-public" id="toc-general-public" class="nav-link" data-scroll-target="#general-public"><span class="toc-section-number">10.3</span>  General public</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><p>RESEARCH PROTOCOL<br>
+<br>
+Creating a set of benchmark prediction models</p></h1>
+<p class="subtitle lead">Version: 0.1.0</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="about" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> About</h1>
+<section id="list-of-abbreviations" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="list-of-abbreviations"><span class="header-section-number">1.1</span> List of Abbreviations</h2>
+<div class="cell-output-display">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;"> AUC </td>
+   <td style="text-align:left;"> Area Under the receiver-operator Curve </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CCAE </td>
+   <td style="text-align:left;"> IBM MarketScan Commercial Claims and Encounters </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CDM </td>
+   <td style="text-align:left;"> Common Data Model </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> CRAN </td>
+   <td style="text-align:left;"> Comprehensive R Archive Network </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> EHR </td>
+   <td style="text-align:left;"> Electronic Health Record </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IPCI </td>
+   <td style="text-align:left;"> Integrated Primary Care Information </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IRB </td>
+   <td style="text-align:left;"> Institutional review board </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MDCR </td>
+   <td style="text-align:left;"> IBM MarketScan Medicare Supplemental Database </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> MDCD </td>
+   <td style="text-align:left;"> IBM MarketScan Multi-State Medicaid Database </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OHDSI </td>
+   <td style="text-align:left;"> Observational Health Data Science and Informatics </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OMOP </td>
+   <td style="text-align:left;"> Observational Medical Outcomes Partnership </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</section>
+<section id="responsible-parties" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="responsible-parties"><span class="header-section-number">1.2</span> Responsible Parties</h2>
+<section id="investigators" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="investigators"><span class="header-section-number">1.2.1</span> Investigators</h3>
+<div class="cell-output-display">
+
+<table style="NAborder-bottom: 0; margin-left: auto; margin-right: auto;" class="table table-striped">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Investigator </th>
+   <th style="text-align:left;"> Institution/Affiliation </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Jenna Reps * </td>
+   <td style="text-align:left;width: 30em; "> Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Ross Williams * </td>
+   <td style="text-align:left;width: 30em; "> Erasmus University </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Solomon Ioannou </td>
+   <td style="text-align:left;width: 30em; "> Erasmus University </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Egill Fridgeirsson </td>
+   <td style="text-align:left;width: 30em; "> Erasmus University </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Anthony Sena </td>
+   <td style="text-align:left;width: 30em; "> Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;width: 10em; "> Other contributors </td>
+   <td style="text-align:left;width: 30em; "> cohort definition creators </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> * Principal Investigator</td></tr></tfoot>
+</table>
+
+</div>
+</section>
+<section id="disclosures" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="disclosures"><span class="header-section-number">1.2.2</span> Disclosures</h3>
+<p>This study is undertaken within Observational Health Data Sciences and Informatics (OHDSI), an open collaboration. <strong>JMR</strong> is an employee of Janssen Research and Development and shareholders in Johnson &amp; Johnson.</p>
+</section>
+</section>
+</section>
+<section id="abstract" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Abstract</h1>
+<p><strong>Background and Significance</strong></p>
+<p>Predictive analytics in healthcare hold immense promise to aid medical decision making. Creating a set of reference points against which novel methods can be evaluated, provides a transparent and accountable environment to ensure consistency in fostering improvements, innovation and refinement of modeling techniques, propelling the field of clinical prediction towards heightened accuracy and efficacy.</p>
+<p><strong>Study Aims</strong></p>
+<ol type="1">
+<li>Identify a set of candidate prediction models to include in the study.</li>
+<li>Following state-of-the-science model development methods, compare performance of combinations of features.</li>
+</ol>
+<p><strong>Study Description</strong> For explicit probem definitions with target and outcome populations, and time-at-risk, see <a href="#tbl-problems">Table&nbsp;1</a>.</p>
+<ul>
+<li>Design: Retrospecive cohort with external validation<br>
+</li>
+<li>Covariates
+<ol type="1">
+<li>Demographics (age in 5 year buckets + gender)</li>
+<li>Demographics + Conditions</li>
+<li>Demographics + Drugs</li>
+<li>Demographics + Conditions + Drugs</li>
+</ol></li>
+<li>Models: LASSO Logistic Regression, Ridge</li>
+<li>Internal Metrics:
+<ul>
+<li>Area Under the receiver-operator Curve (AUC).</li>
+<li>Calibration plots.</li>
+<li>Likelihood ratio for model comparison.</li>
+<li>Net Benefit.</li>
+</ul></li>
+<li>External Metrics:
+<ul>
+<li>Area Under the receiver-operator Curve (AUC)</li>
+<li>Calibration Plots (pre and post recalibration)</li>
+<li>Model evaluation metrics?</li>
+<li>Net Benefit (pre and post recalibration)</li>
+</ul></li>
+</ul>
+</section>
+<section id="amendments-and-updates" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Amendments and Updates</h1>
+<div class="cell-output-display">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Number </th>
+   <th style="text-align:left;"> Date </th>
+   <th style="text-align:left;"> Section of study protocol </th>
+   <th style="text-align:left;"> Amendment or update </th>
+   <th style="text-align:left;"> Reason </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> None </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</section>
+<section id="milestones" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Milestones</h1>
+<div class="cell-output-display">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Milestone </th>
+   <th style="text-align:left;"> Planned / actual date </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Start of analysis </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> End of analysis </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Results presentation </td>
+   <td style="text-align:left;">  </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</section>
+<section id="rationale-and-background" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Rationale and Background</h1>
+<p>Predictive analytics hold immense promise for augmenting medical decision making in domains such as diagnostic precision, prognostic insights, and treatment strategies. As the demand for data-driven approaches in healthcare intensifies, the imperative to maintain statistical and model quality is pronounced. Evaluating a predictive model, usually requires comparisons against a benchmark. To this end, 1) identifying a set of clinical predictions problems that hold some clinical plausibility, 2) standardizing processes like sample selection, data curation, model specification (TAR), and 3) recording predictive performance, can aid in fostering continuous development and improvement of prediction models. We refer to the aforementioned process as benchmarking and suggest that it is a vital step towards transparency and accountability, that can ultimately form a pillar for continuous improvements in prediction models.<br>
+A standard set of benchmarks can aid in question dealing with, but not limited to:<br>
+1) Performance evaluation: Comparisons between model performance can be done where parameters that affect model performance are standardized, e.g.&nbsp;population specification, population samples, data collection, time-at-risk, etc. Comparing a novel method against a benchmark can provide structured means to make direct comparisons under a framework that experimental conditions are standardized. 2) Best practice research: There is often a set of decisions that need to be made when developing a predictive model. Best practices can be evaluated against a benchmark with known performance. 3) Clinical utility: Evaluating models through benchmarking delineates their performance in real-world scenarios, offering critical insights that empower clinicians in making informed decisions regarding the integration and utilization of predictive models in clinical practice.<br>
+By creating reference points against which novel models are juxtaposed, researchers and clinicians gain a metric for evaluating the performance of their models, nurturing an environment conducive to iterative refinement and ensuring consistency in the evaluation and comparison of predictive models across diverse datasets and clinical contexts.</p>
+<p>Related/previous work:</p>
+<p>ADD</p>
+</section>
+<section id="study-objectives" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Study Objectives</h1>
+<ul>
+<li><p>Create a set of clinically relevant and diverse prediction models</p></li>
+<li><p>What is the impact on performance amongst feature combinations from OMOP-CDM tables?</p></li>
+</ul>
+<p>Specific aims:</p>
+<p>ADD</p>
+</section>
+<section id="research-methods" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Research Methods</h1>
+<section id="target-populations-outcome-population-and-time-at-risk" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="target-populations-outcome-population-and-time-at-risk"><span class="header-section-number">7.1</span> Target Populations, Outcome Population and Time-at-risk</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `` -&gt; `...1`</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="tbl-problems" class="anchored">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>Table&nbsp;1:  Clinical problems to include in the study. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:right;">  No </th>
+   <th style="text-align:left;"> Problem Spec </th>
+   <th style="text-align:left;"> Cohort Name_ Target </th>
+   <th style="text-align:left;"> Cohort Name_ Outcome </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Heart Failure in Patients with T2DM who were treated with metformin and who became new adult users of one of sulfonylureas, thiazolidinediones, dipeptidyl peptidase-4 inhibitors, glucagon-like peptide-1 receptor agonists, or sodium-glucose co-transporter-2 inhibitors (date of secondary drug). Patients with HF or patients treated with insulin on or prior to the index date were excluded from the analysis. Patients were required to have been enrolled for at least 365 days before cohort entry. with TAR: 1 to 365 days </td>
+   <td style="text-align:left;"> [IPEV]T2dm_second_line </td>
+   <td style="text-align:left;"> [IPEV] Heart_Failure__revised_no_hosp </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> Colorectal cancer in Patients with anemia (date of first anemia record) with TAR: 1 day - 1-year </td>
+   <td style="text-align:left;"> [PL]Anemia </td>
+   <td style="text-align:left;"> [PL]ClrctlCancer </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> Cardiovascular event and death in Patients with COPD (first record) with TAR: 1-30 days </td>
+   <td style="text-align:left;"> [PL]COPD </td>
+   <td style="text-align:left;"> [PL]CVDeath </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> Cardiovascular event and death in Patients with COPD (first record) with TAR: 1-90 days </td>
+   <td style="text-align:left;"> [PL]COPD </td>
+   <td style="text-align:left;"> [PL]CVDeath </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> Lung cancer in Patients with an outpatient visit in 2017 with no prior cancer (first visit in 2017) with TAR: 1 day - 3 years after index </td>
+   <td style="text-align:left;"> [PL]Non_urgent_outpatient_visit </td>
+   <td style="text-align:left;"> lung_cancer </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> Earliest of AMI cardiac arrest or death (MACE) in Patients undergoing elective major non-cardiac surgery (date of surgery) with Creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry. with TAR: 0 to 30 days </td>
+   <td style="text-align:left;"> [RCRI] Composite MNCS 004.2 with Cr </td>
+   <td style="text-align:left;"> [RCRI] Earliest of AMI cardiac arrest or death </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:left;"> Earliest of AMI cardiac arrest or death (MACE) in Patients undergoing elective major non-cardiac surgery (date of surgery) without creatinine measurements. Patients were required to have been enrolled for at least 365 days before cohort entry. with TAR: 0 to 30 days </td>
+   <td style="text-align:left;"> [RCRI] Composite MNCS 004.2 </td>
+   <td style="text-align:left;"> [RCRI] Earliest of AMI cardiac arrest or death </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:left;"> Hospitalization with pneumonia in Patients with an outpatient visit and a positive COVID test with TAR: 1 day - 30 days after index </td>
+   <td style="text-align:left;"> [seek cover] covid outpatient visit </td>
+   <td style="text-align:left;"> [seek cover] hospitalization with pneumonia </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> Hospitalization with pneumonia that required intensive services (ventilation, intubation, tracheotomy, or extracorporeal membrane oxygenation) or death in Patients with an outpatient visit and a positive COVID test with TAR: 1 day - 30 days after index </td>
+   <td style="text-align:left;"> [seek cover] covid outpatient visit </td>
+   <td style="text-align:left;"> [seek cover] hosp with broad pneumonia and intensive care or death </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> Death in Patients with an outpatient visit and a positive COVID test with TAR: 1 day - 30 days after index </td>
+   <td style="text-align:left;"> [seek cover] covid outpatient visit </td>
+   <td style="text-align:left;"> [seek cover] death </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> Ischemic stroke in Patients newly diagnosed with atrial fibrilation (date of initial afib record) with TAR: 1 to 365 days </td>
+   <td style="text-align:left;"> afib </td>
+   <td style="text-align:left;"> non-hem-stroke </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:left;"> Bipolar in Patients newly diagnosed with major depressive disorder (date of first record) with TAR: 1 day - 365 day after index </td>
+   <td style="text-align:left;"> mdd </td>
+   <td style="text-align:left;"> bipolar </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:left;"> Dementia in Patients with an outpatient visit in 2019 with TAR: 1 day - 3 years after index </td>
+   <td style="text-align:left;"> dementiaTarget </td>
+   <td style="text-align:left;"> dementiaOutcome </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="cohort-definitions" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="cohort-definitions"><span class="header-section-number">7.1.1</span> Cohort Definitions</h3>
+<ul>
+<li>Cohort definition authors</li>
+</ul>
+</section>
+</section>
+<section id="candidate-covariates" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="candidate-covariates"><span class="header-section-number">7.2</span> Candidate Covariates</h2>
+<ul>
+<li>Demographics.</li>
+<li>Conditions.</li>
+<li>Drugs</li>
+</ul>
+</section>
+<section id="modelling" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="modelling"><span class="header-section-number">7.3</span> Modelling</h2>
+<p>In this study we will model the data using the following methods:</p>
+<ul>
+<li>Standard LASSO model</li>
+</ul>
+</section>
+<section id="sampling" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sampling"><span class="header-section-number">7.4</span> Sampling</h2>
+<p>We will consider a sample of the target cohort for each problem. <span class="citation" data-cites="John2022">[<a href="#ref-John2022" role="doc-biblioref"><strong>John2022?</strong></a>]</span> has shown through learning curves that they tend to reach a plateau above a certain number of positive event counts (report results from the study). The number of event counts required may vary for each problem (mean, s.d.) however, a stratified sample of the original population maintaining the outcome rate with adequate event counts, is adequate to capture the variability in the data and generate similar out-of-sample c-statistic as using the whole population. Use of a larger sample size to enhance discriminative performance comes with small gains in discrimination for the cost of longer running times.</p>
+<p>The sample size for each problem will be determined by first estimating the study population for each problem (e.g.&nbsp;ensure outcome occurred within the specified time-at-risk). From this population we will estimate the outcome rate (outcome cases/all people in target cohort) and use this cohort to draw a stratified sample with a pre-specified number of outcomes included. For the datasets that outcomes are less than the required number of positive events will be included as a whole.</p>
+</section>
+<section id="statistical-analysis-methods" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="statistical-analysis-methods"><span class="header-section-number">7.5</span> Statistical Analysis Methods</h2>
+<ul>
+<li>How predictors were handled</li>
+<li>Type of model, model building procedures, internal validation method.</li>
+<li>Measures for model performance evaluation</li>
+<li>Measures for model comparison</li>
+</ul>
+</section>
+<section id="metrics" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="metrics"><span class="header-section-number">7.6</span> Metrics</h2>
+<p>We will evaluate the performance by calculating the area under the receiver operating characteristic curve for overal discrimination and Eavg metric for calibration. We will also calculate the area under the precision recall curve and net benefit plots. Threshold dependent performance will be displayed using the probability threshold plot.</p>
+<p>Performance will be plotted as a function of number of features in the model to observed the relationship between simplicity and performance.</p>
+</section>
+<section id="data-sources" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="data-sources"><span class="header-section-number">7.7</span> Data sources</h2>
+<p>We will execute the study as an OHDSI network study. All data partners within OHDSI are encouraged to participate voluntarily and can do so conveniently, because of the community’s shared Observational Medical Outcomes Partnership (OMOP) common data model (CDM) and OHDSI tool-stack.</p>
+<p>Many OHDSI community data partners have already committed to participate and we will recruit further data partners through OHDSIs standard recruitment process, which includes protocol publication on OHDSIs GitHub, an announcement in OHDSIs research forum, presentation at the weekly OHDSI all-hands-on meeting and direct requests to data holders.</p>
+<p>Table @ref(tab:data-sources) lists the 6 already committed data sources; these sources encompass a large variety of practice types and populations. For each data source, we report a brief description and size of the population it represents. All data sources will receive institutional review board approval or exemption for their participation before executing the study.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-dataSources" class="anchored">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>Table&nbsp;2:  Committed data sources and the populations they cover. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Data source </th>
+   <th style="text-align:left;"> Population </th>
+   <th style="text-align:left;"> Patients </th>
+   <th style="text-align:left;"> History </th>
+   <th style="text-align:left;"> Data capture process and short description </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="4"><td colspan="5" style="border-bottom: 1px solid;"><strong>Administrative claims</strong></td></tr>
+<tr>
+   <td style="text-align:left;"> IBM MarketScan Commercial Claims and Encounters (CCAE) </td>
+   <td style="text-align:left;"> Commercially insured, &lt; 65 years </td>
+   <td style="text-align:left;"> 142M </td>
+   <td style="text-align:left;"> 2000 -- </td>
+   <td style="text-align:left;"> Adjudicated health insurance claims (e.g. inpatient, outpatient, and outpatient pharmacy)  from large employers and health plans who provide private healthcare coverage to employees, their spouses and dependents. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IBM MarketScan Medicare Supplemental Database (MDCR) </td>
+   <td style="text-align:left;"> Commercially insured, 65$+$ years </td>
+   <td style="text-align:left;"> 10M </td>
+   <td style="text-align:left;"> 2000 -- </td>
+   <td style="text-align:left;"> Adjudicated health insurance claims of retirees with primary or Medicare supplemental coverage through privately insured fee-for-service, point-of-service or capitated health plans. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IBM MarketScan Multi-State Medicaid Database (MDCD) </td>
+   <td style="text-align:left;"> Medicaid enrollees, racially diverse </td>
+   <td style="text-align:left;"> 26M </td>
+   <td style="text-align:left;"> 2006 -- </td>
+   <td style="text-align:left;"> Adjudicated health insurance claims for Medicaid enrollees from multiple states and includes hospital discharge diagnoses, outpatient diagnoses and procedures, and outpatient pharmacy claims. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Optum Clinformatics Data Mart (Optum) </td>
+   <td style="text-align:left;"> Commercially or Medicare insured </td>
+   <td style="text-align:left;"> 85M </td>
+   <td style="text-align:left;"> 2000 -- </td>
+   <td style="text-align:left;"> Inpatient and outpatient healthcare insurance claims. </td>
+  </tr>
+  <tr grouplength="2"><td colspan="5" style="border-bottom: 1px solid;"><strong>Electronic health records (EHRs)</strong></td></tr>
+<tr>
+   <td style="text-align:left;"> Optum Electronic Health Records (OptumEHR) </td>
+   <td style="text-align:left;"> US, general </td>
+   <td style="text-align:left;"> 93M </td>
+   <td style="text-align:left;"> 2006 -- </td>
+   <td style="text-align:left;"> Clinical information, prescriptions, lab results, vital signs, body measurements, diagnoses and procedures derived from clinical notes using natural language processing. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Integrated Primary Care Information (IPCI) </td>
+   <td style="text-align:left;"> Netherlands, general practitioner </td>
+   <td style="text-align:left;"> 2.5M </td>
+   <td style="text-align:left;"> 2006 -- </td>
+   <td style="text-align:left;"> General practitioner data including demographic information, patient complaints and symptoms, diagnoses, lab results, lifestyle factors, referral notes from consultants, and hospital admissions. </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="strengths-and-limitations" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Strengths and Limitations</h1>
+<section id="strengths" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="strengths"><span class="header-section-number">8.1</span> Strengths</h2>
+<ul>
+<li>We follow the PatientLevelPrediction framework for developing and evaluating models to ensure standard practices are applied</li>
+<li>Our standardized framework enables us to externally validate our models across a large number of external databases</li>
+<li>The fully specified study protocol is being published before analysis begins.</li>
+<li>All analytic methods have previously been verified on real data.</li>
+<li>All software is freely available as open source.</li>
+<li>Use of a common data model allows extension of the experiment to future databases and allows replication of these results on licensee databases that were used in this experiment, while still maintaining patient privacy on patient-level data.</li>
+</ul>
+</section>
+<section id="limitations" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="limitations"><span class="header-section-number">8.2</span> Limitations</h2>
+<ul>
+<li>We are unable to test our models in a clinical setting</li>
+<li>In a clinically setting predictors may be self reported and these may differ from our covariate definitions</li>
+<li>The electronic health record databases may be missing care episodes for patients due to care outside the respective health systems.</li>
+</ul>
+</section>
+</section>
+<section id="protection-of-human-subjects" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Protection of Human Subjects</h1>
+<p>This study does not involve human subjects research. The project does, however, use de-identified human data collected during routine healthcare provision. All data partners executing the study within their data sources will have received institutional review board (IRB) approval or waiver for participation in accordance to their institutional governance prior to execution (see Table @ref(tab:irb)). This study executes across a federated and distributed data network, where analysis code is sent to participating data partners and only aggregate summary statistics are returned, with no sharing of patient-level data between organizations.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-dataSourceApproval" class="anchored">
+
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>Table&nbsp;3:  IRB approval or waiver statement from partners. </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Data source </th>
+   <th style="text-align:left;"> Statement </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> IBM MarketScan Commercial Claims and Encounters (CCAE) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IBM MarketScan Medicare Supplemental Database (MDCR) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IBM MarketScan Multi-State Medicaid Database (MDCD) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Japan Medical Data Center (JMDC) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Optum Clinformatics Data Mart (Optum) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Optum Electronic Health Records (OptumEHR) </td>
+   <td style="text-align:left;"> New England Institutional Review Board and was determined to be exempt from broad IRB approval, as this research project did not involve human subject research. </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="plans-for-disseminating-and-communicating-study-results" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Plans for Disseminating and Communicating Study Results</h1>
+<p>Open science aims to make scientific research, including its data process and software, and its dissemination, through publication and presentation, accessible to all levels of an inquiring society, amateur or professional <span class="citation" data-cites="Woelfle2011-ss">[<a href="#ref-Woelfle2011-ss" role="doc-biblioref"><strong>Woelfle2011-ss?</strong></a>]</span> and is a governing principle of this study. Open science delivers reproducible, transparent and reliable evidence. All aspects of this study (except private patient data) will be open and we will actively encourage other interested researchers, clinicians and patients to participate. This differs fundamentally from traditional studies that rarely open their analytic tools or share all result artifacts, and inform the community about hard-to-verify conclusions at completion.</p>
+<section id="transparent-and-re-usable-research-tools" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="transparent-and-re-usable-research-tools"><span class="header-section-number">10.1</span> Transparent and re-usable research tools</h2>
+<p>We will publicly register this protocol and announce its availability for feedback from stakeholders, the OHDSI community and within clinical professional societies. This protocol will link to open source code for all steps to generate and evaluate prediction models, figures and tables. Such transparency is possible because we will construct our studies on top of the OHDSI toolstack of open source software tools that are community developed and rigorously tested <span class="citation" data-cites="Schuemie2020-wx">[<a href="#ref-Schuemie2020-wx" role="doc-biblioref"><strong>Schuemie2020-wx?</strong></a>]</span>. We will publicly host the source code at ADD, allowing public contribution and review, and free re-use for anyone’s future research.</p>
+</section>
+<section id="scientific-meetings-and-publications" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="scientific-meetings-and-publications"><span class="header-section-number">10.2</span> Scientific meetings and publications</h2>
+<p>We will deliver multiple presentations at scientific venues and will also prepare multiple scientific publications for clinical, informatics and statistical journals.</p>
+</section>
+<section id="general-public" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="general-public"><span class="header-section-number">10.3</span> General public</h2>
+<p>We believe in sharing our findings that will guide clinical care with the general public. We will use social-media (Twitter) to facilitate this.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

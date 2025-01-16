@@ -1,0 +1,6 @@
+targetId,outcomeId,riskStart,riskEnd,problemSpecification,analysisName,plpDataName,targetJsonLocation,outcomeJsonLocation
+1,3,0,365,Predicting gastrointestinal bleeding in new users of celecoxib within one year of initiating tretment. ,GIBinCLXB,GIBinCLXB,Eunomia,Eunomia
+2,3,0,365,Predicting gastrointestinal bleeding in new users of declofenac within one year of initiating tretment. ,GIBinDCLFNC,GIBinDCLFNC,Eunomia,Eunomia
+4,3,0,365,Predicting gastrointestinal bleeding in new users of NSAID's within one year of initiating tretment. ,GIBinNSAIDs,GIBinNSAIDs,Eunomia,Eunomia
+1,3,0,90,Predicting gastrointestinal bleeding in new users of celecoxib within90 days of initiating tretment. ,GIBinCLXB_90,GIBinCLXB,Eunomia,Eunomia
+2,3,0,90,Predicting gastrointestinal bleeding in new users of declofenac within 90 days of initiating tretment. ,GIBinDCLFNC_90,GIBinDCLFNC,Eunomia,Eunomia
