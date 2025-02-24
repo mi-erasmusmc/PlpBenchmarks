@@ -24,3 +24,4 @@ cohort_id,cohort_name
 23,lung_cancer
 24,mdd
 25,non-hem-stroke
+26,[CohortCovariate]Elevated_Cr_Or_RenImpair
