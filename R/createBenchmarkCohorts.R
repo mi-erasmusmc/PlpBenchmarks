@@ -120,6 +120,8 @@ createBenchmarkCohorts <-  function(cohorts = NULL,
                                     incremental = FALSE,
                                     saveDirectory){
   
+  assertColumns <- checkmate::makeAssertCollection()
+  
   checkmate::assertDataFrame(
     x = cohorts,
     types = c("integerish", "character", "double"),
