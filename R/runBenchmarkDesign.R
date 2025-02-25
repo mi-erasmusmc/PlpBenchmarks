@@ -18,9 +18,9 @@ runBenchmarkDesign <- function(benchmarkDesign
   
   benchmarkSettings <- attr(benchmarkDesign, "benchmarkSettings")
   
-  if (nrow(benchmarkSettings) != length(benchmarkDesign)){
-    stop(paste0("Rows of benchmarkSettings are not the same as the number of design in the benchmarkDesign object. Something went wrong. Check the attributes of benchmarkDesign object."))
-  }
+  # if (nrow(benchmarkSettings) != length(benchmarkDesign)){
+  #   stop(paste0("Rows of benchmarkSettings are not the same as the number of designs in the benchmarkDesign object. Something went wrong. Check the attributes of benchmarkDesign object."))
+  # }
   
   for (i in seq_along(benchmarkDesign)) {
     
