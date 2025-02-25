@@ -17,15 +17,27 @@ viewBenchmarkSettings <- function(benchmarkDesign){
     dplyr::mutate(settings = "populationSettings", option = rownames(.)) %>%
     dplyr::select(settings, option, dplyr::everything())
   
+  # covSets <- lapply(benchmarkDesign, '[[', 'covariateSettings')
+  # covSets <- lapply(covSets, function(x) {
+  #   x <- as.data.frame(t(do.call(rbind, x)))
+  #   return(x)
+  # })
+  # covSetsDf <- as.data.frame(t(do.call(dplyr::bind_rows, covSets)))
+  # names(covSetsDf) <- names(benchmarkDesign)
+  # covSetsDf <- covSetsDf %>%
+  #   dplyr::mutate(settings = "covariateSettings", option = rownames(.)) %>%
+  #   dplyr::select(settings, option, dplyr::everything())
   covSets <- lapply(benchmarkDesign, '[[', 'covariateSettings')
-  covSets <- lapply(covSets, function(x) {
-    x <- as.data.frame(t(do.call(rbind, x)))
-    return(x)
-  })
-  covSetsDf <- as.data.frame(t(do.call(dplyr::bind_rows, covSets)))
-  names(covSetsDf) <- names(benchmarkDesign) 
-  covSetsDf <- covSetsDf %>%
-    dplyr::mutate(settings = "covariateSettings", option = rownames(.)) %>%
+  covSets2 <- lapply(covSets, function(x)
+    if (length(x) == 2) {
+      x
+    } else {
+      lapply(x, as.character)
+    })
+  covSets3 <- lapply(covSets2, function(x) tibble::enframe(unlist(x), name = "option",value = "value" ))
+  covSetsDf <- do.call(rbind, unname(Map(cbind, id = names(covSets3), covSets3))) %>%
+    tidyr::pivot_wider(id_cols = "option", names_from = "id", values_from = "value", values_fn = function(x) ifelse(length(unique(x)), x[1], paste(x, collapse = ","))) %>%
+    dplyr::mutate(settings = "covariateSettings") %>%
     dplyr::select(settings, option, dplyr::everything())
   
   modelSets <- lapply(benchmarkDesign, '[[', "modelSettings")
