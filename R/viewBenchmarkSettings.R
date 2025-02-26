@@ -29,7 +29,7 @@ viewBenchmarkSettings <- function(benchmarkDesign){
   #   dplyr::select(settings, option, dplyr::everything())
   covSets <- lapply(benchmarkDesign, '[[', 'covariateSettings')
   covSets2 <- lapply(covSets, function(x)
-    if (length(x) == 2) {
+    if (inherits(x, "list")) {
       x
     } else {
       lapply(x, as.character)
