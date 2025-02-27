@@ -30,6 +30,11 @@ createBenchmarkDesign <- function(modelDesign,
     # result[[i]]$requiredTrainPositiveEvents <- requiredTrainPositiveEvents
     result[[i]]$analysisName <- names(modelDesign[i])
     result[[i]]$saveDirectory <- file.path(saveDirectory, names(modelDesign[i]))
+    if(!inherits(result[[i]]$covariateSettings, "covariateSettings")){
+    result[[i]]$covariateSettings[[2]]$cohortDatabaseSchema <- databaseDetails$cohortDatabaseSchema
+    result[[i]]$covariateSettings[[2]]$cohortTable <- databaseDetails$cohortTable
+    }
+    
   }
   
   settings <- convertToJson(result)
