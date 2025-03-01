@@ -2,7 +2,7 @@
 % Please edit documentation in R/createBenchmarkCohorts.R
 \name{createBenchmarkCohorts}
 \alias{createBenchmarkCohorts}
-\title{#' Instantiates a set of cohorts}
+\title{Instantiates a set of cohorts}
 \usage{
 createBenchmarkCohorts(
   cohorts = NULL,
@@ -17,7 +17,7 @@ createBenchmarkCohorts(
 )
 }
 \arguments{
-\item{cohorts}{A data frame with a column named `cohortId` or a data frame with two columns named `targetId` and `outcomeId`. 
+\item{cohorts}{A data frame with a column named `cohortId` or a data frame with two columns named `targetId` and `outcomeId`.
 This can be a data frame such as provided by \code{CohortGenerator::getCohortDefinitionSet()} or a similar data frame such as the one obtained with \code{viewBenchmarkTasks()}.
 Either \code{cohorts} or \code{benchmarkDesign} need to be specified.}
 
@@ -31,7 +31,7 @@ Either \code{cohorts} or \code{benchmarkDesign} need to be specified.}
 
 \item{cohortTable}{The name of the table under which the cohort/s will be created}
 
-\item{incremental}{A logical to define whether the `cohortTable` will be regenerated if it already exists, 
+\item{incremental}{A logical to define whether the `cohortTable` will be regenerated if it already exists,
 or whether to regenerated all cohorts or only those that have yet been generated.}
 
 \item{rawDataFolder}{Folder name to save cohort counts and incremental folder. Defaults to "rawData".}
@@ -39,7 +39,7 @@ or whether to regenerated all cohorts or only those that have yet been generated
 \item{saveDirectory}{Directory to save cohort counts and/or which cohorts have been generated. Defaults to the current working directory.}
 }
 \description{
-#' Instantiates a set of cohorts
+Instantiates a set of cohorts
 }
 \details{
 The user specifies either `cohorts` or inserts a `benchmarkDesign` object to create the desired cohorts.
