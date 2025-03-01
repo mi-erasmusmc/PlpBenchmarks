@@ -1,7 +1,7 @@
 Package: PLPBenchmarks
 Type: Package
 Title: Benchmarks of clinical prediction models 
-Version: 2.0.0
+Version: 2.0.1
 Author: Jenna M. Reps [aut, cre], Solomon Ioannou [aut, cre], Ross D. Williams [aut,cre]
 Maintainer: Solomon Ioannou <s.ioannou@erasmusmc.nl>
 Description: A package to execute benchmarking of clinical prediction models.
