@@ -7,9 +7,9 @@
 viewBenchmarkSettings(benchmarkDesign)
 }
 \arguments{
-\item{benchmarkDesign}{A list of class \code{modelDesign} created using 
+\item{benchmarkDesign}{A list of class \code{modelDesign} created using
 \code{PLPBenchmarks::createBenchmarkDesign()}}
 }
 \description{
-Provides the settings as a dataframe for side-to-side comparissons.
+Provides the settings as a data frame for side-to-side comparisons.
 }
