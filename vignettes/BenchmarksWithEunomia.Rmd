@@ -112,6 +112,36 @@ Finally we can run our model using
 PLPBenchmarks::runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
 ```
 
+We can collect the results in a dataframe,
+
+```{r, results='hide', warning=FALSE}
+results <- PLPBenchmarks::getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
+```
+
+```{r}
+head(results)
+```
+
+or we can view them in a shiny app:  
+
+```{r, results='hide', warning=FALSE}
+PLPBenchmarks::viewBenchmarkPlpResults(benchmarkDesign = benchmarkDesign, databaseList = list("Eunomia"), viewShiny = FALSE, databaseDirectory = saveDirectory)
+```
+
+Tip: If we want to view the Shiny app again, we can make use of `PatientLevelPrediction::viewDatabaseResultPlp` as follows:
+
+```{r, eval=FALSE}
+PatientLevelPrediction::viewDatabaseResultPlp(
+      mySchema = "main",
+      myServer = file.path(saveDirectory, "sqlite", "databaseFile.sqlite"),
+      myUser = NULL,
+      myPassword = NULL,
+      myDbms = "sqlite",
+      myPort = NULL,
+      myTableAppend = ""
+    )
+```
+
 ## Example: Running a benchmark to evaluate performance of under sampling
 
 For running a selection of problems, select which ones from the list model designs from the design list. Suppose for this example we want to run the first problem of the Eunomia benchmarks which is specified as `r eunomiaBenchmarks$problemSpecification[[1]]`. In addition, for the sake of the example, suppose we would like to test the impact of under sampling on the predictive performance of the model generated to predict the outcome of interest.  
