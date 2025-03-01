@@ -8,8 +8,7 @@ Description: A package to execute benchmarking of clinical prediction models.
 Depends:
     R (>= 3.3.0),
     PatientLevelPrediction (>= 4.0.0),
-    DatabaseConnector,
-    CohortGenerator
+    DatabaseConnector
 Imports:
     ParallelLogger,
     magrittr,
@@ -20,6 +19,7 @@ Imports:
     CirceR,
     tibble,
     tidyr,
+    CohortGenerator,
     checkmate
 Suggests:
     knitr,
