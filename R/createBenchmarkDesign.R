@@ -73,7 +73,7 @@ convertToJson <- function(
     cohortDefinitions = NULL,
     rawDataFolder = NULL,
     saveDirectory = NULL) {
-  if (dirname(rawDataFolder) == dirname(saveDirectory)) {
+  if (dirname(rawDataFolder) == ".") {
     rawDataDir <- file.path(saveDirectory, rawDataFolder)
   } else {
     rawDataDir <- file.path(rawDataFolder)
