@@ -58,8 +58,15 @@ loadModelDesigns <- function(designs = "all"){
                       checkmate::checkChoice(designs, choices = "all", null.ok = FALSE), 
                       combine = "and", 
                       add = loadDesigns)
-  } else if (is.numeric(tasks)){
+  } 
+  if (is.numeric(designs)){
     checkmate::assert(checkmate::checkIntegerish(designs, null.ok = FALSE, lower = 1, any.missing = FALSE, all.missing = FALSE), 
+                      add = loadDesigns)
+  } 
+  if (is.data.frame(designs)){
+    checkmate::assert(checkmate::checkDataFrame(designs, min.cols = 1, min.rows = 1, col.names = "named"),
+                      checkmate::checkSubset("PId", choices = names(designs), empty.ok = FALSE), 
+                      combine = "and", 
                       add = loadDesigns)
   }
   
@@ -72,6 +79,9 @@ loadModelDesigns <- function(designs = "all"){
   } else if (is.numeric(designs)){
     designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
     designList <- designList[c(designs)]
+  } else if (is.data.frame(designs)) {
+    designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
+    designList <- designList[c(designs$PId)]
   }
   
   return(designList)
