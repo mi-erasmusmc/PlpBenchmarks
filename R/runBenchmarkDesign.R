@@ -1,36 +1,36 @@
-#' @title Run the benchmark models. 
-#' 
+#' @title Run the benchmark models.
+#'
 #' @description
 #' Run the models specified in the benchmark design.
-#' 
+#'
 #' @param benchmarkDesign An object of class \code{benchmarkDesign}.
-#' 
+#'
 #' @export
-runBenchmarkDesign <- function(benchmarkDesign 
-                               # seed = sample(x = c(1:10000), 1)
-                               ){
+runBenchmarkDesign <- function(benchmarkDesign){
+
+  runBenchmarkDes <- checkmate::makeAssertCollection()
   
-  # checkmate::check_numeric(seed)
-  checkmate::check_null(benchmarkDesign)
-  checkmate::check_class(benchmarkDesign, "benchmarkDesign")
+  checkmate::assert(
+    checkmate::checkList(benchmarkDesign, types = "modelDesign", null.ok = FALSE, names = "named"),
+    checkmate::checkClass(benchmarkDesign, classes = "benchmarkDesign", null.ok = FALSE),
+    combine = "and",
+    add = runBenchmarkDes
+  )
   
-  ParallelLogger::logInfo(paste('Preparing to run', length(benchmarkDesign), "models."))
-  
+  checkmate::reportAssertions(runBenchmarkDes)
+
+  ParallelLogger::logInfo(paste("Preparing to run", length(benchmarkDesign), "models."))
+
   benchmarkSettings <- attr(benchmarkDesign, "benchmarkSettings")
-  
-  # if (nrow(benchmarkSettings) != length(benchmarkDesign)){
-  #   stop(paste0("Rows of benchmarkSettings are not the same as the number of designs in the benchmarkDesign object. Something went wrong. Check the attributes of benchmarkDesign object."))
-  # }
-  
+
   for (i in seq_along(benchmarkDesign)) {
-    
     plpDataLocation <- benchmarkSettings$dataLocation[i]
-    populationLocation <-  file.path(benchmarkSettings$populationLocation[i], paste0(benchmarkSettings$plpDataName[i], "_studyPopulation.Rds"))
-    
+    populationLocation <- file.path(benchmarkSettings$populationLocation[i], paste0(benchmarkSettings$plpDataName[i], "_studyPopulation.Rds"))
+
     plpData <- PatientLevelPrediction::loadPlpData(plpDataLocation)
     population <- readRDS(populationLocation)
     plpData$population <- population
-    
+
     outcomeId <- benchmarkDesign[[i]]$outcomeId
     analysisName <- benchmarkDesign[[i]]$analysisName
     analysisId <- benchmarkDesign[[i]]$analysisName
@@ -43,28 +43,28 @@ runBenchmarkDesign <- function(benchmarkDesign
     logSettings <- benchmarkDesign[[i]]$logSettings
     executeSettings <- benchmarkDesign[[i]]$executeSettings
     saveDirectory <- benchmarkDesign[[i]]$saveDirectory
-    
+
     analysisExists <- file.exists(file.path(saveDirectory, "plpResult", "runPlp.rds"))
-    if(!analysisExists){
-      ParallelLogger::logInfo(paste('Preparing to run', names(benchmarkDesign[i]), "analysis."))
-  
-  result <- PatientLevelPrediction::runPlp(plpData = plpData,
-                                           outcomeId = outcomeId, 
-                                           analysisId = analysisName,
-                                           analysisName = analysisName,
-                                           populationSettings = populationSettings, 
-                                           splitSettings = splitSettings,
-                                           sampleSettings = sampleSettings, 
-                                           featureEngineeringSettings = featureEngineeringSettings, 
-                                           preprocessSettings = preprocessSettings,
-                                           modelSettings = modelSettings,
-                                           logSettings = logSettings,  
-                                           executeSettings = executeSettings, 
-                                           saveDirectory = file.path(dirname(saveDirectory))
-  )
+    if (!analysisExists) {
+      ParallelLogger::logInfo(paste("Preparing to run", names(benchmarkDesign[i]), "analysis."))
+
+      result <- PatientLevelPrediction::runPlp(
+        plpData = plpData,
+        outcomeId = outcomeId,
+        analysisId = analysisName,
+        analysisName = analysisName,
+        populationSettings = populationSettings,
+        splitSettings = splitSettings,
+        sampleSettings = sampleSettings,
+        featureEngineeringSettings = featureEngineeringSettings,
+        preprocessSettings = preprocessSettings,
+        modelSettings = modelSettings,
+        logSettings = logSettings,
+        executeSettings = executeSettings,
+        saveDirectory = file.path(dirname(saveDirectory))
+      )
     } else {
-      ParallelLogger::logInfo(paste('Model for analysis', names(benchmarkDesign)[[i]], "already exists."))
+      ParallelLogger::logInfo(paste("Model for analysis", names(benchmarkDesign)[[i]], "already exists."))
     }
   }
-  
 }
