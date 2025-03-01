@@ -219,7 +219,7 @@ createBenchmarkCohorts <-  function(cohorts = NULL,
   }
   
   if (!is.null(cohorts) && is.null(benchmarkDesign)) {
-    if (CohortGenerator::isCohortDefinitionSet(cohorts)){
+    if (CohortGenerator::isCohortDefinitionSet(cohorts) %>% suppressWarnings()){
       cohortsToCreate <- cohorts
     } else if (all(c("targetId", "outcomeId") %in% names(cohorts))==TRUE){
       cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
