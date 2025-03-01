@@ -9,17 +9,37 @@
 #' @param modelDesign A named list of model designs. Each object of the list should be another list of class \code{modelDesign} created using 
 #' \code{PatientLevelPrediction::createModelDesign()}
 #' @param databaseDetails An object of class databaseDetails created using \code{PatientLevelPrediction::createDatabaseDetails()}.
-#' @param saveDirectory The directory to save the benchmark analysis.
+#' @param rawDataFolder A folder to save the rawData objects i.e. plpData, population, cohortCounts, records of cohorts create. If a folder is provided, the saved object will be create in \code{file.path(saveDirectory, rawDataFolder)}. 
+#' @param saveDirectory The directory to save the benchmark models.
 #'
 #' @export
-createBenchmarkDesign <- function(modelDesign, 
-                                  databaseDetails, 
-                                  saveDirectory
+createBenchmarkDesign <- function(modelDesign = NULL, 
+                                  databaseDetails = NULL,
+                                  rawDataFolder = "rawData", 
+                                  saveDirectory = getwd()
 ){
 
-  checkmate::check_list(modelDesign)
-  checkmate::check_list(databaseDetails)
-  checkmate::check_character(saveDirectory)
+  benchmarkDesignAssertions <- checkmate::makeAssertCollection()
+  
+  checkmate::assert(
+  checkmate::checkClass(modelDesign, classes =  "list", null.ok = FALSE),
+  checkmate::checkList(modelDesign, types = "modelDesign", names = "named", min.len = 1), 
+  combine = "and", 
+  add = benchmarkDesignAssertions
+  )
+
+  checkmate::assert(
+  checkmate::checkList(databaseDetails),
+  checkmate::checkClass(databaseDetails, classes = "databaseDetails"), 
+  combine = "and", 
+  add = benchmarkDesignAssertions
+  )
+  
+  checkmate::assertCharacter(rawDataFolder, add = benchmarkDesignAssertions)
+  
+  checkmate::assertCharacter(saveDirectory, add = benchmarkDesignAssertions)
+  
+  checkmate::reportAssertions(benchmarkDesignAssertions)
   
   result <- modelDesign
   
@@ -27,7 +47,6 @@ createBenchmarkDesign <- function(modelDesign,
     result[[i]]$databaseDetails <- databaseDetails
     result[[i]]$databaseDetails$targetId <- modelDesign[[i]]$targetId
     result[[i]]$databaseDetails$outcomeIds <- modelDesign[[i]]$outcomeId
-    # result[[i]]$requiredTrainPositiveEvents <- requiredTrainPositiveEvents
     result[[i]]$analysisName <- names(modelDesign[i])
     result[[i]]$saveDirectory <- file.path(saveDirectory, names(modelDesign[i]))
     if(!inherits(result[[i]]$covariateSettings, "covariateSettings")){
@@ -37,7 +56,7 @@ createBenchmarkDesign <- function(modelDesign,
     
   }
   
-  settings <- convertToJson(result)
+  settings <- convertToJson(analysisDesignList = result, rawDataFolder = rawDataFolder, saveDirectory = saveDirectory)
   uniquePlpData <- attr(settings, "uniqueCohorts")
   uniquePopulation <- attr(settings, "uniquePopulation")
   uniqueSettings <- attr(settings, "uniqueSettings")
@@ -54,8 +73,16 @@ createBenchmarkDesign <- function(modelDesign,
 
 convertToJson <- function(
     analysisDesignList,
-    cohortDefinitions = NULL
+    cohortDefinitions = NULL, 
+    rawDataFolder = NULL, 
+    saveDirectory = NULL
 ){
+  
+  if (dirname(rawDataFolder) == dirname(saveDirectory)) {
+    rawDataDir <- file.path(saveDirectory, rawDataFolder)
+  } else {
+    rawDataDir <- file.path(rawDataFolder)
+  }
   
   if(is.null(cohortDefinitions)){
     
@@ -88,14 +115,6 @@ convertToJson <- function(
         }
       )
     )
-    
-    # cohortDefinitions <- data.frame(
-    #   cohortId = cohortIds,
-    #   plpDataName = paste0('Cohort: ', cohortIds), 
-    #   outcomeId = outcomeIds 
-    # ) %>%
-    #   dplyr::mutate(problemId = dplyr::row_number()) %>%
-    #   dplyr::distinct(cohortId, plpDataName, outcomeId, .keep_all = TRUE)
     
     cohortDefinitions <- data.frame(
       cohortId = cohortIds,
@@ -147,12 +166,9 @@ convertToJson <- function(
       .data$outcomeId,
       .data$covariateSettings, 
       .data$restrictPlpDataSettings, 
-      # .data$plpDataName, 
-      # .data$problemId, 
       .keep_all = TRUE
     ) %>%
-    # dplyr::group_by(.data$targetId) %>% 
-    dplyr::mutate(dataLocation =  file.path(dirname(.data$saveDirectory), "rawData", basename(.data$saveDirectory), "plpData", .data$plpDataName)) %>%
+    dplyr::mutate(dataLocation =  file.path(rawDataDir, basename(.data$saveDirectory), "plpData", .data$plpDataName)) %>%
     dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$plpDataName, .data$problemId, .data$dataLocation)
   
   uniquePopulation <- result %>%
@@ -164,8 +180,7 @@ convertToJson <- function(
       .data$populationSettings, 
       .keep_all = TRUE
     ) %>%
-    # dplyr::group_by(.data$targetId) %>% 
-    dplyr::mutate(populationLocation =  file.path(dirname(.data$saveDirectory), "rawData", basename(.data$saveDirectory), "studyPopulation", .data$plpDataName)) %>%
+    dplyr::mutate(populationLocation =  file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation", .data$plpDataName)) %>%
     dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$populationSettings, .data$plpDataName, .data$problemId, .data$populationLocation)
     
   uniqueSettings <- dplyr::left_join(uniquePlpData, uniquePopulation, 
@@ -200,52 +215,6 @@ convertToJson <- function(
   attr(result, "uniquePopulations") <- uniquePopulation
   attr(result, "uniqueSettings") <- uniqueSettings
   return(result)
-}
-
-
-createBenchmarkAnalysisSettings <- function(analysisDesignList, cohortDefinitions = NULL) {
-  
-  checkmate::check_list(analysisDesignList)
-  
-  settingsTable <- convertToJson(analysisDesignList = analysisDesignList, cohortDefinitions = cohortDefinitions)
-  
-  dataSettings <- settingsTable %>% 
-    dplyr::group_by(
-      .data$targetId,
-      .data$covariateSettings,
-      .data$restrictPlpDataSettings,
-      .data$dataLocation, 
-      .data$targetJsonLocation, 
-      .data$outcomeJsonLocation,
-      .data$covariateComparisson
-    ) %>% 
-    dplyr::summarise(
-      outcomeIds = paste(unique(.data$outcomeId), collapse = ','), .groups = "drop"
-    )
-
-  # save the settings - TODO change this to save jsons in csv
-  # utils::write.csv(
-  #   x = settingsTable %>% dplyr::select(
-  #     "analysisId",
-  #     "targetId", 
-  #     "targetName",
-  #     "outcomeId", 
-  #     "outcomeName",
-  #     "dataLocation"
-  #   ), 
-  #   file.path(saveDirectory,'settings.csv'), 
-  #   row.names = F
-  # )
-  saveDirectory <- unique(settingsTable$saveDirectory)
-  
-  # utils::write.csv(
-  #   x = settingsTable, 
-  #   file = file.path(saveDirectory,'settings.csv'), 
-  #   row.names = F
-  # )
-  
-  return(list(analysisSettings = settingsTable, 
-              dataSettings = dataSettings))
 }
 
 convertToJsonString <- function(x){as.character(ParallelLogger::convertSettingsToJson(x))}
