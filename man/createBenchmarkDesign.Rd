@@ -12,7 +12,7 @@ createBenchmarkDesign(
 )
 }
 \arguments{
-\item{modelDesign}{A named list of model designs. Each object of the list should be another list of class \code{modelDesign} created using 
+\item{modelDesign}{A named list of model designs. Each object of the list should be another list of class \code{modelDesign} created using
 \code{PatientLevelPrediction::createModelDesign()}}
 
 \item{databaseDetails}{An object of class databaseDetails created using \code{PatientLevelPrediction::createDatabaseDetails()}.}
@@ -24,6 +24,6 @@ createBenchmarkDesign(
 \description{
 Create a benchmark analysis design by providing a list of objects each of class \code{modelDesign}. The result is a list of class \code{benchmarkDesign}
 that holds the necessary information to run each problem. Note that, for problems that share the same target and outcome cohorts, and/or same population settings
-the design specifies which of them are unique to avoid duplicating tasks. The directories where each plpData or study population object is to be saved are found 
+the design specifies which of them are unique to avoid duplicating tasks. The directories where each plpData or study population object is to be saved are found
 in the attributes of the returned object.
 }
