@@ -7,12 +7,13 @@
 createBenchmarkCohorts(
   cohorts = NULL,
   benchmarkDesign = NULL,
-  connectionDetails,
-  cdmDatabaseSchema,
-  cohortDatabaseSchema,
-  cohortTable,
+  connectionDetails = NULL,
+  cdmDatabaseSchema = cdmDatabaseSchema,
+  cohortDatabaseSchema = cohortDatabaseSchema,
+  cohortTable = cohortTable,
   incremental = FALSE,
-  saveDirectory
+  rawDataFolder = "rawData",
+  saveDirectory = getwd()
 )
 }
 \arguments{
@@ -33,7 +34,9 @@ Either \code{cohorts} or \code{benchmarkDesign} need to be specified.}
 \item{incremental}{A logical to define whether the `cohortTable` will be regenerated if it already exists, 
 or whether to regenerated all cohorts or only those that have yet been generated.}
 
-\item{saveDirectory}{Directory to save cohort counts and/or which cohorts have been generated.}
+\item{rawDataFolder}{Folder name to save cohort counts and incremental folder. Defaults to "rawData".}
+
+\item{saveDirectory}{Directory to save cohort counts and/or which cohorts have been generated. Defaults to the current working directory.}
 }
 \description{
 #' Instantiates a set of cohorts

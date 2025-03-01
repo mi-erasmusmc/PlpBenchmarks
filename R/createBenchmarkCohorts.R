@@ -105,7 +105,8 @@
 #' @param cohortTable The name of the table under which the cohort/s will be created
 #' @param incremental A logical to define whether the `cohortTable` will be regenerated if it already exists, 
 #' or whether to regenerated all cohorts or only those that have yet been generated. 
-#' @param saveDirectory Directory to save cohort counts and/or which cohorts have been generated. 
+#' @param rawDataFolder Folder name to save cohort counts and incremental folder. Defaults to "rawData". 
+#' @param saveDirectory Directory to save cohort counts and/or which cohorts have been generated. Defaults to the current working directory.  
 #'
 #' @return
 #' NULL
@@ -113,123 +114,136 @@
 #' @export
 createBenchmarkCohorts <-  function(cohorts = NULL,
                                     benchmarkDesign = NULL, 
-                                    connectionDetails, 
-                                    cdmDatabaseSchema, 
-                                    cohortDatabaseSchema, 
-                                    cohortTable, 
+                                    connectionDetails = NULL, 
+                                    cdmDatabaseSchema = cdmDatabaseSchema, 
+                                    cohortDatabaseSchema = cohortDatabaseSchema, 
+                                    cohortTable = cohortTable, 
                                     incremental = FALSE,
-                                    saveDirectory){
+                                    rawDataFolder = "rawData", 
+                                    saveDirectory = getwd()){
   
-  assertColumns <- checkmate::makeAssertCollection()
-  
-  checkmate::assertDataFrame(
-    x = cohorts,
-    types = c("integerish", "character", "double"),
-    any.missing = TRUE,
-    all.missing = FALSE,
-    min.cols = 1,
-    min.rows = 1,
-    null.ok = TRUE,
-    col.names = "named",
-    add = assertColumns,
-    .var.name = "cohorts"
-  )
-  
-  checkmate::assertList(
-    x = benchmarkDesign,
-    min.len = 1, 
-    null.ok = TRUE, 
-    add = assertColumns, 
-    .var.name = "benchmarkDesign")
-  
-  if(is.null(cohorts) && is.null(benchmarkDesign)){
-    stop(message("Either cohorts or benchmarkDesign should be defined. Please specify one of the two."))
+  if((is.null(cohorts) && is.null(benchmarkDesign)) || (!is.null(cohorts) && !is.null(benchmarkDesign))){
+    stop("Either cohorts or benchmarkDesign should be defined. Please specify one of the two.")
   }
   
-  checkmate::assertSubset(
-    x = names(cohorts),
-    choices = c("cohortId", "targetId"),
-    add = assertColumns,
-    .var.name = "cohorts"
-  )
+  benchmarkCohorts <- checkmate::makeAssertCollection()
+  
+  if (!is.null(cohorts)){
+    checkmate::assert(
+      checkmate::checkSubset(
+        x = c("outcomeId", "targetId"),
+        choices = names(cohorts)), 
+      checkmate::checkSubset(
+        x = c("cohortId"),
+        choices = names(cohorts)),
+      checkmate::assertDataFrame(
+        x = cohorts,
+        types = c("integerish", "character", "double"),
+        any.missing = TRUE,
+        all.missing = FALSE,
+        min.cols = 1,
+        min.rows = 1,
+        null.ok = FALSE,
+        col.names = "named"
+      ),
+      combine = "or",
+      add = benchmarkCohorts
+    )
+  }
+  
+  if(!is.null(benchmarkDesign)){
+    checkmate::assert(
+      checkmate::checkList(
+        x = benchmarkDesign,
+        min.len = 1, 
+        null.ok = FALSE), 
+      checkmate::checkClass(benchmarkDesign, "benchmarkDesign"),
+      combine = "and",
+      add = benchmarkCohorts
+    )
+  }
   
   checkmate::assertCharacter(
     x = cdmDatabaseSchema,
-    null.ok = TRUE,
+    null.ok = FALSE,
     len = 1,
-    add = assertColumns,
-    .var.name = "cdmDatabaseSchema"
+    add = benchmarkCohorts
   )
   
   checkmate::assertClass(
     x = connectionDetails,
     classes = "ConnectionDetails",
-    null.ok = TRUE,
-    add = assertColumns,
-    .var.name = "connectionDetails"
+    null.ok = FALSE,
+    add = benchmarkCohorts
   )
   
   checkmate::assertCharacter(
     x = connectionDetails$dbms,
     len = 1,
-    null.ok = TRUE,
-    add = assertColumns,
-    .var.name = "connectionDetailsDbms"
+    null.ok = FALSE,
+    add = benchmarkCohorts
   )
   
   checkmate::assertCharacter(
     x = cohortTable,
-    null.ok = TRUE,
+    null.ok = FALSE,
     len = 1,
-    add = assertColumns,
-    .var.name = "cohortTable"
+    add = benchmarkCohorts
   )
   
   checkmate::assertLogical(
     x = incremental,
     null.ok = FALSE,
     len = 1,
-    add = assertColumns,
-    .var.name = "incremental"
+    add = benchmarkCohorts
+  )
+  
+  checkmate::assertCharacter(
+    x = rawDataFolder,
+    null.ok = FALSE,
+    len = 1,
+    add = benchmarkCohorts
   )
   
   checkmate::assertCharacter(
     x = saveDirectory,
     null.ok = FALSE,
     len = 1,
-    add = assertColumns,
-    .var.name = "saveDirectory"
+    add = benchmarkCohorts
   )
   
-  checkmate::reportAssertions(collection = assertColumns)
+  checkmate::reportAssertions(collection = benchmarkCohorts)
   
-  if (dir.exists(file.path(saveDirectory, "rawData")) == F){ 
-    dir.create(file.path(saveDirectory, "rawData"), recursive = T)
+  if (dir.exists(file.path(saveDirectory, rawDataFolder)) == F){ 
+    dir.create(file.path(saveDirectory, rawDataFolder), recursive = T)
   }
   
   if (!is.null(cohorts) && is.null(benchmarkDesign)) {
     if (CohortGenerator::isCohortDefinitionSet(cohorts)){
       cohortsToCreate <- cohorts
-    } else if (names(cohorts) %in% c("targetId, outcomeId")){
+    } else if (all(c("targetId", "outcomeId") %in% names(cohorts))==TRUE){
       cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
-        settingsFileName = file.path("inst", "settings", "CohortsToCreate.csv"),
-        jsonFolder = file.path("inst", "cohorts"),
-        sqlFolder = file.path("inst", "sql", "sql_server"))
+        settingsFileName = system.file("settings", "CohortsToCreate.csv", package = 'PLPBenchmarks'), 
+        jsonFolder = system.file("cohorts", package = 'PLPBenchmarks'), 
+        sqlFolder = system.file("sql", "sql_server", package = 'PLPBenchmarks') 
+      )
       cohortsToCreate <- cohortsToCreate %>%
         dplyr::filter(cohortId %in% unique(c(cohorts$targetId, cohorts$outcomeId)))
-    } else if ((names(cohorts) %in% c("cohortId")) && !(names(cohorts) %in% c("targetId", "outcomeId"))){
+    } else if ((c("cohortId") %in% names(cohorts)) && !(all(c("targetId", "outcomeId") %in% names(cohorts))==TRUE)){
       cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
-        settingsFileName = file.path("inst", "settings", "CohortsToCreate.csv"),
-        jsonFolder = file.path("inst", "cohorts"),
-        sqlFolder = file.path("inst", "sql", "sql_server"))
+        settingsFileName = system.file("settings", "CohortsToCreate.csv", package = 'PLPBenchmarks'), 
+        jsonFolder = system.file("cohorts", package = 'PLPBenchmarks'), 
+        sqlFolder = system.file("sql", "sql_server", package = 'PLPBenchmarks') 
+      )
       cohortsToCreate <- cohortsToCreate %>%
         dplyr::filter(cohortId %in% unique(c(cohorts$cohortId)))
     } 
   } else if (is.null(cohorts) && !is.null(benchmarkDesign)){
     cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
-      settingsFileName = file.path("inst", "settings", "CohortsToCreate.csv"),
-      jsonFolder = file.path("inst", "cohorts"),
-      sqlFolder = file.path("inst", "sql", "sql_server"))
+      settingsFileName = system.file("settings", "CohortsToCreate.csv", package = 'PLPBenchmarks'), 
+      jsonFolder = system.file("cohorts", package = 'PLPBenchmarks'), 
+      sqlFolder = system.file("sql", "sql_server", package = 'PLPBenchmarks') 
+    )
     uniqueCohorts <- attr(benchmarkDesign, "uniquePlpData") %>%
       dplyr::select(targetId, outcomeId)
     uniqueCohortIds <- unique(c(uniqueCohorts$targetId, uniqueCohorts$outcomeId)) 
@@ -271,7 +285,7 @@ createBenchmarkCohorts <-  function(cohorts = NULL,
                                                          cohortTableNames = cohortTableNames,
                                                          cohortDefinitionSet = cohortsToCreate,
                                                          incremental = incremental,
-                                                         incrementalFolder = file.path(saveDirectory, "rawData"))
+                                                         incrementalFolder = file.path(saveDirectory, rawDataFolder))
   
   # Get the cohort counts
   cohortCounts <- CohortGenerator::getCohortCounts(connectionDetails = connectionDetails,
@@ -281,5 +295,5 @@ createBenchmarkCohorts <-  function(cohorts = NULL,
   ParallelLogger::logInfo(paste("Cohorts created."))
   ParallelLogger::logInfo(paste(cohortCounts))
   
-  utils::write.csv(cohortCounts, file.path(saveDirectory, "rawData", paste0("cohortCounts_", gsub("-", "", Sys.Date()), ".csv")))
+  utils::write.csv(cohortCounts, file.path(saveDirectory, rawDataFolder, paste0("cohortCounts_", gsub("-", "", Sys.Date()), ".csv")))
 }
