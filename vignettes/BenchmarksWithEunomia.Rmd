@@ -14,11 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The following vignette explains how to use the `PLPBenchmarks` package using the Eunomia dataset. We have created hypothetical benchmark problems using the available cohorts in Eunomia and these are stored in the `extras` folder under the `EunomiaProblemSpecidication.csv`. We have also apriori, created a model design for each specified problem and stored it in the `data/EunomiaBenchmarkDesignList.Rds` file.
+The following vignette explains how to use the `PLPBenchmarks` package using the Eunomia dataset. We have created hypothetical benchmark problems using the available cohorts in Eunomia and these are stored in the `extras` folder under the `EunomiaProblemSpecidication.csv`. We have also a-priori, created a model design for each specified problem and stored it in the `data/EunomiaBenchmarkDesignList.Rds` file.
 
 ## Running the Eunomia benchmark problems 
-
-As a first step, we will run one hypothetical benchmark model from the available datasets in Eunomia. For the example we will be running the first problem from Eunomia specified benchmarks.
 
 Let's start by loading the required packages:
 
@@ -27,7 +25,7 @@ library(Eunomia)
 library(PLPBenchmarks)
 ```
 
-Next we nned to connect to a database. Since we are using Eunomia, we just need to define the following in order to define our connectionDetails object:
+Next we need to connect to a database. Since we are using Eunomia, we just need to define the following in order to define our connectionDetails object:
 
 ```{r}
 connectionDetails <- getEunomiaConnectionDetails()
@@ -46,14 +44,14 @@ outcomeDatabaseSchema = "main"
 cohortTable = "cohort"
 ```
 
-We need to load the predefined Eunomia prediction problems that we will use as benchmarks.
+Let's load the predefined Eunomia prediction problems that we will use as benchmarks.
 
 ```{r}
 eunomiaBenchmarks <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "EunomiaProblemSpecification.csv")) 
 class(eunomiaBenchmarks)
 ```
 
-Let's have an overview of the pre specified problems for Eunomia.
+We can have an overview of the pre-specified problems for Eunomia.
 
 ```{r}
 eunomiaBenchmarks$problemSpecification
@@ -69,7 +67,7 @@ sapply(eunomiaDesigns, class)
 
 As we can see, the `eunomiaDesign` object is just a list which contains objects of class `modelDesigns` created by `PatientLevelPrediction::createModelDesign()`.
 
-Let's continue and create the cohorts we will work with.  
+Let's continue by creating the cohorts we will work with.  
 
 ```{r}
 Eunomia::createCohorts(connectionDetails = connectionDetails)
