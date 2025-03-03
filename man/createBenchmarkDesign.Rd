@@ -4,19 +4,26 @@
 \alias{createBenchmarkDesign}
 \title{Create a benchmark analysis design}
 \usage{
-createBenchmarkDesign(modelDesign, databaseDetails, saveDirectory)
+createBenchmarkDesign(
+  modelDesign = NULL,
+  databaseDetails = NULL,
+  rawDataFolder = "rawData",
+  saveDirectory = getwd()
+)
 }
 \arguments{
-\item{modelDesign}{A named list of model designs. Each object of the list should be another list of class \code{modelDesign} created using 
+\item{modelDesign}{A named list of model designs. Each object of the list should be another list of class \code{modelDesign} created using
 \code{PatientLevelPrediction::createModelDesign()}}
 
 \item{databaseDetails}{An object of class databaseDetails created using \code{PatientLevelPrediction::createDatabaseDetails()}.}
 
-\item{saveDirectory}{The directory to save the benchmark analysis.}
+\item{rawDataFolder}{A folder to save the rawData objects i.e. plpData, population, cohortCounts, records of cohorts create. If a folder is provided, the saved object will be create in \code{file.path(saveDirectory, rawDataFolder)}.}
+
+\item{saveDirectory}{The directory to save the benchmark models.}
 }
 \description{
 Create a benchmark analysis design by providing a list of objects each of class \code{modelDesign}. The result is a list of class \code{benchmarkDesign}
 that holds the necessary information to run each problem. Note that, for problems that share the same target and outcome cohorts, and/or same population settings
-the design specifies which of them are unique to avoid duplicating tasks. The directories where each plpData or study population object is to be saved are found 
+the design specifies which of them are unique to avoid duplicating tasks. The directories where each plpData or study population object is to be saved are found
 in the attributes of the returned object.
 }

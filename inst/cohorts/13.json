@@ -281,7 +281,7 @@
     },
     {
       "id": 5,
-      "name": "[COVID19 v1] Fever (38.0°C or higher) pre-coordinated measurement and conditions",
+      "name": "[COVID19 v1] Fever (38.0ï¿½C or higher) pre-coordinated measurement and conditions",
       "expression": {
         "items": [
           {
@@ -989,7 +989,7 @@
     },
     {
       "id": 6,
-      "name": "[COVID19 V1] Fever (38.0°C or higher) measurement and observation",
+      "name": "[COVID19 V1] Fever (38.0ï¿½C or higher) measurement and observation",
       "expression": {
         "items": [
           {

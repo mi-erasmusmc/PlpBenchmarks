@@ -1,5 +1,4 @@
 library(PLPBenchmarks)
-library(keyring)
 library(renv)
 
 renv::activate(profile = "benchmarkAnalysis")
@@ -17,30 +16,17 @@ cdmDatabaseId = "your_database_Id"
 cohortDatabaseSchema = Sys.getenv("sqlSchema")
 outcomeDatabaseSchema = Sys.getenv("sqlSchema")
 cohortTable = "benchmark_models"
-
-
 dbms = "dbms of your database"
-KeyringConnectionDetailsName = "the keyring name for the connection Details"
-###########################################
-#Do not edit 
-
 server = keyring::key_get("server", keyring = KeyringConnectionDetailsName)
 user = keyring::key_get("user", keyring = KeyringConnectionDetailsName)
 password = keyring::key_get("password", keyring = KeyringConnectionDetailsName)
 
+###########################################
+#Do not edit 
 connectionDetails <- DatabaseConnector::createConnectionDetails(dbms = dbms,
                                                                 server = server,
                                                                 user = user,
                                                                 password = password)
-
-PLPBenchmarks::createBenchmarkCohorts(jsonfileLocation = NULL, 
-  cohortsToCreate = read.csv(system.file(package = "PLPBenchmarks", "settings", "CohortsToCreate.csv")), 
-  connectionDetails = connectionDetails, 
-  cdmDatabaseSchema = cdmDatabaseSchema, 
-  cohortDatabaseSchema = cohortDatabaseSchema, 
-  cohortTable = cohortTable, 
-  saveDirectory = saveDirectory
-)
 
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
                                                                  cdmDatabaseSchema = cdmDatabaseSchema,
@@ -52,33 +38,36 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
                                                                  outcomeTable = cohortTable 
 )
 
-analysisDesigns <- loadBenchmarkDesigns()
+cohortDefinitions <- CohortGenerator::getCohortDefinitionSet(
+  settingsFileName = system.file("settings", "CohortsToCreate.csv", package = "PLPBenchmarks"),
+  jsonFolder = system.file("cohorts", package = "PLPBenchmarks"),
+  sqlFolder = system.file("sql", "sql_server", package = "PLPBenchmarks"))
 
-## Adding sampling to restrict number of train outcomes to 3500
-analysisDesigns2 <- analysisDesigns
-identical(analysisDesigns2, analysisDesigns)
+PLPBenchmarks::createBenchmarkCohorts(cohorts = cohortDefinitions, 
+                                      connectionDetails = connectionDetails, 
+                                      cdmDatabaseSchema = cdmDatabaseSchema, 
+                                      cohortDatabaseSchema = cohortDatabaseSchema, 
+                                      cohortTable = cohortTable, 
+                                      incremental = TRUE,
+                                      saveDirectory = saveDirectory
+)
 
-for (i in seq_along(analysisDesigns2)) {
-  
-  analysisDesigns2[[i]]$sampleSettings <- PatientLevelPrediction::createSampleSettings(type = "reduceTrainOutcomes", numberTrainOutcomes = 3500, sampleSeed = 42)
-  analysisDesigns2[[i]]$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSplitData = T, 
-                                                                                         runSampleData = T,
-                                                                                         runfeatureEngineering = F,
-                                                                                         runPreprocessData = T, 
-                                                                                         runModelDevelopment = T, 
-                                                                                         runCovariateSummary = T)
-}
+analysisDesigns <- PLPBenchmarks::loadModelDesigns(designs = "all")
 
-
-benchmarkDesign <- createBenchmarkDesign(modelDesign = analysisDesigns2, 
+benchmarkDesign <-PLPBenchmarks::createBenchmarkDesign(modelDesign = analysisDesigns, 
                                          databaseDetails = databaseDetails,
                                          saveDirectory = saveDirectory)
 
-PLPBenchmarks::extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = TRUE)
+PLPBenchmarks::extractBenchmarkData(benchmarkDesign = benchmarkDesign, 
+                                    createStudyPopulation = TRUE)
 
 PLPBenchmarks::runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
 
+results <- PLPBenchmarks::getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
 
-
-
-
+PLPBenchmarks::viewBenchmarkPlpResults(benchmarkDesign = benchmarkDesign, 
+                                       databaseList = list(cdmDatabaseName),
+                                       cohortDefinitions = cohortDefinitions, 
+                                       createPlpResultTables = T, 
+                                       viewShiny = F, 
+                                       databaseDirectory = dirname(saveDirectory))

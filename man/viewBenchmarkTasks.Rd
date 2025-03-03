@@ -4,7 +4,10 @@
 \alias{viewBenchmarkTasks}
 \title{View the benchmark tasks}
 \usage{
-viewBenchmarkTasks()
+viewBenchmarkTasks(tasks = "all")
+}
+\arguments{
+\item{tasks}{Define which tasks should be loaded. Choice of "all" to load all tasks or a numeric vector to define which.}
 }
 \description{
 Loads the benchmark tasks to be run on an OMOP-CDM.
