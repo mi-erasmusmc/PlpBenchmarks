@@ -24,13 +24,19 @@ runBenchmarkDesign <- function(benchmarkDesign){
   benchmarkSettings <- attr(benchmarkDesign, "benchmarkSettings")
 
   for (i in seq_along(benchmarkDesign)) {
+
     plpDataLocation <- benchmarkSettings$dataLocation[i]
     populationLocation <- file.path(benchmarkSettings$populationLocation[i], paste0(benchmarkSettings$plpDataName[i], "_studyPopulation.Rds"))
-
+    
     plpData <- PatientLevelPrediction::loadPlpData(plpDataLocation)
+    
+    if(file.exists(populationLocation)){
     population <- readRDS(populationLocation)
     plpData$population <- population
-
+    } else {
+      population <- NULL
+    }
+    
     outcomeId <- benchmarkDesign[[i]]$outcomeId
     analysisName <- benchmarkDesign[[i]]$analysisName
     analysisId <- benchmarkDesign[[i]]$analysisName
