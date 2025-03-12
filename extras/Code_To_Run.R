@@ -65,9 +65,9 @@ PLPBenchmarks::runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
 
 results <- PLPBenchmarks::getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
 
-PLPBenchmarks::viewBenchmarkPlpResults(benchmarkDesign = benchmarkDesign, 
-                                       databaseList = list(cdmDatabaseName),
-                                       cohortDefinitions = cohortDefinitions, 
-                                       createPlpResultTables = T, 
-                                       viewShiny = F, 
-                                       databaseDirectory = dirname(saveDirectory))
+PLPBenchmarks::viewBenchmarkResults(benchmarkDesign = benchmarkDesign, 
+                                    databaseList = list(cdmDatabaseName),
+                                    cohortDefinitions = cohortDefinitions, 
+                                    createPlpResultTables = T, 
+                                    viewShiny = F, 
+                                    databaseDirectory = dirname(saveDirectory))
