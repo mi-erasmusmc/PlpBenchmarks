@@ -50,6 +50,7 @@ createSampleTrainSetSettings <- function(numberTrainSetOutcomes = NULL,
 #' @param trainData An object of class `trainData`.
 #' @param sampleSettings An object of class `sampleSettings`.
 #' 
+#' @noRd
 reduceTrainSetOutcomes <- function(trainData, sampleSettings){
   
   checkmate::checkIntegerish(sampleSettings$sampleSeed)
