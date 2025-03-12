@@ -26,10 +26,12 @@ Suggests:
     rmarkdown,
     DT,
     shiny,
-    Eunomia
+    Eunomia,
+    testthat (>= 3.0.0)
 License: Apache License (>= 2)
 VignetteBuilder: knitr
 LazyData: TRUE
 RoxygenNote: 7.3.1
 Encoding: UTF-8
 Config/renv/profiles/benchmarkAnalysis/remotes: solisOHDSI/PatientLevelPrediction@reduceDataToSpecifiedNumber
+Config/testthat/edition: 3
