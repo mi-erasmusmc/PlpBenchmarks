@@ -152,7 +152,7 @@ names(selectedDesignList)
 
 selectedDesignList$GIBinCLXBSampled$sampleSettings
 selectedDesignList$GIBinCLXBSampled$sampleSettings <- PatientLevelPrediction::createSampleSettings(type = "underSample", numberOutcomestoNonOutcomes = 1, sampleSeed = 42)
-selectedDesignList$GIBinCLXBSampled$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSampleData = TRUE, runModelDevelopment = T, runCovariateSummary = T, runSplitData = T, runfeatureEngineering = F, runPreprocessData = T)
+selectedDesignList$GIBinCLXBSampled$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSampleData = TRUE, runModelDevelopment = T, runCovariateSummary = T, runSplitData = T, runFeatureEngineering = F, runPreprocessData = T)
 ```
 
 Let's create our benchmark design:
