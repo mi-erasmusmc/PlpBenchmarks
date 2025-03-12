@@ -13,7 +13,7 @@
 #' NULL
 #'
 #' @export
-viewBenchmarkPlpResults <- function(benchmarkDesign = NULL,
+viewBenchmarkResults <- function(benchmarkDesign = NULL,
                                     cohortDefinitions = NULL,
                                     databaseList,
                                     createPlpResultTables = TRUE,
