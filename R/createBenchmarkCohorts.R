@@ -215,9 +215,15 @@ createBenchmarkCohorts <- function(cohorts = NULL,
   )
 
   checkmate::reportAssertions(collection = benchmarkCohorts)
+  
+  if (dirname(rawDataFolder) == ".") {
+    rawDataDir <- file.path(saveDirectory, rawDataFolder)
+  } else {
+    rawDataDir <- file.path(rawDataFolder)
+  }
 
-  if (dir.exists(file.path(saveDirectory, rawDataFolder)) == F) {
-    dir.create(file.path(saveDirectory, rawDataFolder), recursive = T)
+  if (dir.exists(rawDataDir) == F) {
+    dir.create(rawDataDir, recursive = T)
   }
 
   if (!is.null(cohorts) && is.null(benchmarkDesign)) {
@@ -269,7 +275,7 @@ createBenchmarkCohorts <- function(cohorts = NULL,
     cohortTableNames = cohortTableNames,
     cohortDefinitionSet = cohortsToCreate,
     incremental = incremental,
-    incrementalFolder = file.path(saveDirectory, rawDataFolder)
+    incrementalFolder = file.path(rawDataDir)
   )
 
   # Get the cohort counts
@@ -282,5 +288,6 @@ createBenchmarkCohorts <- function(cohorts = NULL,
   ParallelLogger::logInfo(paste("Cohorts created."))
   ParallelLogger::logInfo(paste(cohortCounts))
 
-  utils::write.csv(cohortCounts, file.path(saveDirectory, rawDataFolder, paste0("cohortCounts_", gsub("-", "", Sys.Date()), ".csv")))
+  utils::write.csv(cohortCounts, file.path(rawDataDir, paste0("cohortCounts_", gsub("-", "", Sys.Date()), ".csv")))
+  return(dplyr::tibble(cohortCounts))
 }

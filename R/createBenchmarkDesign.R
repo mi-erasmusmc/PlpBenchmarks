@@ -157,7 +157,7 @@ convertToJson <- function(
       .data$restrictPlpDataSettings,
       .keep_all = TRUE
     ) %>%
-    dplyr::mutate(dataLocation = file.path(rawDataDir, basename(.data$saveDirectory), "plpData", .data$plpDataName)) %>%
+    dplyr::mutate(dataLocation = file.path(rawDataDir, basename(.data$saveDirectory), "plpData")) %>%
     dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$plpDataName, .data$problemId, .data$dataLocation)
 
   uniquePopulation <- result %>%
@@ -169,7 +169,8 @@ convertToJson <- function(
       .data$populationSettings,
       .keep_all = TRUE
     ) %>%
-    dplyr::mutate(populationLocation = file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation", .data$plpDataName)) %>%
+    # dplyr::mutate(populationLocation = file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation", paste0(.data$analysisId,"_studyPopulation.Rds") )) %>%
+    dplyr::mutate(populationLocation = file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation")) %>%
     dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$populationSettings, .data$plpDataName, .data$problemId, .data$populationLocation)
 
   uniqueSettings <- dplyr::left_join(uniquePlpData, uniquePopulation,
