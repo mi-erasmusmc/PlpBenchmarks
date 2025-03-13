@@ -3,7 +3,7 @@ library(Eunomia)
 library(PLPBenchmarks)
 library(checkmate)
 
-saveDirectory = file.path(tempdir(), "example")
+saveDirectory = file.path(tempdir(), "example6")
 seed = 42
 cdmDatabaseSchema = "main"
 cdmDatabaseName = "Eunomia"
@@ -49,12 +49,12 @@ for (i in seq_along(eunomiaDesigns)) {
   eunomiaDesigns[[i]]$executeSettings <- createExecuteSettings(runSplitData = T, runSampleData = T, runPreprocessData = T, runModelDevelopment = T)
 }
 
-saveDirectory = file.path(tempdir(), "example2")
-benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1:3], 
+saveDirectory = file.path(tempdir(), "example7")
+benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1:2], 
                                          databaseDetails = databaseDetails,
                                          saveDirectory = saveDirectory)
 
-test_that("sampling works", {
+test_that("sampling works 2", {
   extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = T)
   runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
   expect_equal(as.double(getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign) %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(Train)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))

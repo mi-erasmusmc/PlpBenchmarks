@@ -3,7 +3,7 @@ library(Eunomia)
 library(PLPBenchmarks)
 library(checkmate)
 
-saveDirectory = "example"
+saveDirectory = file.path(tempdir(), "example1")
 seed = 42
 cdmDatabaseSchema = "main"
 cdmDatabaseName = "Eunomia"
