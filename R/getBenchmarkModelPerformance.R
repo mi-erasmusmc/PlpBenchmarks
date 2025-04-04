@@ -21,6 +21,8 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
 
   performanceList <- vector("list", length(benchmarkDesign))
 
+  ParallelLogger::logInfo("Collecting model performance...")
+  progressBar <- utils::txtProgressBar(style = 3)
   for (i in seq_along(benchmarkDesign)) {
     analysisName <- benchmarkDesign[[i]]$analysisName
     saveDirectory <- benchmarkDesign[[i]]$saveDirectory
@@ -40,13 +42,16 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
     plpPerformance <- as.data.frame(sapply(plpResult$performanceEvaluation$evaluationStatistics, unlist)) %>%
       tidyr::pivot_wider(id_cols = metric, names_from = evaluation, values_from = value) %>%
       dplyr::mutate(analysisName = analysisName) %>%
-      dplyr::select(analysisName, everything()) 
+      dplyr::select(analysisName, dplyr::everything()) 
     
     }
 
     performanceList[[i]] <- plpPerformance
+    
+    utils::setTxtProgressBar(progressBar, i)
   }
 
+  close(progressBar)
   performanceDf <- do.call(rbind.data.frame, performanceList)
   return(performanceDf)
 }

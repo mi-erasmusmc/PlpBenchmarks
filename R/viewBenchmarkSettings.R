@@ -75,19 +75,11 @@ viewBenchmarkSettings <- function(benchmarkDesign) {
     dplyr::mutate(settings = "executeSettings", option = rownames(.)) %>%
     dplyr::select(settings, option, dplyr::everything())
 
-  uniquePopSets <- attributes(benchmarkDesign)$uniquePopulation %>%
-    dplyr::select("problemId", "targetId", "outcomeId", "plpDataName", "populationLocation")
+  benchmarkSettings <- attributes(benchmarkDesign)$benchmarkSettings %>%
+    dplyr::select(analysisId, problemId, dplyr::everything())
 
-  uniquePlpDataSets <- attributes(benchmarkDesign)$uniquePlpData %>%
-    dplyr::select("problemId", "dataLocation")
-
-  samePlpDataSets <- attributes(benchmarkDesign)$benchmarkSettings %>%
-    dplyr::select("sameTargetAsProblemId")
-
-  otherSets <- dplyr::right_join(uniquePopSets, uniquePlpDataSets, by = "problemId") %>%
-    dplyr::left_join(., samePlpDataSets, by = dplyr::join_by("problemId" == "sameTargetAsProblemId"))
-  otherSetsDf <- as.data.frame(t(otherSets))
-  names(otherSetsDf) <- names(benchmarkDesign)
+  otherSetsDf <- as.data.frame(t(benchmarkSettings))
+  names(otherSetsDf) <- benchmarkSettings$analysisId
   otherSetsDf <- otherSetsDf %>%
     dplyr::mutate(settings = "benchmarkSettings", option = rownames(.)) %>%
     dplyr::select(settings, option, dplyr::everything())

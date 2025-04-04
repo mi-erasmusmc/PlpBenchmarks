@@ -81,7 +81,13 @@ loadModelDesigns <- function(designs = "all") {
     designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
   } else if (is.numeric(designs)) {
     designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
-    designList <- designList[c(designs)]
+    if (max(designs) < length(designList)){
+      designList <- designList[c(designs)]
+    } else if (is.double(designs) & max(designs) > length(designList)) {
+      designList <- list(NULL)
+    } else if (is.vector(designs) & max(designs) > length(designList)) {
+      designList
+    }
   } else if (is.data.frame(designs)) {
     designList <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "BenchmarkModelDesignList.Rds"))
     designList <- designList[c(designs$PId)]

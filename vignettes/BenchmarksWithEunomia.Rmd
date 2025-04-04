@@ -123,7 +123,7 @@ head(results)
 or we can view them in a shiny app:  
 
 ```{r, results='hide', warning=FALSE}
-PLPBenchmarks::viewBenchmarkPlpResults(benchmarkDesign = benchmarkDesign, databaseList = list("Eunomia"), viewShiny = FALSE, databaseDirectory = saveDirectory)
+PLPBenchmarks::viewBenchmarkResults(benchmarkDesign = benchmarkDesign, databaseList = list("Eunomia"), viewShiny = FALSE, databaseDirectory = saveDirectory)
 ```
 
 Tip: If we want to view the Shiny app again, we can make use of `PatientLevelPrediction::viewDatabaseResultPlp` as follows:
@@ -152,7 +152,7 @@ names(selectedDesignList)
 
 selectedDesignList$GIBinCLXBSampled$sampleSettings
 selectedDesignList$GIBinCLXBSampled$sampleSettings <- PatientLevelPrediction::createSampleSettings(type = "underSample", numberOutcomestoNonOutcomes = 1, sampleSeed = 42)
-selectedDesignList$GIBinCLXBSampled$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSampleData = TRUE, runModelDevelopment = T, runCovariateSummary = T, runSplitData = T, runfeatureEngineering = F, runPreprocessData = T)
+selectedDesignList$GIBinCLXBSampled$executeSettings <- PatientLevelPrediction::createExecuteSettings(runSampleData = TRUE, runModelDevelopment = T, runCovariateSummary = T, runSplitData = T, runFeatureEngineering = F, runPreprocessData = T)
 ```
 
 Let's create our benchmark design:
