@@ -20,6 +20,7 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
   checkmate::reportAssertions(benchmarkPerf)
 
   performanceList <- vector("list", length(benchmarkDesign))
+  executionTimeList <- vector("list", length(benchmarkDesign))
 
   ParallelLogger::logInfo("Collecting model performance...")
   progressBar <- utils::txtProgressBar(style = 3)
@@ -44,14 +45,21 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
       dplyr::mutate(analysisName = analysisName) %>%
       dplyr::select(analysisName, dplyr::everything()) 
     
+    plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
+                                      TotalExecutionElapsedTime = plpResult$executionSummary$TotalExecutionElapsedTime)
     }
 
     performanceList[[i]] <- plpPerformance
-    
+    executionTimeList[[i]] <- plpExecutionTime
     utils::setTxtProgressBar(progressBar, i)
   }
 
   close(progressBar)
   performanceDf <- do.call(rbind.data.frame, performanceList)
-  return(performanceDf)
+  executionTimeDf <- do.call(rbind.data.frame, executionTimeList)
+  
+  result <- list(performanceMetrics = performanceDf, 
+                 executionTimes = executionTimeDf)
+  
+  return(result)
 }
