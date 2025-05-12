@@ -33,12 +33,23 @@ benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1:3],
                                          saveDirectory = saveDirectory)
 extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = T)
 runBenchmarkDesign(benchmarkDesign = benchmarkDesign)  
+res <- getBenchmarkModelPerformance(benchmarkDesign)
 
 test_that("function works properly", {
-  res <- getBenchmarkModelPerformance(benchmarkDesign)
-  expect_data_frame(res)
-  expect_tibble(res)
-  expect_subset(names(res), choices = c("analysisName", "metric", "Test", "Train", "CV"))
+  expect_list(res)
+  expect_subset(names(res), choices = c("performanceMetrics", "executionTimes"))
   expect_error(getBenchmarkModelPerformance(eunomiaDesigns))
   expect_error(getBenchmarkModelPerformance(benchmarkDesign[[1]]))
+})
+
+test_that("plpPerformance collected properly", {
+  expect_data_frame(res$performanceMetrics)
+  expect_tibble(res$performanceMetrics)
+  expect_subset(names(res$performanceMetrics), choices = c("analysisName", "metric", "Test", "Train", "CV"))
+})
+
+test_that("executionTimes collected properly", {
+  expect_data_frame(res$executionTimes)
+  expect_tibble(res$executionTimes)
+  expect_subset(names(res$executionTimes), choices = c("analysisName", "TotalExecutionElapsedTime"))
 })
