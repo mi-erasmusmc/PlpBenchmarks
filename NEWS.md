@@ -1,3 +1,11 @@
+# PLPBenchmarks 2.1.1
+  
+- ExecutionTimes are now exported as part of performance evaluation when calling `getBenchmarkModelPerformance()`. The times are 
+derived from `PatientLevelPrediction::runPlp()` and refer to the TotalExecutionTime estimated in the `runPlp` function.  
+- `Andromeda` R package updated to version 1.0.0. This is a major change for `Andromeda` as it switches the backend to `duckdb`. Also, 
+packages `FeatureExtraction` updated to their latest compatible versions. 
+- Updates also to the `PatientLevelPrediction` R package to its latest version.  
+
 # PLPBenchmarks 2.1.0
   
 - Added tests.
