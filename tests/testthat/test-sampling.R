@@ -40,8 +40,9 @@ benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1:3],
 test_that("sampling works", {
   extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = T)
   runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
-  expect_equal(as.double(getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign) %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(Train)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
-  expect_equal(as.double(getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign) %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(CV)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
+  performance <- getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
+  expect_equal(as.double(performance$performanceMetrics %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(Train)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
+  expect_equal(as.double(performance$performanceMetrics %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(CV)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
 })
 
 for (i in seq_along(eunomiaDesigns)) {
@@ -57,6 +58,7 @@ benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1:2],
 test_that("sampling works 2", {
   extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = T)
   runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
-  expect_equal(as.double(getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign) %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(Train)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
-  expect_equal(as.double(getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign) %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(CV)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
+  performance <- getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
+  expect_equal(as.double(performance$performanceMetrics %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(Train)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
+  expect_equal(as.double(performance$performanceMetrics %>% dplyr::filter(metric == "outcomeCount") %>% dplyr::pull(CV)), as.vector(sapply(sapply(benchmarkDesign, "[[", "sampleSettings"), "[[", "numberTrainSetOutcomes")))
 })
