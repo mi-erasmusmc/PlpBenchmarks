@@ -43,7 +43,7 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
     plpPerformance <- as.data.frame(sapply(plpResult$performanceEvaluation$evaluationStatistics, unlist)) %>%
       tidyr::pivot_wider(id_cols = metric, names_from = evaluation, values_from = value) %>%
       dplyr::mutate(analysisName = analysisName) %>%
-      dplyr::select(analysisName, dplyr::everything()) 
+      dplyr::select("analysisName", dplyr::everything()) 
     
     plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
                                       TotalExecutionElapsedTime = plpResult$executionSummary$TotalExecutionElapsedTime)
