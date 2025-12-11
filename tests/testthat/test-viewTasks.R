@@ -37,3 +37,4 @@ test_that("view design does not accept wrong arguments ", {
   expect_error(loadModelDesigns("1"))
   expect_error(loadModelDesigns(data.frame(a= 1, b=  2)))
 })
+
