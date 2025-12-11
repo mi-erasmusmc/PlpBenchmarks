@@ -3,6 +3,18 @@ library(Eunomia)
 library(PLPBenchmarks)
 library(checkmate)
 
+if (Sys.getenv("GITHUB_ACTIONS") == "true") {
+  # Download the PostreSQL driver ---------------------------
+  # If DATABASECONNECTOR_JAR_FOLDER exists, assume driver has been downloaded
+  jarFolder <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER", unset = "")
+  if (jarFolder == "") {
+    tempJarFolder <- tempfile("jdbcDrivers")
+    dir.create(tempJarFolder)
+    Sys.setenv("DATABASECONNECTOR_JAR_FOLDER" = tempJarFolder)
+    DatabaseConnector::downloadJdbcDrivers("postgresql")
+  }
+}
+
 saveDirectory = file.path(tempdir(), "exampleTests")
 seed = 42
 cdmDatabaseSchema = "main"
