@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PLPBenchmarks</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,18 @@
       
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.0" id="plpbenchmarks-220">PLPBenchmarks 2.2.0<a class="anchor" aria-label="anchor" href="#plpbenchmarks-220"></a></h2>
+<ul><li>Github Actions workflows added for package checks and test coverage.</li>
+<li>Updates to the whole test suit to speed up testing.</li>
+<li>Prediction problems are now offered as datasets e.g. call <code>data("tasks")</code> to load a data frame with the problems.</li>
+<li>Package <code>DatabaseConnector</code> now moved to Imports.</li>
+<li>New vignettes added.</li>
+<li>Github Actions workflow added for building the website. The package now has a dedicated website.</li>
+<li>Bug fix in argument checks in <code><a href="../reference/createBenchmarkCohorts.html">createBenchmarkCohorts()</a></code>.</li>
+<li>Fixed how arguments are passed into dplyr functions to limit “Notes” in package checks (R CMD check)</li>
+<li>Updated README.md</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.1" id="plpbenchmarks-211">PLPBenchmarks 2.1.1<a class="anchor" aria-label="anchor" href="#plpbenchmarks-211"></a></h2>
 <ul><li>ExecutionTimes are now exported as part of performance evaluation when calling <code><a href="../reference/getBenchmarkModelPerformance.html">getBenchmarkModelPerformance()</a></code>. The times are derived from <code><a href="https://ohdsi.github.io/PatientLevelPrediction/reference/runPlp.html" class="external-link">PatientLevelPrediction::runPlp()</a></code> and refer to the TotalExecutionTime estimated in the <code>runPlp</code> function.<br></li>
