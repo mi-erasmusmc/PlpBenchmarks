@@ -129,15 +129,15 @@ createBenchmarkCohorts <- function(cohorts = NULL,
 
   if (!is.null(cohorts)) {
     checkmate::assert(
-      checkmate::checkSubset(
-        x = c("outcomeId", "targetId"),
-        choices = names(cohorts)
+      checkmate::checkNames(
+        x = names(cohorts),
+        must.include = c("outcomeId", "targetId")
       ),
-      checkmate::checkSubset(
-        x = c("cohortId"),
-        choices = names(cohorts)
+      checkmate::checkNames(
+        x = names(cohorts),
+        must.include = c("cohortId")
       ),
-      checkmate::assertDataFrame(
+      checkmate::checkDataFrame(
         x = cohorts,
         types = c("integerish", "character", "double"),
         any.missing = TRUE,
@@ -236,7 +236,7 @@ createBenchmarkCohorts <- function(cohorts = NULL,
         sqlFolder = system.file("sql", "sql_server", package = "PLPBenchmarks")
       )
       cohortsToCreate <- cohortsToCreate %>%
-        dplyr::filter(cohortId %in% unique(c(cohorts$targetId, cohorts$outcomeId)))
+        dplyr::filter(.data$cohortId %in% unique(c(cohorts$targetId, cohorts$outcomeId)))
     } else if ((c("cohortId") %in% names(cohorts)) && !(all(c("targetId", "outcomeId") %in% names(cohorts)) == TRUE)) {
       cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
         settingsFileName = system.file("settings", "CohortsToCreate.csv", package = "PLPBenchmarks"),
@@ -244,7 +244,7 @@ createBenchmarkCohorts <- function(cohorts = NULL,
         sqlFolder = system.file("sql", "sql_server", package = "PLPBenchmarks")
       )
       cohortsToCreate <- cohortsToCreate %>%
-        dplyr::filter(cohortId %in% unique(c(cohorts$cohortId)))
+        dplyr::filter(.data$cohortId %in% unique(c(cohorts$cohortId)))
     }
   } else if (is.null(cohorts) && !is.null(benchmarkDesign)) {
     cohortsToCreate <- CohortGenerator::getCohortDefinitionSet(
@@ -253,10 +253,10 @@ createBenchmarkCohorts <- function(cohorts = NULL,
       sqlFolder = system.file("sql", "sql_server", package = "PLPBenchmarks")
     )
     uniqueCohorts <- attr(benchmarkDesign, "uniquePlpData") %>%
-      dplyr::select(targetId, outcomeId)
+      dplyr::select("targetId", "outcomeId")
     uniqueCohortIds <- unique(c(uniqueCohorts$targetId, uniqueCohorts$outcomeId))
     cohortsToCreate <- cohortsToCreate %>%
-      dplyr::filter(cohortId %in% uniqueCohortIds)
+      dplyr::filter(.data$cohortId %in% uniqueCohortIds)
   }
 
   # Create the cohort tables to hold the cohort generation results
