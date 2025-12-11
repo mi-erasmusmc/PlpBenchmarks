@@ -47,20 +47,20 @@ cohortTable = "cohort"
 Let's load the predefined Eunomia prediction problems that we will use as benchmarks.
 
 ```{r}
-eunomiaBenchmarks <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "EunomiaProblemSpecification.csv")) 
-class(eunomiaBenchmarks)
+data("eunomiaTasks")
+class(eunomiaTasks)
 ```
 
 We can have an overview of the pre-specified problems for Eunomia.
 
 ```{r}
-eunomiaBenchmarks$problemSpecification
+eunomiaTasks$problemSpecification
 ```
 
 Let's load the benchmark design for the Eunomia prediction problems.
 
 ```{r}
-eunomiaDesigns <- readRDS(system.file(package = "PLPBenchmarks", "extdata", "EunomiaBenchmarkDesignList.Rds"))
+data("eunomiaDesigns")
 class(eunomiaDesigns)
 sapply(eunomiaDesigns, class)
 ```
@@ -117,12 +117,14 @@ results <- PLPBenchmarks::getBenchmarkModelPerformance(benchmarkDesign = benchma
 ```
 
 ```{r}
-head(results)
+head(results$performanceMetrics)
+# or for the execution times
+results$executionTimes
 ```
 
 or we can view them in a shiny app:  
 
-```{r, results='hide', warning=FALSE}
+```{r, echo=T, results=FALSE, message=FALSE, warning=FALSE}
 PLPBenchmarks::viewBenchmarkResults(benchmarkDesign = benchmarkDesign, databaseList = list("Eunomia"), viewShiny = FALSE, databaseDirectory = saveDirectory)
 ```
 
@@ -142,7 +144,7 @@ PatientLevelPrediction::viewDatabaseResultPlp(
 
 ## Example: Running a benchmark to evaluate performance of under sampling
 
-For running a selection of problems, select which ones from the list model designs from the design list. Suppose for this example we want to run the first problem of the Eunomia benchmarks which is specified as `r eunomiaBenchmarks$problemSpecification[[1]]`. In addition, for the sake of the example, suppose we would like to test the impact of under sampling on the predictive performance of the model generated to predict the outcome of interest.  
+For running a selection of problems, select which ones from the list model designs from the design list. Suppose for this example we want to run the first problem of the Eunomia benchmarks which is specified as `r eunomiaTasks$problemSpecification[[1]]`. In addition, for the sake of the example, suppose we would like to test the impact of under sampling on the predictive performance of the model generated to predict the outcome of interest.  
 In the same fashion as before, we build a list of `modelDesign` objects. For our example, we copy the design for the first problem, we just edit the settings we require to change and the names of the analysis. 
 
 ```{r}
