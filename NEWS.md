@@ -1,3 +1,14 @@
+# PLPBenchmarks 2.2.0
+  
+- Updates to the whole test suit to speed up testing.
+- Prediction problems are now offered as datasets e.g. call `data("tasks")` to load a data frame with the problems.
+- Package `DatabaseConnector` now moved to Imports.
+- New vignettes added.
+- The package now has a dedicated website.
+- Bug fix in argument checks in `createBenchmarkCohorts()`.
+- Fixed how arguments are passed into dplyr functions to limit "Notes" in package checks (R CMD check) 
+- Updated README.md
+  
 # PLPBenchmarks 2.1.1
   
 - ExecutionTimes are now exported as part of performance evaluation when calling `getBenchmarkModelPerformance()`. The times are 
