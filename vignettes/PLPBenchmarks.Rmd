@@ -1,0 +1,98 @@
+---
+title: "Using PLPBenchmarks on Real-World Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PLPBenchmarks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+In this vignette, we will provide an introduction of how to make use of the `PLPBenchmarks` packages to build and execute benchmarks on real-world data (RWD). We will not show the whole pipeline as we need to be connected to a database. Working examples with the open-source `Eunomia` dataset exist in other vignettes (see vignette("BenchmarksWithEunomia") and vignette("AlgorithmComparisons"). 
+
+To get started we load the `PLPBenchmarks` package and the other packages we will need. 
+
+```{r setup}
+library(DatabaseConnector)
+library(PLPBenchmarks)
+```
+
+This loads the `PatientLevelPrediction` and `DatabaseConnector` R packages. 
+
+We can see the problems for RWD, their specification and other necessary information to build the cohorts.
+
+```{r, results='asis'}
+data("tasks")
+tasks %>%
+  knitr::kable() %>%
+  kableExtra::kable_classic(lightable_options = "striped") %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+We can also load the pre-defined model designs
+
+```{r}
+data("modelDesigns")
+length(modelDesigns)
+names(modelDesigns)
+```
+
+As we see, the pre-specified model designs is a list containing 13 `modelDesign` objects, one for each problem in the `tasks` data frame.
+
+Before moving on, we need to define two more object.
+
+The first object, is the `connectionDetails` from the `DatabaseConnector` package that we will use to connect to our database. For example, for a PostgreSQL database, we will define something like  
+
+```{r}
+conDets <- createConnectionDetails(dbms = "postgresql", 
+                               user = "user",
+                               password = "password",
+                               server = "server")
+```
+
+where `"user"`, `"password"` are the user credentials, and `"server"` the host name of the server and the relevant schemas. 
+
+The second object we need to create is the `databaseDetails` from `PatientLevelPrediction`.
+
+```{r}
+dbDets <- createDatabaseDetails(connectionDetails = conDets, 
+                                cdmDatabaseSchema = "cdmDatabaseSchema", 
+                                cdmDatabaseName = "cdmDatabaseName", 
+                                cdmDatabaseId = "cdmDatabaseId", 
+                                cohortDatabaseSchema = "cohortDatabaseSchema", 
+                                cohortTable = "cohortTable", 
+                                outcomeDatabaseSchema = "outcomeDatabaseSchema", 
+                                outcomeTable = "outcomeTable")
+```
+
+The names in quotes should be the corresponding schemas and table names that our target and outcome cohorts are located.
+
+Now we can create a benchmark design.
+
+```{r}
+benchmarkDesign <- createBenchmarkDesign(modelDesign = modelDesigns, databaseDetails = dbDets, saveDirectory = "gettingStarted")
+```
+
+Note the `saveDirectory` argument takes a character or a file path for the location to save the results. 
+
+We can now inspect our benchmark design settings in a side-to-side comparison to check if everything is specified correctly.
+
+```{r, results='asis'}
+viewBenchmarkSettings(benchmarkDesign = benchmarkDesign) %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper(lightable_options = "striped") %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+If everything is specified correctly and we are ready to go we can then call `runBencmarkDesign()` which will run all specifed model designs. For more complete example, have a look at the other vignettes. 
+
+
+
+
+

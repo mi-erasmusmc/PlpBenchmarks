@@ -1,0 +1,151 @@
+---
+title: "Case Study: Benchmarking Algorithms using Eunomia"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Benchmarking Algorithms using Eunomia}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+For this example, we are going to run a small experiment that compares the performance of the XGBoost algorithm to the performance of L1-penalised logistic regression. We are going to make use of the Eunomia dataset.
+
+## Setup
+
+We start by loading the packages that we will use. 
+
+```{r setup}
+library(Eunomia)
+library(PLPBenchmarks)
+library(xgboost)
+```
+
+Define the connectionDetails object for Eunomia:
+
+```{r}
+connectionDetails <- getEunomiaConnectionDetails()
+```
+
+Some other variables we need to define apriori:
+
+```{r}
+saveDirectory = "comparisonsVignette"
+seed = 42
+cdmDatabaseSchema = "main"
+cdmDatabaseName = "Eunomia"
+cdmDatabaseId = "Eunomia"
+cohortDatabaseSchema = "main"
+outcomeDatabaseSchema = "main"
+cohortTable = "cohort"
+```
+
+We can have an overview of the pre-specified problems for Eunomia. We are going to compare the two algorithms on the following problem:
+
+```{r}
+data("eunomiaTasks")
+eunomiaTasks$problemSpecification[1]
+```
+
+Let's load the benchmark design for the Eunomia prediction problems.
+
+```{r}
+data("eunomiaDesigns")
+```
+
+Let's continue by creating the cohorts we will work with.  
+
+```{r}
+Eunomia::createCohorts(connectionDetails = connectionDetails)
+```
+
+Define our database details. 
+
+```{r}
+databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
+                                                                 cdmDatabaseSchema = cdmDatabaseSchema,
+                                                                 cdmDatabaseName = cdmDatabaseName,
+                                                                 cdmDatabaseId = cdmDatabaseId, 
+                                                                 cohortDatabaseSchema = cohortDatabaseSchema,
+                                                                 cohortTable = cohortTable,
+                                                                 outcomeDatabaseSchema = outcomeDatabaseSchema,
+                                                                 outcomeTable = cohortTable, 
+                                                                 )
+```
+
+## Specifying our benchmark
+
+We are going to set up our algorithm settings,
+
+```{r}
+lassoSettings <- PatientLevelPrediction::setLassoLogisticRegression(seed = seed)
+
+xgbSettings <- PatientLevelPrediction::setGradientBoostingMachine(seed = seed)
+```
+
+and pass them to our model designs:
+
+```{r}
+selectedDesignList <- eunomiaDesigns[c(1, 1)]
+names(selectedDesignList) <- c("GIBinCLXB_lasso", "GIBinCLXB_xgb")
+names(selectedDesignList)
+```
+
+The `GIBinCLXB_lasso` model design already is using LASSO, to check:
+
+```{r}
+attr(selectedDesignList$GIBinCLXB_lasso$modelSettings$param, "settings")$name
+```
+
+We need to change the `modelSettings` for the second design that will execute the XGBoost algorithm. 
+
+```{r}
+selectedDesignList$GIBinCLXB_xgb$modelSettings <- xgbSettings
+# Just to verify the algorithm has indeed changed:
+attr(selectedDesignList$GIBinCLXB_xgb$modelSettings$param, "settings")$modelName
+```
+
+Let's create our benchmark design:
+
+```{r}
+comparisonBenchmark <- createBenchmarkDesign(modelDesign = selectedDesignList, 
+                                                 databaseDetails = databaseDetails, 
+                                                 saveDirectory = saveDirectory)
+```
+
+We can now have a view at our settings for the benchmark
+
+```{r}
+viewBenchmarkSettings(benchmarkDesign = comparisonBenchmark) %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper(lightable_options = "striped") %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+As we see, all settings between the two designs are equal, except the algorithm to be used, as we wanted.  
+  
+Now let's extract the data.  
+
+```{r}
+extractBenchmarkData(benchmarkDesign = comparisonBenchmark)
+```
+
+Finally, let's run our benchmark. 
+
+```{r, results='hide'}
+runBenchmarkDesign(benchmarkDesign = comparisonBenchmark)
+```
+
+And a let's have a look at some of the results.
+
+```{r}
+results <- PLPBenchmarks::getBenchmarkModelPerformance(benchmarkDesign = comparisonBenchmark)
+results$performanceMetrics %>%
+  dplyr::filter(metric %in% c("AUROC", "AUPRC", "calibrationInLarge mean prediction"))
+```
+
