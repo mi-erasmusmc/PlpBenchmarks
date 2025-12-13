@@ -75,6 +75,7 @@ saveDirectory = file.path(tempdir(), "example")
 # saveDirectory <- create_local_dir(directory = "example")
 
   ## Designs  ----
+suppressWarnings({
 benchmarkDesign <- createBenchmarkDesign(modelDesign = modelDesigns, 
                                          databaseDetails = databaseDetails,
                                          saveDirectory = file.path(saveDirectory, "rwd_designs"))
@@ -119,7 +120,7 @@ eunomiaBenchmarkDesign_toSample <- createBenchmarkDesign(modelDesign = eunomiaDe
 eunomiaDesignsToSample2 <- eunomiaDesigns[1:2]
 
 for (i in seq_along(eunomiaDesignsToSample2)) {
-  eunomiaDesignsToSample2[[i]]$sampleSettings <- list(createSampleTrainSetSettings(numberTrainSetOutcomes = 48, sampleSeed = 42))
+  eunomiaDesignsToSample2[[i]]$sampleSettings <- list(createSampleTrainSetSettings(numberTrainSetOutcomes = 90, sampleSeed = 42))
   eunomiaDesignsToSample2[[i]]$executeSettings <- createExecuteSettings(runSplitData = T, runSampleData = T, runPreprocessData = T, runModelDevelopment = T)
 }
 
@@ -138,7 +139,7 @@ extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_2 , createStudyPop
 
 extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_1)
 # runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_1)
-
+})
 # register_cleanup(function() {
 #   if (Sys.getenv("GITHUB_ACTIONS") == "true") {
 #     # Remove the JDBC driver folder

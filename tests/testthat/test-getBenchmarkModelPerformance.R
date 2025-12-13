@@ -1,7 +1,9 @@
 library(checkmate)
 
-runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_2)
-res <- getBenchmarkModelPerformance(eunomiaBenchmarkDesign_2)
+suppressWarnings({
+  runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_2)
+  res <- getBenchmarkModelPerformance(eunomiaBenchmarkDesign_2)
+})
 
 test_that("function works properly", {
   expect_list(res)
