@@ -28,8 +28,10 @@ Suggests:
     DT,
     shiny,
     Eunomia,
-    testthat (>= 3.0.0),    
-    xgboost
+    testthat (>= 3.0.0),
+    xgboost,
+    curl,
+    rlang
 License: Apache License (>= 2)
 VignetteBuilder: knitr
 LazyData: TRUE
