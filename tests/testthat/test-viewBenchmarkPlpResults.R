@@ -1,3 +1,5 @@
+library(checkmate)
+
 test_that("viewBenchmarkResults works", {
  expect_no_error(viewBenchmarkResults(benchmarkDesign = eunomiaBenchmarkDesign_1, databaseList = list("Eunomia"), databaseDirectory = file.path(saveDirectory, "eunomia_design_1"), viewShiny = F))
   expect_directory(file.path(saveDirectory, "eunomia_design_1", "sqlite"))

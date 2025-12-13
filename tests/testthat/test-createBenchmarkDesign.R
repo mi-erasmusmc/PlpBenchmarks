@@ -1,3 +1,5 @@
+library(checkmate)
+
 test_that("benchmarkDesign is of class 'benchmarkDesign'", {
   expect_class(benchmarkDesign, "benchmarkDesign")
 })

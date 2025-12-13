@@ -1,8 +1,3 @@
-library(testthat)
-library(Eunomia)
-library(PLPBenchmarks)
-library(checkmate)
-
 if (Sys.getenv("GITHUB_ACTIONS") == "true") {
   # Download the PostreSQL driver ---------------------------
   # If DATABASECONNECTOR_JAR_FOLDER exists, assume driver has been downloaded
@@ -15,7 +10,22 @@ if (Sys.getenv("GITHUB_ACTIONS") == "true") {
   }
 }
 
-saveDirectory = file.path(tempdir(), "exampleTests")
+
+if (rlang::is_installed("curl")) {
+  internet <- curl::has_internet()
+  message("Internet: ", internet)
+} else {
+  internet <- FALSE
+  message("Internet: ", internet)
+}
+
+
+  # Environment variables ####
+# library(testthat)
+# library(Eunomia)
+# library(PLPBenchmarks)
+# library(checkmate)
+
 seed = 42
 cdmDatabaseSchema = "main"
 cdmDatabaseName = "Eunomia"
@@ -24,13 +34,27 @@ cohortDatabaseSchema = "main"
 outcomeDatabaseSchema = "main"
 cohortTable = "cohort"
 
+
+if (internet && rlang::is_installed("Eunomia")) {
+  # PLPDATA
+  connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+  Eunomia::createCohorts(connectionDetails)
+  
+  }
+
+library(PLPBenchmarks)
+ ## Calling data objects ####
 data("eunomiaDesigns")
 data("eunomiaTasks")
 data("tasks")
 data("modelDesigns")
+## end ####
 
-connectionDetails <- getEunomiaConnectionDetails()
-createCohorts(connectionDetails = connectionDetails)
+  ## Creating cohorts ----
+# connectionDetails <- getEunomiaConnectionDetails()
+# createCohorts(connectionDetails = connectionDetails)
+
+  ### PLP variables ----
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
                                                                  cdmDatabaseSchema = cdmDatabaseSchema,
                                                                  cdmDatabaseName = cdmDatabaseName,
@@ -41,6 +65,16 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
                                                                  outcomeTable = cohortTable 
 )
 
+  ## Directories
+saveDirectory = file.path(tempdir(), "example")
+# create_local_file <- function(filename, env = parent.env()){
+#   withr::local_file(file = list("filename" = ))
+# }
+# # withr::local_dir()
+# 
+# saveDirectory <- create_local_dir(directory = "example")
+
+  ## Designs  ----
 benchmarkDesign <- createBenchmarkDesign(modelDesign = modelDesigns, 
                                          databaseDetails = databaseDetails,
                                          saveDirectory = file.path(saveDirectory, "rwd_designs"))
@@ -99,8 +133,22 @@ eunomiaBenchmarkDesign_2 <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1
                                                   saveDirectory = file.path(saveDirectory, "eunomia_designs_2"))
 
 extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_2 , createStudyPopulation = T)
-runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_2)  
-res <- getBenchmarkModelPerformance(eunomiaBenchmarkDesign_2)
+# runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_2)  
+# res <- getBenchmarkModelPerformance(eunomiaBenchmarkDesign_2)
 
 extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_1)
-runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_1)
+# runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_1)
+
+# register_cleanup(function() {
+#   if (Sys.getenv("GITHUB_ACTIONS") == "true") {
+#     # Remove the JDBC driver folder
+#     jarFolder <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER", unset = "")
+#     if (jarFolder != "") {
+#       unlink(jarFolder, recursive = TRUE)
+#     }
+#   }
+#   # unlink(saveLoc, recursive = TRUE)
+#   if (internet && rlang::is_installed("Eunomia")) {
+#     unlink(connectionDetails$server())
+#   }
+# })

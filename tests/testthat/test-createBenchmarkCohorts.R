@@ -1,3 +1,4 @@
+library(checkmate)
 test_that("function runs correctly", {
   expect_no_error(createBenchmarkCohorts(cohorts = smallCohortDefinitionSet,
                                          connectionDetails = connectionDetails, 
