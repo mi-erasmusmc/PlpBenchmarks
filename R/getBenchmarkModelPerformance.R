@@ -31,22 +31,37 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
     if(!file.exists(file.path(saveDirectory, "plpResult", "runPlp.rds"))) {
       
       plpPerformance <- data.frame("analysisName" = analysisName, 
-                                   "metric" = NA,
-                                   "Test" = NA,
-                                   "Train" = NA,
-                                   "CV" = NA 
+                                   "metric" = "Model not run",
+                                   "Test" = "Model not run",
+                                   "Train" = "Model not run",
+                                   "CV" = "Model not run" 
                                    )
+      
+      plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
+                                        TotalExecutionElapsedTime = NA)
     } else {
       
       plpResult <- readRDS(file.path(saveDirectory, "plpResult", "runPlp.rds"))
 
-    plpPerformance <- as.data.frame(sapply(plpResult$performanceEvaluation$evaluationStatistics, unlist)) %>%
-      tidyr::pivot_wider(id_cols = metric, names_from = evaluation, values_from = value) %>%
-      dplyr::mutate(analysisName = analysisName) %>%
-      dplyr::select("analysisName", dplyr::everything()) 
-    
-    plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
-                                      TotalExecutionElapsedTime = plpResult$executionSummary$TotalExecutionElapsedTime)
+      if (is.null(plpResult$performanceEvaluation$evaluationStatistics)){
+        plpPerformance <- data.frame("analysisName" = analysisName, 
+                                     "metric" = "Model likely not converged",
+                                     "Test" = "Model likely not converged",
+                                     "Train" = "Model likely not converged",
+                                     "CV" = "Model likely not converged" 
+        )
+        
+        plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
+                                          TotalExecutionElapsedTime = "Model likely not converged")
+      } else {
+        plpPerformance <- as.data.frame(sapply(plpResult$performanceEvaluation$evaluationStatistics, unlist)) %>%
+          tidyr::pivot_wider(id_cols = metric, names_from = evaluation, values_from = value) %>%
+          dplyr::mutate(analysisName = analysisName) %>%
+          dplyr::select("analysisName", dplyr::everything()) 
+        
+        plpExecutionTime <- dplyr::tibble(analysisName = analysisName, 
+                                          TotalExecutionElapsedTime = plpResult$executionSummary$TotalExecutionElapsedTime)
+      }
     }
 
     performanceList[[i]] <- plpPerformance
