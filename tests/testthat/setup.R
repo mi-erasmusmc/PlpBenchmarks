@@ -34,6 +34,7 @@ cohortDatabaseSchema = "main"
 outcomeDatabaseSchema = "main"
 cohortTable = "cohort"
 
+library(PLPBenchmarks)
 
 if (internet && rlang::is_installed("Eunomia")) {
   # PLPDATA
@@ -42,7 +43,6 @@ if (internet && rlang::is_installed("Eunomia")) {
   
   }
 
-library(PLPBenchmarks)
  ## Calling data objects ####
 data("eunomiaDesigns")
 data("eunomiaTasks")
