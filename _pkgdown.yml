@@ -18,7 +18,7 @@ navbar:
 reference:
   - subtitle: View tasks
     desc: > 
-     View pre-specified tasks for real-worl data and the Eunomia dataset.
+     View pre-specified tasks for real-world data mapped to the OMOP-CDM and the Eunomia dataset.
     contents:
     - tasks
     - modelDesigns
