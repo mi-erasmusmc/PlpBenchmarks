@@ -35,13 +35,13 @@ outcomeDatabaseSchema = "main"
 cohortTable = "cohort"
 
 library(PLPBenchmarks)
-
-if (internet && rlang::is_installed("Eunomia")) {
-  # PLPDATA
-  connectionDetails <- Eunomia::getEunomiaConnectionDetails()
-  Eunomia::createCohorts(connectionDetails)
-  
-  }
+library(Eunomia)
+# if (internet && rlang::is_installed("Eunomia")) {
+#   # PLPDATA
+#   connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+#   Eunomia::createCohorts(connectionDetails)
+#   
+#   }
 
  ## Calling data objects ####
 data("eunomiaDesigns")
@@ -51,8 +51,8 @@ data("modelDesigns")
 ## end ####
 
   ## Creating cohorts ----
-# connectionDetails <- getEunomiaConnectionDetails()
-# createCohorts(connectionDetails = connectionDetails)
+connectionDetails <- getEunomiaConnectionDetails()
+createCohorts(connectionDetails = connectionDetails)
 
   ### PLP variables ----
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
