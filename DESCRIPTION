@@ -31,7 +31,8 @@ Suggests:
     testthat (>= 3.0.0),
     xgboost,
     curl,
-    rlang
+    rlang,
+    withr
 License: Apache License (>= 2)
 VignetteBuilder: knitr
 LazyData: TRUE
