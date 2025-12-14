@@ -14,6 +14,20 @@ navbar:
     intro:
       text: Get started
       href: articles/PlpBenchmarks.html
+    articles:
+      text: Articles
+      menu:
+      - text: Introduction to PLPBenchmarks R package
+        href: articles/PLPBenchmarks.html
+      - text: 'Example: Benchmarking Algorithms using Eunomia'
+        href: articles/BenchmarksWithEunomia.html
+      - text: 'Case study: Comparing Algorithms'
+        href: articles/AlgorithmComparisons.html
+      - text: --------
+      - title: other
+        text: Coming Soon
+      - text: 'Adding new benchmarks'
+        href: articles/AddNewBenchmarkProblems.html
 
 reference:
   - subtitle: View tasks
