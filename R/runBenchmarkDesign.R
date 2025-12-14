@@ -28,14 +28,14 @@ runBenchmarkDesign <- function(benchmarkDesign){
     plpDataLocation <- benchmarkSettings$dataLocation[i]
     populationLocation <- file.path(benchmarkSettings$populationLocation[i], paste0(benchmarkSettings$plpDataName[i], "_studyPopulation.Rds"))
     
-    plpData <- PatientLevelPrediction::loadPlpData(plpDataLocation)
-    
-    if(file.exists(populationLocation)){
-    population <- readRDS(populationLocation)
-    plpData$population <- population
-    } else {
-      population <- NULL
-    }
+    # plpData <- PatientLevelPrediction::loadPlpData(plpDataLocation)
+    # 
+    # if(file.exists(populationLocation)){
+    # population <- readRDS(populationLocation)
+    # plpData$population <- population
+    # } else {
+    #   population <- NULL
+    # }
     
     outcomeId <- benchmarkDesign[[i]]$outcomeId
     analysisName <- benchmarkDesign[[i]]$analysisName
@@ -53,6 +53,15 @@ runBenchmarkDesign <- function(benchmarkDesign){
     analysisExists <- file.exists(file.path(saveDirectory, "plpResult", "runPlp.rds"))
     if (!analysisExists) {
       ParallelLogger::logInfo(paste("Preparing to run", names(benchmarkDesign[i]), "analysis."))
+      
+      plpData <- PatientLevelPrediction::loadPlpData(plpDataLocation)
+      
+      if(file.exists(populationLocation)){
+        population <- readRDS(populationLocation)
+        plpData$population <- population
+      } else {
+        population <- NULL
+      }
 
       result <- PatientLevelPrediction::runPlp(
         plpData = plpData,
