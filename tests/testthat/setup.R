@@ -70,6 +70,10 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
 
   ## Directories
 saveDirectory = file.path(tempdir(), "example")
+if (dir.exists(saveDirectory)){
+  unlink(saveDirectory, recursive = TRUE)
+}
+
 
   ## Designs  ----
 suppressWarnings({
@@ -88,6 +92,10 @@ eunomiaBenchmarkDesign4 <- createBenchmarkDesign(modelDesign = eunomiaDesigns,
 eunomiaBenchmarkDesign_1 <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1],
                                                 databaseDetails = databaseDetails,
                                                 saveDirectory = file.path(saveDirectory, "eunomia_design_1"))
+
+eunomiaBenchmarkDesign_3 <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1],
+                                                  databaseDetails = databaseDetails,
+                                                  saveDirectory = file.path(saveDirectory, "eunomia_design_3"))
 
 cohortDefinitionSet <- CohortGenerator::getCohortDefinitionSet(
   settingsFileName = "testdata/name/Cohorts.csv",
