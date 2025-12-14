@@ -21,7 +21,7 @@ For this example, we are going to run a small experiment that compares the perfo
 
 We start by loading the packages that we will use. 
 
-```{r setup}
+```{r setup, eval=TRUE}
 library(Eunomia)
 library(PLPBenchmarks)
 library(xgboost)
@@ -35,7 +35,7 @@ connectionDetails <- getEunomiaConnectionDetails()
 
 Some other variables we need to define apriori:
 
-```{r}
+```{r, eval=TRUE}
 saveDirectory = "comparisonsVignette"
 seed = 42
 cdmDatabaseSchema = "main"
@@ -55,7 +55,7 @@ eunomiaTasks$problemSpecification[1]
 
 Let's load the benchmark design for the Eunomia prediction problems.
 
-```{r}
+```{r, eval=TRUE}
 data("eunomiaDesigns")
 ```
 
@@ -65,9 +65,15 @@ Let's continue by creating the cohorts we will work with.
 Eunomia::createCohorts(connectionDetails = connectionDetails)
 ```
 
+```{r, eval=TRUE, echo=FALSE}
+# faking a connections Detail object for the sake of explanation
+connectionDetails <- "NULL"
+```
+
+
 Define our database details. 
 
-```{r}
+```{r, eval=TRUE}
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
                                                                  cdmDatabaseSchema = cdmDatabaseSchema,
                                                                  cdmDatabaseName = cdmDatabaseName,
@@ -83,7 +89,7 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
 
 We are going to set up our algorithm settings,
 
-```{r}
+```{r, eval=TRUE}
 lassoSettings <- PatientLevelPrediction::setLassoLogisticRegression(seed = seed)
 
 xgbSettings <- PatientLevelPrediction::setGradientBoostingMachine(seed = seed)
@@ -91,7 +97,7 @@ xgbSettings <- PatientLevelPrediction::setGradientBoostingMachine(seed = seed)
 
 and pass them to our model designs:
 
-```{r}
+```{r, eval=TRUE}
 selectedDesignList <- eunomiaDesigns[c(1, 1)]
 names(selectedDesignList) <- c("GIBinCLXB_lasso", "GIBinCLXB_xgb")
 names(selectedDesignList)
@@ -99,13 +105,13 @@ names(selectedDesignList)
 
 The `GIBinCLXB_lasso` model design already is using LASSO, to check:
 
-```{r}
+```{r, eval=TRUE}
 attr(selectedDesignList$GIBinCLXB_lasso$modelSettings$param, "settings")$name
 ```
 
 We need to change the `modelSettings` for the second design that will execute the XGBoost algorithm. 
 
-```{r}
+```{r, eval=TRUE}
 selectedDesignList$GIBinCLXB_xgb$modelSettings <- xgbSettings
 # Just to verify the algorithm has indeed changed:
 attr(selectedDesignList$GIBinCLXB_xgb$modelSettings$param, "settings")$modelName
@@ -113,7 +119,7 @@ attr(selectedDesignList$GIBinCLXB_xgb$modelSettings$param, "settings")$modelName
 
 Let's create our benchmark design:
 
-```{r}
+```{r, eval=TRUE}
 comparisonBenchmark <- createBenchmarkDesign(modelDesign = selectedDesignList, 
                                                  databaseDetails = databaseDetails, 
                                                  saveDirectory = saveDirectory)
@@ -121,7 +127,7 @@ comparisonBenchmark <- createBenchmarkDesign(modelDesign = selectedDesignList,
 
 We can now have a view at our settings for the benchmark
 
-```{r}
+```{r, eval=TRUE}
 viewBenchmarkSettings(benchmarkDesign = comparisonBenchmark) %>%
   knitr::kable() %>%
   kableExtra::kable_paper(lightable_options = "striped") %>%
@@ -129,6 +135,8 @@ viewBenchmarkSettings(benchmarkDesign = comparisonBenchmark) %>%
 ```
 
 As we see, all settings between the two designs are equal, except the algorithm to be used, as we wanted.  
+  
+## Extracting the data and running the benchmark design
   
 Now let's extract the data.  
 
@@ -141,6 +149,8 @@ Finally, let's run our benchmark.
 ```{r, results='hide'}
 runBenchmarkDesign(benchmarkDesign = comparisonBenchmark)
 ```
+
+## Inspecting results
 
 And a let's have a look at some of the results.
 
