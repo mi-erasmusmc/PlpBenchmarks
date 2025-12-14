@@ -41,9 +41,9 @@ viewBenchmarkSettings <- function(benchmarkDesign) {
     dplyr::select("settings", "option", dplyr::everything())
 
   modelSets <- lapply(benchmarkDesign, "[[", "modelSettings")
-  modelSets <- lapply(modelSets, function(x) attributes(x$param)$settings[c("name", "seed")])
+  modelSets <- lapply(modelSets, function(x) base::ifelse(is.null(attributes(x$param)$settings$name), attributes(x$param)$settings[c("modelName", "seed")], attributes(x$param)$settings[c("name", "seed")]))
   modelSetsDf <- as.data.frame(t(do.call(rbind, modelSets))) %>%
-    dplyr::mutate(settings = "modelSettings", option =  rownames(.)) %>%
+    dplyr::mutate(settings = "modelSettings", option =  "modelName") %>%
     dplyr::select("settings", "option", dplyr::everything())
 
   sampleSets <- lapply(benchmarkDesign, "[[", "sampleSettings")
