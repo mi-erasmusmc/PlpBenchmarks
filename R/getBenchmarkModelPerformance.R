@@ -55,7 +55,7 @@ getBenchmarkModelPerformance <- function(benchmarkDesign) {
                                           TotalExecutionElapsedTime = "Model likely not converged")
       } else {
         plpPerformance <- as.data.frame(sapply(plpResult$performanceEvaluation$evaluationStatistics, unlist)) %>%
-          tidyr::pivot_wider(id_cols = metric, names_from = evaluation, values_from = value) %>%
+          tidyr::pivot_wider(id_cols = "metric", names_from = "evaluation", values_from = "value") %>%
           dplyr::mutate(analysisName = analysisName) %>%
           dplyr::select("analysisName", dplyr::everything()) 
         
