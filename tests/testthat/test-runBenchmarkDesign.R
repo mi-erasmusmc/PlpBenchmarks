@@ -3,6 +3,7 @@ library(checkmate)
 test_that("runs without population creation", {
   
   suppressWarnings({
+    Eunomia::createCohorts(connectionDetails = connectionDetails)
     extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_1, createStudyPopulation = F)
   })
   
