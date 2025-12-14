@@ -4,8 +4,9 @@ test_that("sampling works", {
 
   skip_if_not_installed("Eunomia")
   Eunomia::createCohorts(connectionDetails = connectionDetails)
-  extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_toSample, createStudyPopulation = T)
+  
   suppressWarnings({
+    extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_toSample, createStudyPopulation = T)
     runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_toSample)
     performance <- getBenchmarkModelPerformance(benchmarkDesign = eunomiaBenchmarkDesign_toSample)
   })
@@ -19,8 +20,9 @@ test_that("sampling works 2", {
   
   skip_if_not_installed("Eunomia")
   Eunomia::createCohorts(connectionDetails = connectionDetails)
-  extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_toSample2, createStudyPopulation = T)
+  
   suppressWarnings({
+    extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_toSample2, createStudyPopulation = T)
     runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_toSample2)
     performance <- getBenchmarkModelPerformance(benchmarkDesign = eunomiaBenchmarkDesign_toSample2)
   })

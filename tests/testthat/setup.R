@@ -10,7 +10,6 @@ if (Sys.getenv("GITHUB_ACTIONS") == "true") {
   }
 }
 
-
 if (rlang::is_installed("curl")) {
   internet <- curl::has_internet()
   message("Internet: ", internet)
@@ -20,12 +19,7 @@ if (rlang::is_installed("curl")) {
 }
 
 
-  # Environment variables ####
-# library(testthat)
-# library(Eunomia)
-# library(PLPBenchmarks)
-# library(checkmate)
-
+# Environment variables ####
 seed = 42
 cdmDatabaseSchema = "main"
 cdmDatabaseName = "Eunomia"
@@ -43,6 +37,15 @@ library(Eunomia)
 #   
 #   }
 
+if (internet) {
+  library(Eunomia)
+  
+  ## Creating cohorts ----
+  connectionDetails <- getEunomiaConnectionDetails()
+  createCohorts(connectionDetails = connectionDetails)
+  
+}
+
  ## Calling data objects ####
 data("eunomiaDesigns")
 data("eunomiaTasks")
@@ -50,9 +53,9 @@ data("tasks")
 data("modelDesigns")
 ## end ####
 
-  ## Creating cohorts ----
-connectionDetails <- getEunomiaConnectionDetails()
-createCohorts(connectionDetails = connectionDetails)
+#   ## Creating cohorts ----
+# connectionDetails <- getEunomiaConnectionDetails()
+# createCohorts(connectionDetails = connectionDetails)
 
   ### PLP variables ----
 databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
@@ -67,12 +70,6 @@ databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetai
 
   ## Directories
 saveDirectory = file.path(tempdir(), "example")
-# create_local_file <- function(filename, env = parent.env()){
-#   withr::local_file(file = list("filename" = ))
-# }
-# # withr::local_dir()
-# 
-# saveDirectory <- create_local_dir(directory = "example")
 
   ## Designs  ----
 suppressWarnings({
@@ -134,22 +131,17 @@ eunomiaBenchmarkDesign_2 <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1
                                                   saveDirectory = file.path(saveDirectory, "eunomia_designs_2"))
 
 extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_2 , createStudyPopulation = T)
-# runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_2)  
-# res <- getBenchmarkModelPerformance(eunomiaBenchmarkDesign_2)
 
-extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_1)
-# runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_1)
+# extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_1)
+
 })
-# register_cleanup(function() {
-#   if (Sys.getenv("GITHUB_ACTIONS") == "true") {
-#     # Remove the JDBC driver folder
-#     jarFolder <- Sys.getenv("DATABASECONNECTOR_JAR_FOLDER", unset = "")
-#     if (jarFolder != "") {
-#       unlink(jarFolder, recursive = TRUE)
-#     }
-#   }
-#   # unlink(saveLoc, recursive = TRUE)
-#   if (internet && rlang::is_installed("Eunomia")) {
-#     unlink(connectionDetails$server())
-#   }
-# })
+
+withr::defer(
+  unlink(saveDirectory, recursive = TRUE), 
+  teardown_env()        
+)
+
+withr::defer(
+  Sys.unsetenv("DATABASECONNECTOR_JAR_FOLDER"), 
+  teardown_env()
+)
