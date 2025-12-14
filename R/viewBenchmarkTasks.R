@@ -26,12 +26,10 @@ viewBenchmarkTasks <- function(tasks = "all") {
   if (is.null(tasks)) {
     stop("Argument 'tasks' is NULL. Nothing to view.")
   } else if (is.character(tasks)) {
-    problemList <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv")) %>%
-      dplyr::as_tibble()
+    problemList <- dplyr::as_tibble(read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv")))
   } else if (is.numeric(tasks)) {
-    problemList <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv")) %>%
-      dplyr::as_tibble() %>%
-      dplyr::filter(PId %in% tasks)
+    problemList <- dplyr::as_tibble(read.csv(system.file(package = "PLPBenchmarks", "extdata", "ProblemSpecification.csv"))) %>%
+      dplyr::filter(.data$PId %in% tasks)
   }
 
   return(problemList)
