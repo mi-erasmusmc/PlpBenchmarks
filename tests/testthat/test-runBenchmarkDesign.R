@@ -7,7 +7,7 @@ test_that("runs without population creation", {
     extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_3, createStudyPopulation = F)
   })
   
-  designNames <- names(eunomiaBenchmarkDesign_1)
+  designNames <- names(eunomiaBenchmarkDesign_3)
   expect_no_error(runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_3)) 
   
   suppressWarnings({
@@ -16,6 +16,6 @@ test_that("runs without population creation", {
   
   expect_equal(as.vector(sapply(eunomiaBenchmarkDesign_3, "[[", "saveDirectory")), file.path(saveDirectory, "eunomia_design_3", designNames))
   expect_directory(x = file.path(saveDirectory, "eunomia_design_3", designNames, "plpResult"))
-  expect_file(x = file.path(saveDirectory, "eunomia_design_3", designNames, "plpResult", "runPlp.Rds"))
+  expect_file_exists(x = file.path(saveDirectory, "eunomia_design_3", designNames, "plpResult", "runPlp.Rds"))
 })
 
