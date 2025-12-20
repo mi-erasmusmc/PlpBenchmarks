@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/mi-erasmusmc/PlpBenchmarks/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mi-erasmusmc/PlpBenchmarks/actions/workflows/R-CMD-check.yaml)
+[![codecov.io](https://codecov.io/github/mi-erasmusmc/PLPBenchmarks/coverage.svg?branch=main)](https://app.codecov.io/github/mi-erasmusmc/PLPBenchmarks?branch=main)
 <!-- badges: end -->
 
 # Introduction
