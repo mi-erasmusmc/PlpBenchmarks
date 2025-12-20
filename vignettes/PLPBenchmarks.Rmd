@@ -32,10 +32,7 @@ We can see the problems for RWD, their specification and other necessary informa
 
 ```{r, results='asis'}
 data("tasks")
-tasks %>%
-  knitr::kable() %>%
-  kableExtra::kable_classic(lightable_options = "striped") %>%
-  kableExtra::scroll_box(width = "100%", height = "200px")
+View(tasks)
 ```
 
 We can also load the pre-defined model designs
@@ -54,9 +51,9 @@ The first object, is the `connectionDetails` from the `DatabaseConnector` packag
 
 ```{r}
 conDets <- createConnectionDetails(dbms = "postgresql", 
-                               user = "user",
-                               password = "password",
-                               server = "server")
+                                   user = "user",
+                                   password = "password",
+                                   server = "server")
 ```
 
 where `"user"`, `"password"` are the user credentials, and `"server"` the host name of the server and the relevant schemas. 

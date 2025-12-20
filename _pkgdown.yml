@@ -13,7 +13,7 @@ navbar:
       href: index.html
     intro:
       text: Get started
-      href: articles/PlpBenchmarks.html
+      href: articles/PLPBenchmarks.html
     articles:
       text: Articles
       menu:
