@@ -30,9 +30,9 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../index.html"><span class="fa fa-home fa-lg"></span></a></li>
-<li class="nav-item"><a class="nav-link" href="../articles/PlpBenchmarks.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../articles/PLPBenchmarks.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="active nav-item dropdown">
+<li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/PLPBenchmarks.html">Introduction to PLPBenchmarks R package</a></li>
@@ -93,10 +93,7 @@ other packages we will need.</p>
 necessary information to build the cohorts.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"tasks"</span><span class="op">)</span></span>
-<span><span class="va">tasks</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html" class="external-link">kable_classic</a></span><span class="op">(</span>lightable_options <span class="op">=</span> <span class="st">"striped"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/scroll_box.html" class="external-link">scroll_box</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, height <span class="op">=</span> <span class="st">"200px"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">tasks</span><span class="op">)</span></span></code></pre></div>
 <p>We can also load the pre-defined model designs</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"modelDesigns"</span><span class="op">)</span></span>
@@ -112,9 +109,9 @@ our database. For example, for a PostgreSQL database, we will define
 something like</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">conDets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ohdsi.github.io/DatabaseConnector/reference/createConnectionDetails.html" class="external-link">createConnectionDetails</a></span><span class="op">(</span>dbms <span class="op">=</span> <span class="st">"postgresql"</span>, </span>
-<span>                               user <span class="op">=</span> <span class="st">"user"</span>,</span>
-<span>                               password <span class="op">=</span> <span class="st">"password"</span>,</span>
-<span>                               server <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></span></code></pre></div>
+<span>                                   user <span class="op">=</span> <span class="st">"user"</span>,</span>
+<span>                                   password <span class="op">=</span> <span class="st">"password"</span>,</span>
+<span>                                   server <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></span></code></pre></div>
 <p>where <code>"user"</code>, <code>"password"</code> are the user
 credentials, and <code>"server"</code> the host name of the server and
 the relevant schemas.</p>

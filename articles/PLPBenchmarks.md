@@ -25,10 +25,7 @@ information to build the cohorts.
 
 ``` r
 data("tasks")
-tasks %>%
-  knitr::kable() %>%
-  kableExtra::kable_classic(lightable_options = "striped") %>%
-  kableExtra::scroll_box(width = "100%", height = "200px")
+View(tasks)
 ```
 
 We can also load the pre-defined model designs
@@ -50,9 +47,9 @@ For example, for a PostgreSQL database, we will define something like
 
 ``` r
 conDets <- createConnectionDetails(dbms = "postgresql", 
-                               user = "user",
-                               password = "password",
-                               server = "server")
+                                   user = "user",
+                                   password = "password",
+                                   server = "server")
 ```
 
 where `"user"`, `"password"` are the user credentials, and `"server"`
