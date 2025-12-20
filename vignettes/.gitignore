@@ -1,4 +1,5 @@
 *.html
 *.R
-exampleVignette
-testSelected
+exampleVignette/
+testSelected/
+comparisonsVignette/

@@ -1,59 +1,66 @@
+url: https://mi-erasmusmc.github.io/PlpBenchmarks/
+
 template:
-  params:
-    bootswatch: cosmo
-    
-home:
-  links:
-  - text: Ask a question
-    href: http://forums.ohdsi.org
-    
+  bootstrap: 5
+
 navbar:
   structure:
-    left:
-    - home
-    - intro
-    - reference
-    - tutorial
-    - news
-    right: github
+    left: [home, intro, reference, articles, news]
+    right: [search, github]
   components:
     home:
       icon: fa-home fa-lg
       href: index.html
-    reference:
-      text: Reference
-      href: reference/index.html
     intro:
       text: Get started
-      href: articles/PopulatingSkeletonPackage.html
-    news:
-      text: Changelog
-      href: news/index.html
-    tutorial:
-      text: Tutorial
-      href: https://www.ohdsi.org/past-events/patient-level-prediction/
-    github:
-      icon: fa-github fa-lg
-      href: https://github.com/OHDSI/SkeletonExistingPredictionModelStudy
+      href: articles/PlpBenchmarks.html
+    articles:
+      text: Articles
+      menu:
+      - text: Introduction to PLPBenchmarks R package
+        href: articles/PLPBenchmarks.html
+      - text: 'Example: Benchmarking Algorithms using Eunomia'
+        href: articles/BenchmarksWithEunomia.html
+      - text: 'Case study: Comparing Algorithms'
+        href: articles/AlgorithmComparisons.html
+      - text: --------
+      - title: other
+        text: Coming Soon
+      - text: 'Adding new benchmarks'
+        href: articles/AddNewBenchmarkProblems.html
 
 reference:
-  - title: "Running the study"
-    desc: >
-      Function to run the study
+  - subtitle: View tasks
+    desc: > 
+     View pre-specified tasks for real-world data mapped to the OMOP-CDM and the Eunomia dataset.
     contents:
-      - execute
-  - title: "Helpers"
+    - tasks
+    - modelDesigns
+    - eunomiaTasks
+    - eunomiaDesigns
+  - subtitle: Create a benchmark design
     desc: >
-      Functions used when running the study
+     Create a benchmark design and inspect it.
     contents:
-      - createCohorts
-      - packageResults
-  - title: "Covariates"
+    - createBenchmarkDesign
+    - viewBenchmarkSettings
+  - subtitle: Create cohorts, extract data
     desc: >
-      Functions used to create covariates
+     Create cohorts on an OMOP-CDM instance and extract data from the CDM.
     contents:
-      - getAgeCovariateData
-      - getCohortCovariateData
-      - getMeasurementCovariateData
-      - getMeasurementCohortCovariateData
-      
+    - createBenchmarkCohorts
+    - extractBenchmarkData
+  - subtitle: Run a benchmark
+    desc: >
+     Run the benchmark design and view results.
+    contents:
+    - runBenchmarkDesign
+    - getBenchmarkModelPerformance
+    - viewBenchmarkResults
+  - subtitle: Other functions
+    desc: >
+     Other functions used to offer some extra functionalities but will soon be deprecated.
+    contents:
+    - createSampleTrainSetSettings
+    - viewBenchmarkTasks
+    - loadModelDesigns

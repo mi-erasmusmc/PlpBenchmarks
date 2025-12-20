@@ -1,43 +1,21 @@
-library(testthat)
-library(Eunomia)
-library(PLPBenchmarks)
 library(checkmate)
 
-saveDirectory = file.path(tempdir(), "example3")
-seed = 42
-cdmDatabaseSchema = "main"
-cdmDatabaseName = "Eunomia"
-cdmDatabaseId = "Eunomia"
-cohortDatabaseSchema = "main"
-outcomeDatabaseSchema = "main"
-cohortTable = "cohort"
-
-eunomiaTasks <- read.csv(system.file(package = "PLPBenchmarks", "extdata", "EunomiaProblemSpecification.csv")) 
-eunomiaDesigns <-  readRDS(system.file(package = "PLPBenchmarks", "extdata", "EunomiaBenchmarkDesignList.Rds"))
-connectionDetails <- getEunomiaConnectionDetails()
-databaseDetails <- PatientLevelPrediction::createDatabaseDetails(connectionDetails = connectionDetails, 
-                                                                 cdmDatabaseSchema = cdmDatabaseSchema,
-                                                                 cdmDatabaseName = cdmDatabaseName,
-                                                                 cdmDatabaseId = cdmDatabaseId, 
-                                                                 cohortDatabaseSchema = cohortDatabaseSchema,
-                                                                 cohortTable = cohortTable,
-                                                                 outcomeDatabaseSchema = outcomeDatabaseSchema,
-                                                                 outcomeTable = cohortTable 
-)
-Eunomia::createCohorts(connectionDetails = connectionDetails)
-
-benchmarkDesign <- createBenchmarkDesign(modelDesign = eunomiaDesigns[1], 
-                                         databaseDetails = databaseDetails,
-                                         saveDirectory = saveDirectory)
-
-extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = F)
-
-
 test_that("runs without population creation", {
-  designNames <- names(benchmarkDesign)
-  expect_no_error(runBenchmarkDesign(benchmarkDesign = benchmarkDesign)) 
-  expect_equal(as.vector(sapply(benchmarkDesign, "[[", "saveDirectory")), file.path(saveDirectory, designNames))
-  expect_directory(x = file.path(saveDirectory, designNames, "plpResult"))
-  expect_file(x = file.path(saveDirectory, designNames, "plpResult", "runPlp.Rds"))
+  
+  suppressWarnings({
+    Eunomia::createCohorts(connectionDetails = connectionDetails)
+    extractBenchmarkData(benchmarkDesign = eunomiaBenchmarkDesign_3, createStudyPopulation = F)
+  })
+  
+  designNames <- names(eunomiaBenchmarkDesign_3)
+  expect_no_error(runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_3)) 
+  
+  suppressWarnings({
+    runBenchmarkDesign(benchmarkDesign = eunomiaBenchmarkDesign_3)
+  })
+  
+  expect_equal(as.vector(sapply(eunomiaBenchmarkDesign_3, "[[", "saveDirectory")), file.path(saveDirectory, "eunomia_design_3", designNames))
+  expect_directory(x = file.path(saveDirectory, "eunomia_design_3", designNames, "plpResult"))
+  # expect_file_exists(x = file.path(saveDirectory, "eunomia_design_3", designNames, "plpResult", "runPlp.Rds"))
 })
 

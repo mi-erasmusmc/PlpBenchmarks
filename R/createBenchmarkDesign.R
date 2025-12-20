@@ -61,7 +61,7 @@ createBenchmarkDesign <- function(modelDesign = NULL,
   attr(result, "uniquePlpData") <- uniquePlpData
   attr(result, "uniquePopulation") <- uniquePopulation
   attr(result, "benchmarkSettings") <- settings %>%
-    dplyr::select(.data$analysisId, .data$targetId, .data$outcomeId, .data$problemId, .data$sameTargetAsProblemId, .data$plpDataName, .data$populationLocation, .data$dataLocation)
+    dplyr::select("analysisId", "targetId", "outcomeId", "problemId", "sameTargetAsProblemId", "plpDataName", "populationLocation", "dataLocation")
 
   class(result) <- "benchmarkDesign"
   return(result)
@@ -123,7 +123,7 @@ convertToJson <- function(
         "targetJsonLocation",
         "outcomeJsonLocation"
       ) %>%
-      dplyr::rename(cohortId = targetId) %>%
+      dplyr::rename("cohortId" = "targetId") %>%
       dplyr::mutate(problemId = dplyr::row_number())
   }
 
@@ -158,7 +158,7 @@ convertToJson <- function(
       .keep_all = TRUE
     ) %>%
     dplyr::mutate(dataLocation = file.path(rawDataDir, basename(.data$saveDirectory), "plpData")) %>%
-    dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$plpDataName, .data$problemId, .data$dataLocation)
+    dplyr::select("targetId", "outcomeId", "covariateSettings", "restrictPlpDataSettings", "plpDataName", "problemId", "dataLocation")
 
   uniquePopulation <- result %>%
     dplyr::distinct(
@@ -171,7 +171,7 @@ convertToJson <- function(
     ) %>%
     # dplyr::mutate(populationLocation = file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation", paste0(.data$analysisId,"_studyPopulation.Rds") )) %>%
     dplyr::mutate(populationLocation = file.path(rawDataDir, basename(.data$saveDirectory), "studyPopulation")) %>%
-    dplyr::select(.data$targetId, .data$outcomeId, .data$covariateSettings, .data$restrictPlpDataSettings, .data$populationSettings, .data$plpDataName, .data$problemId, .data$populationLocation)
+    dplyr::select("targetId", "outcomeId", "covariateSettings", "restrictPlpDataSettings", "populationSettings", "plpDataName", "problemId", "populationLocation")
 
   uniqueSettings <- dplyr::left_join(uniquePlpData, uniquePopulation,
     by = c(
@@ -182,7 +182,7 @@ convertToJson <- function(
     )
   ) %>%
     dplyr::rename("plpDataName" = "plpDataName.y", "problemId" = "problemId.y", "sameTargetAsProblemId" = "problemId.x") %>%
-    dplyr::select(-c(.data$plpDataName.x)) %>%
+    dplyr::select(-c("plpDataName.x")) %>%
     dplyr::arrange(.data$problemId)
 
   # add the data names
@@ -201,7 +201,7 @@ convertToJson <- function(
     ) %>%
     dplyr::rename("problemId" = "problemId.x") %>%
     dplyr::select(-c("problemId.y")) %>%
-    dplyr::filter(!is.na(dataLocation))
+    dplyr::filter(!is.na(.data$dataLocation))
 
   attr(result, "uniqueCohorts") <- uniquePlpData
   attr(result, "uniquePopulations") <- uniquePopulation

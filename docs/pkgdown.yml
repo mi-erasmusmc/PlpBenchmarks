@@ -1,12 +1,13 @@
-pandoc: 2.7.2
-pkgdown: 1.5.1
+pandoc: 3.6.3
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  PopulatingSkeletonPackage: PopulatingSkeletonPackage.html
-  UsingAgeCovariates: UsingAgeCovariates.html
-  UsingCohortCovariates: UsingCohortCovariates.html
-  UsingMeasurementCohortCovariates: UsingMeasurementCohortCovariates.html
-  UsingMeasurementCovariates: UsingMeasurementCovariates.html
-  UsingSkeletonPackage: UsingSkeletonPackage.html
-last_built: 2020-10-14T13:27Z
+  AddNewBenchmarkProblems: AddNewBenchmarkProblems.html
+  AlgorithmComparisons: AlgorithmComparisons.html
+  BenchmarksWithEunomia: BenchmarksWithEunomia.html
+  PLPBenchmarks: PLPBenchmarks.html
+last_built: 2025-12-14T10:34Z
+urls:
+  reference: https://mi-erasmusmc.github.io/PlpBenchmarks/reference
+  article: https://mi-erasmusmc.github.io/PlpBenchmarks/articles
 

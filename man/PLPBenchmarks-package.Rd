@@ -8,4 +8,11 @@
 \description{
 A package to execute benchmarking of clinical prediction models.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://mi-erasmusmc.github.io/PlpBenchmarks/}
+}
+
+}
 \keyword{internal}

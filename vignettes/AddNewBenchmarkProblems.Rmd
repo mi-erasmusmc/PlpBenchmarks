@@ -1,0 +1,23 @@
+---
+title: "Adding new Patient-Level-Prediction benchmark problems."
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Adding new Patient-Level-Prediction benchmark problems.}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(PLPBenchmarks)
+```
+
+This vignette introduces how to add new problems to the benchmark set of problems provided by this package. 
+
+**To be continued**
