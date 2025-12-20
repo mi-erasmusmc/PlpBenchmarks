@@ -1,0 +1,12 @@
+pandoc: 3.1.11
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  AddNewBenchmarkProblems: AddNewBenchmarkProblems.html
+  AlgorithmComparisons: AlgorithmComparisons.html
+  BenchmarksWithEunomia: BenchmarksWithEunomia.html
+  PLPBenchmarks: PLPBenchmarks.html
+last_built: 2025-12-20T08:46Z
+urls:
+  reference: https://mi-erasmusmc.github.io/PlpBenchmarks/reference
+  article: https://mi-erasmusmc.github.io/PlpBenchmarks/articles

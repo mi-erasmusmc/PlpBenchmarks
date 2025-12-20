@@ -1,0 +1,168 @@
+# Using PLPBenchmarks on Real-World Data
+
+In this vignette, we will provide an introduction of how to make use of
+the `PLPBenchmarks` packages to build and execute benchmarks on
+real-world data (RWD). We will not show the whole pipeline as we need to
+be connected to a database. Working examples with the open-source
+`Eunomia` dataset exist in other vignettes (see
+vignette(“BenchmarksWithEunomia”) and vignette(“AlgorithmComparisons”).
+
+## Step 1: Preparing the environment and specifying a benchmark design
+
+To get started we load the `PLPBenchmarks` package and the other
+packages we will need.
+
+``` r
+library(DatabaseConnector)
+library(PLPBenchmarks)
+```
+
+This loads the `PatientLevelPrediction` and `DatabaseConnector` R
+packages.
+
+We can see the problems for RWD, their specification and other necessary
+information to build the cohorts.
+
+``` r
+data("tasks")
+tasks %>%
+  knitr::kable() %>%
+  kableExtra::kable_classic(lightable_options = "striped") %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+We can also load the pre-defined model designs
+
+``` r
+data("modelDesigns")
+length(modelDesigns)
+names(modelDesigns)
+```
+
+As we see, the pre-specified model designs is a list containing 13
+`modelDesign` objects, one for each problem in the `tasks` data frame.
+
+Before moving on, we need to define two more object.
+
+The first object, is the `connectionDetails` from the
+`DatabaseConnector` package that we will use to connect to our database.
+For example, for a PostgreSQL database, we will define something like
+
+``` r
+conDets <- createConnectionDetails(dbms = "postgresql", 
+                               user = "user",
+                               password = "password",
+                               server = "server")
+```
+
+where `"user"`, `"password"` are the user credentials, and `"server"`
+the host name of the server and the relevant schemas.
+
+The second object we need to create is the `databaseDetails` from
+`PatientLevelPrediction`.
+
+``` r
+dbDets <- createDatabaseDetails(connectionDetails = conDets, 
+                                cdmDatabaseSchema = "cdmDatabaseSchema", 
+                                cdmDatabaseName = "cdmDatabaseName", 
+                                cdmDatabaseId = "cdmDatabaseId", 
+                                cohortDatabaseSchema = "cohortDatabaseSchema", 
+                                cohortTable = "cohortTable", 
+                                outcomeDatabaseSchema = "outcomeDatabaseSchema", 
+                                outcomeTable = "outcomeTable")
+```
+
+The names in quotes should be the corresponding schemas and table names
+that our target and outcome cohorts are located.
+
+Now we can create a benchmark design.
+
+``` r
+benchmarkDesign <- createBenchmarkDesign(modelDesign = modelDesigns, databaseDetails = dbDets, saveDirectory = "gettingStarted")
+```
+
+Note the `saveDirectory` argument takes a character or a file path for
+the location to save the results.
+
+> **Some more details:**  
+> The function `createBecnhmarkDesign()` takes three arguments: a list
+> of named model designs, a `databaseDetails` object created from
+> [`PatientLevelPrediction::createDatabaseDetails()`](https://ohdsi.github.io/PatientLevelPrediction/reference/createDatabaseDetails.html)
+> function, and a name for the directory to save the results. The
+> returned object is still a list, but this time a list of class
+> `benchmarkDesign` with the additional information provided in each
+> list element (i.e. each model design for each problem). The nice thing
+> about this function, is identifying the unique sets of covariates and
+> study population settings that are needed to be created in a benchmark
+> design. These information is stored in the attributes of the returned
+> object.  
+> The advantage of this is that for the model designs that share common
+> target and outcome cohorts, along with common covariates and
+> population settings, the `plpData` and `studyPopulation` objects will
+> only be created once, saving time from recreating them each time we
+> are running a model design.
+
+We can now inspect our benchmark design settings in a side-to-side
+comparison to check if everything is specified correctly.
+
+``` r
+viewBenchmarkSettings(benchmarkDesign = benchmarkDesign) %>%
+  knitr::kable() %>%
+  kableExtra::kable_paper(lightable_options = "striped") %>%
+  kableExtra::scroll_box(width = "100%", height = "200px")
+```
+
+If everything is specified correctly and we are ready to go we can then
+proceed.
+
+## Step 2: Create Cohorts and extract covariates (and even create the study population)
+
+Next, we create the cohorts in the database
+
+``` r
+createBenchmarkCohorts(benchmarkDesign = benchmarkDesign)
+```
+
+We are now ready to proceed.
+
+Last think before running the benchmark design, is to extract the data
+(covariates) that are defined in each model design.
+
+``` r
+extractBenchmarkData(benchmarkDesign = benchmarkDesign, createStudyPopulation = TRUE)
+```
+
+Notice that the function is responsible for two things: - extracts the
+covariates that are needed for each model designs - optionally creates
+the study population (default to TRUE) This is by convention to provide
+flexibility on altering the states of covariates and population if
+needed.
+
+## Step 3: Run the benchmark design
+
+``` r
+runBenchmarkDesign(benchmarkDesign = benchmarkDesign)
+```
+
+`runBencmarkDesign()` which will run all specified model designs.
+
+## Step 4: Inspect and share results
+
+The following will collect all results in one object called `results`.
+
+``` r
+results <- getBenchmarkModelPerformance(benchmarkDesign = benchmarkDesign)
+```
+
+The `results` object is a list with two components: a
+`performanceMetrics` data frame and an `executionTimes` data frame.
+Optionally, we can also call
+
+``` r
+viewBenchmarkResults(benchmarkDesign = benchmarkDesign, viewShiny = TRUE)
+```
+
+to create and view a shiny app with the results.
+
+For more complete examples, have a look at the other vignettes using the
+Eunomia dataset to simulate experiments.
